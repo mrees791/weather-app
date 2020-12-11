@@ -1,0 +1,196 @@
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Drawing.Text;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Markup;
+using WeatherApp.Models;
+using WeatherApp.Models.FileFormats;
+using WeatherApp.Utility;
+using WeatherLibrary.Models;
+
+namespace WeatherApp.ViewModel
+{
+    public class UserSettingsViewModel : ViewModelBase
+    {
+        private readonly string baseStyleFileName = "Styles/BaseStyle.xaml";
+        private SettingsFile settingsFile;
+        private ObservableCollection<WpfSkinViewModel> skinViewModels;
+        private ObservableCollection<FontFamilyViewModel> systemFontViewModels;
+
+        private WpfSkinViewModel defaultSkinVm;
+        private WpfSkinViewModel selectedSkinVm;
+        private WpfSkinViewModel activeSkinVm;
+
+        private FontFamilyViewModel defaultFontVm;
+        private FontFamilyViewModel selectedFontVm;
+        private FontFamilyViewModel activeFontVm;
+
+        private TemperatureFormat activeTemperatureFormat;
+
+        private ICommand applySettingsCommand;
+        public ICommand ApplySettingsCommand { get => applySettingsCommand; }
+
+        private ICommand defaultSettingsCommand;
+        public ICommand DefaultSettingsCommand { get => defaultSettingsCommand; }
+
+        private ICommand setFahrenheitTemperatureCommand;
+        public ICommand SetFahrenheitTemperatureCommand { get => setFahrenheitTemperatureCommand; }
+
+        private ICommand setCelsiusTemperatureCommand;
+        public ICommand SetCelsiusTemperatureCommand { get => setCelsiusTemperatureCommand; }
+
+        public UserSettingsViewModel()
+        {
+            settingsFile = new SettingsFile();
+            CreateSkinViewModels();
+            InitializeSystemFonts();
+            ActiveSkinVm = skinViewModels[0];
+            SelectedSkinVm = ActiveSkinVm;
+
+            ActiveFontVm = defaultFontVm;
+            SelectedFontVm = ActiveFontVm;
+
+            applySettingsCommand = new RelayCommand(() =>
+            {
+                ApplySettings();
+            });
+            defaultSettingsCommand = new RelayCommand(() =>
+            {
+                SetDefaultSettings();
+            });
+            setFahrenheitTemperatureCommand = new RelayCommand(() =>
+            {
+                ActiveTemperatureFormat = TemperatureFormat.Fahrenheit;
+            });
+            setCelsiusTemperatureCommand = new RelayCommand(() =>
+            {
+                ActiveTemperatureFormat = TemperatureFormat.Celsius;
+            });
+
+            LoadSettings();
+        }
+
+        private void SaveSettings()
+        {
+            settingsFile.WriteFile(AppDirectories.SettingsFile);
+        }
+
+        private void LoadSettings()
+        {
+            if (!File.Exists(AppDirectories.SettingsFile))
+            {
+                SetDefaultSettings();
+            }
+            else
+            {
+                try
+                {
+                    settingsFile.ReadFile(AppDirectories.SettingsFile);
+                    SelectedFontVm = systemFontViewModels.Where(vm => vm.FontFamily.Name == settingsFile.ActiveFontFamily.Name).FirstOrDefault();
+                    SelectedSkinVm = skinViewModels.Where(vm => vm.WpfSkin == settingsFile.ActiveSkin).FirstOrDefault();
+                    ActiveTemperatureFormat = settingsFile.TemperatureFormat;
+                    ApplySettings();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    SetDefaultSettings();
+                }
+            }
+        }
+
+        private void SetDefaultSettings()
+        {
+            settingsFile.SetDefaults();
+            SelectedFontVm = systemFontViewModels.Where(vm => vm.FontFamily.Name == settingsFile.ActiveFontFamily.Name).FirstOrDefault();
+            SelectedSkinVm = skinViewModels.Where(vm => vm.WpfSkin == settingsFile.ActiveSkin).FirstOrDefault();
+            ActiveTemperatureFormat = settingsFile.TemperatureFormat;
+            ApplySettings();
+        }
+
+        private void InitializeSystemFonts()
+        {
+            systemFontViewModels = new ObservableCollection<FontFamilyViewModel>();
+
+            foreach (var font in settingsFile.SystemFonts)
+            {
+                var fontVm = new FontFamilyViewModel(font);
+                systemFontViewModels.Add(fontVm);
+
+                if (font.Name == settingsFile.DefaultFont.Name)
+                {
+                    defaultFontVm = fontVm;
+                }
+            }
+        }
+
+        private void ApplySettings()
+        {
+            ActiveFontVm = SelectedFontVm;
+            ActiveSkinVm = SelectedSkinVm;
+            settingsFile.WriteFile(AppDirectories.SettingsFile);
+        }
+
+        private void CreateSkinViewModels()
+        {
+            skinViewModels = new ObservableCollection<WpfSkinViewModel>();
+
+            foreach (var skin in settingsFile.Skins)
+            {
+                skinViewModels.Add(new WpfSkinViewModel(skin));
+            }
+        }
+
+        public ObservableCollection<WpfSkinViewModel> SkinViewModels { get => skinViewModels; }
+
+        public WpfSkinViewModel SelectedSkinVm
+        {
+            get => selectedSkinVm;
+            set
+            {
+                selectedSkinVm = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public WpfSkinViewModel ActiveSkinVm
+        {
+            get => activeSkinVm;
+            set
+            {
+                activeSkinVm = value;
+                settingsFile.ActiveSkin = activeSkinVm.WpfSkin;
+                UpdateSkinResources();
+                RaisePropertyChanged();
+            }
+        }
+
+        private void UpdateSkinResources()
+        {
+            var currentResources = Application.Current.Resources;
+            currentResources.MergedDictionaries.Clear();
+
+            var baseStyle = new ResourceDictionary();
+            baseStyle.Source = new Uri(baseStyleFileName, UriKind.Relative);
+            currentResources.MergedDictionaries.Add(baseStyle);
+            var skinDict = new ResourceDictionary();
+            skinDict.Source = new Uri(settingsFile.ActiveSkin.FileName, UriKind.Relative);
+            currentResources.MergedDictionaries.Add(skinDict);
+        }
+
+        public ObservableCollection<FontFamilyViewModel> SystemFontViewModels { get => systemFontViewModels; }
+        public FontFamilyViewModel SelectedFontVm { get => selectedFontVm; set { selectedFontVm = value; RaisePropertyChanged(); } }
+        public FontFamilyViewModel ActiveFontVm { get => activeFontVm; set { activeFontVm = value; settingsFile.ActiveFontFamily = activeFontVm.FontFamily; RaisePropertyChanged(); } }
+        public SettingsFile SettingsFile { get => settingsFile; }
+        public TemperatureFormat ActiveTemperatureFormat { get => activeTemperatureFormat; set { activeTemperatureFormat = value; settingsFile.TemperatureFormat = value; SaveSettings(); RaisePropertyChanged(); } }
+    }
+}

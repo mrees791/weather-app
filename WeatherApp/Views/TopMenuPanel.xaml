@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="WeatherApp.Views.TopMenuPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WeatherApp.Views"
+             DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"
+             mc:Ignorable="d">
+    <DockPanel LastChildFill="True" Style="{DynamicResource TopMenuDockPanel}">
+        <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+            <Button Content="Weather" Command="{Binding SetCurrentPageToWeatherPageCommand}"/>
+            <Button Content="Favorites" Command="{Binding SetCurrentPageToFavoritesPageCommand}"/>
+            <Button Content="Settings" Command="{Binding SetCurrentPageToSettingsPageCommand}"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Visibility="{Binding Source={StaticResource Locator},Path=MainVm.UserCanSearch,Converter={StaticResource BooleanCollapseConverter}}">
+                <TextBlock Text="{Binding ZipErrorMessage}" VerticalAlignment="Center" Foreground="{DynamicResource ZipErrorMessageForeground}"/>
+                <Button Command="{Binding FavoriteCurrentZipCommand}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border Margin="5">
+                                <Frame Source="{Binding CurrentZipIsFavorited,Converter={StaticResource FavoritesStarIconConverter}}" IsTabStop="False" NavigationUIVisibility="Hidden" Width="25" Height="25"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+            <TextBox Width="125" Text="{Binding ZipInput}" VerticalContentAlignment="Center" IsEnabled="{Binding Source={StaticResource Locator},Path=MainVm.UserCanSearch}"/>
+            <Button Content="Search" Command="{Binding SearchZipCodeCommand}" IsEnabled="{Binding Source={StaticResource Locator},Path=MainVm.UserCanSearch}"/>
+        </StackPanel>
+        <StackPanel/>
+    </DockPanel>
+</UserControl>

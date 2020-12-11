@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This file is NOT compatible with Silverlight-->
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
+  <Canvas Name="svg22501" Width="135.46666" Height="135.46667">
+    <Canvas.RenderTransform>
+      <TranslateTransform X="0" Y="0"/>
+    </Canvas.RenderTransform>
+    <Canvas.Resources>
+      <LinearGradientBrush xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="linearGradient62" MappingMode="Absolute" SpreadMethod="Pad" StartPoint="0,0" EndPoint="1,0">
+        <LinearGradientBrush.GradientStops>
+          <GradientStopCollection>
+            <GradientStop Color="#FFFBB840" Offset="0"/>
+            <GradientStop Color="#FFFFF200" Offset="0.74881687"/>
+            <GradientStop Color="#FFFFF200" Offset="1"/>
+          </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+        <LinearGradientBrush.Transform>
+          <MatrixTransform Matrix="-2.9e-6 66.439453 66.439453 2.9e-6 515.95703 467.81543"/>
+        </LinearGradientBrush.Transform>
+      </LinearGradientBrush>
+      <PathGeometry xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="clipPath26" Figures="M 0 595.28 H 841.89 V 0 H 0 Z" FillRule="NonZero"/>
+      <PathGeometry xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Key="clipPath34" Figures="m 467.167 549.824 h 97.581 v -97.578 h -97.581 z" FillRule="NonZero"/>
+    </Canvas.Resources>
+    <!--Unknown tag: sodipodi:namedview-->
+    <!--Unknown tag: metadata-->
+    <Canvas Name="layer2">
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path69" Fill="#FF4D4D4D" StrokeThickness="0.53296643">
+        <Path.Data>
+          <PathGeometry Figures="M 28.293813 128.49151 67.733333 6.9751531 107.17285 128.49151 3.7773553 53.343238 H 131.68931" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+    </Canvas>
+  </Canvas>
+</Viewbox>

@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="WeatherApp.Views.WeatherPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WeatherApp.Views"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" >
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" DataContext="{Binding Source={StaticResource Locator},Path=WeatherPageVm}">
+        <StackPanel>
+            <local:ErrorPanel/>
+            <StackPanel Visibility="{Binding Source={StaticResource Locator},Path=MainVm.HasErrorMessage,Converter={StaticResource FalseBooleanCollapseConverter}}">
+                <local:CurrentWeatherPanel Margin="0,10,0,0"/>
+                <StackPanel>
+                    <Label Content="Daily"/>
+                    <ListView ItemsSource="{Binding DayWeatherViewModels}" BorderThickness="0" Background="Transparent">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" IsEnabled="False"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <local:DayWeatherPanel/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+                <StackPanel>
+                    <local:HourlyChartView DataContext="{Binding Source={StaticResource Locator},Path=MainVm.HourlyChartFahrenheitVm}"  Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}"/>
+                    <local:HourlyChartView DataContext="{Binding Source={StaticResource Locator},Path=MainVm.HourlyChartCelsiusVm}"  Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
