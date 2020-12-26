@@ -15,13 +15,8 @@ using System.Windows.Threading;
 using WeatherApp.Models;
 using WeatherApp.Models.FileFormats;
 using WeatherApp.Utility;
-using WeatherLibrary.Controllers;
-using WeatherLibrary.Controllers.OpenWeatherMap;
-using WeatherLibrary.Controllers.WeatherGov;
-using WeatherLibrary.Controllers.Zippo;
 using WeatherLibrary.Models;
 using WeatherLibrary.Models.OpenWeatherMap;
-using WeatherLibrary.Models.WeatherGov;
 using WeatherLibrary.Models.Zippo;
 
 namespace WeatherApp.ViewModel
@@ -68,15 +63,7 @@ namespace WeatherApp.ViewModel
         private string zipErrorMessage;
 
         private OneCallRequest oneCallRequest;
-        private ForecastRequest forecastRequest;
         private ZippoRequest zipRequest;
-        private HourlyRequest hourlyRequest;
-
-        private ZippoController zipController;
-        private OneCallController oneCallController;
-        private ForecastController forecastController;
-        private HourlyController hourlyController;
-        private PeriodController periodController;
 
         private int periodAmount = 7;
         private DateTime requestTime;
@@ -111,14 +98,7 @@ namespace WeatherApp.ViewModel
             UserCanSearch = true;
 
             oneCallRequest = new OneCallRequest();
-            oneCallController = new OneCallController();
             zipRequest = new ZippoRequest();
-            hourlyRequest = new HourlyRequest();
-            zipController = new ZippoController();
-            hourlyController = new HourlyController();
-            periodController = new PeriodController();
-            forecastRequest = new ForecastRequest();
-            forecastController = new ForecastController();
 
             searchSettings = new SearchSettings();
             ZipInput = "43762";
@@ -175,7 +155,7 @@ namespace WeatherApp.ViewModel
 
             if (File.Exists(AppDirectories.FavoritesFile))
             {
-                vml.FavoritesPageVm.LoadFavoritesFile();
+                vml.FavoritesPageVm.LoadFavoritesFile(oneCallRequest.OneCall);
             }
             else
             {
@@ -186,33 +166,29 @@ namespace WeatherApp.ViewModel
         private void UpdateWeatherData()
         {
             requestTime = DateTime.Now;
-            zipController.RequestZipCodeDetails(ZipInput, zipRequest);
+            zipRequest.RequestZipCodeDetails(ZipInput);
+
             if (zipRequest.IsValidRequest)
             {
                 Place place = zipRequest.Details.Places[0];
-                hourlyController.RequestHourly(place.Latitude, place.Longitude, hourlyRequest);
-                if (hourlyRequest.IsValidRequest)
+                oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
+                var hourlyEntries = oneCallRequest.OneCall.HourlyEntries;
+
+                if (oneCallRequest.IsValidRequest)
                 {
-                    hourlyChartFahrenheitVm.UpdateHourlyChart(hourlyRequest, periodAmount);
-                    hourlyChartCelsiusVm.UpdateHourlyChart(hourlyRequest, periodAmount);
-                    forecastController.RequestForecast(place.Latitude, place.Longitude, forecastRequest);
+                    hourlyChartFahrenheitVm.UpdateHourlyChart(hourlyEntries, periodAmount);
+                    hourlyChartCelsiusVm.UpdateHourlyChart(hourlyEntries, periodAmount);
+                    //forecastController.RequestForecast(place.Latitude, place.Longitude, forecastRequest);
                     UpdateCurrentWeatherPanelVm();
+
+                    UpdateWeatherPageVm();
+
                     HasErrorMessage = false;
                     UserCanSearch = true;
                 }
                 else
                 {
-                    ErrorMessage = hourlyRequest.ErrorMessage;
-                    HasErrorMessage = true;
-                    UserCanSearch = false;
-                }
-                oneCallController.RequestOneCall(place.Latitude, place.Longitude, oneCallRequest);
-                if (oneCallRequest.IsValidRequest)
-                {
-                    UpdateWeatherPageVm();
-                }
-                else
-                {
+                    ErrorMessage = oneCallRequest.ErrorMessage;
                     HasErrorMessage = true;
                     UserCanSearch = false;
                 }
@@ -237,7 +213,7 @@ namespace WeatherApp.ViewModel
 
         private void UpdateCurrentWeatherPanelVm()
         {
-            currentWeatherVm.UpdateCurrentWeather(requestTime, hourlyRequest, zipRequest);
+            currentWeatherVm.UpdateCurrentWeather(oneCallRequest.OneCall, zipRequest);
         }
 
         private void InitializeCommands()
@@ -293,7 +269,7 @@ namespace WeatherApp.ViewModel
             {
                 if (!currentZipIsFavorited)
                 {
-                    vml.FavoritesPageVm.AddNewFavoriteZipCode(zipInput);
+                    vml.FavoritesPageVm.AddNewFavoriteZipCode(zipInput, oneCallRequest.OneCall);
                 }
                 else
                 {

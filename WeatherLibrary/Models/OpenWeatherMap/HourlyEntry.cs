@@ -11,5 +11,7 @@ namespace WeatherLibrary.Models.OpenWeatherMap
     {
         [JsonProperty("temp")]
         public double TemperatureCelsius { get; set; }
+
+        public DateTime DateTime { get; set; }
     }
 }

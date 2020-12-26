@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace WeatherLibrary.Models.OpenWeatherMap
 {
-    public class ForecastEntry
+    public class CurrentWeather
     {
-        [JsonProperty("main")]
-        public ForecastMain Main { get; set; }
+        public DateTime DateTime { get; set; }
+
+        [JsonProperty("temp")]
+        public double TemperatureCelsius { get; set; }
+
         [JsonProperty("weather")]
-        public List<Weather> Weather { get; set; }
-        [JsonProperty("dt_txt")]
-        public string DateTime { get; set; }
+        public List<Weather> WeatherEntries { get; set; }
     }
 }

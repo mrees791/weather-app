@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherLibrary.Models;
-using WeatherLibrary.Models.WeatherGov;
+using WeatherLibrary.Models.OpenWeatherMap;
 using WeatherLibrary.Models.Zippo;
-using WeatherLibrary.Utility;
 
 namespace WeatherApp.ViewModel
 {
@@ -20,16 +19,17 @@ namespace WeatherApp.ViewModel
         private string temperatureCelsius;
         private string shortForecast;
 
-        public void UpdateCurrentWeather(DateTime requestTime, HourlyRequest hourlyRequest, ZippoRequest zipCodeRequest)
+        public void UpdateCurrentWeather(OneCall oneCall, ZippoRequest zipCodeRequest)
         {
-            var period = hourlyRequest.Hourly.Properties.Periods[0];
-            LastUpdateTime = string.Format("{0:hh:mm:ss tt}", requestTime);
+            LastUpdateTime = string.Format("{0:hh:mm:ss tt}", oneCall.RequestDateTime);
+            var currentWeather = oneCall.CurrentWeather;
+            Temperature temperature = new Temperature(currentWeather.TemperatureCelsius, TemperatureFormat.Celsius);
             Place place = zipCodeRequest.Details.Places[0];
             City = place.CityName;
             State = place.State;
-            TemperatureFahrenheit = string.Format("{0:0.##}º F", period.Temperature);
-            TemperatureCelsius = string.Format("{0:0.##}º C", TemperatureUtility.ConvertFahrenheitToCelsuis(period.Temperature));
-            ShortForecast = period.ShortForecast;
+            TemperatureFahrenheit = string.Format("{0:0.##}º F", temperature.Fahrenheit);
+            TemperatureCelsius = string.Format("{0:0.##}º C", temperature.Celsius);
+            ShortForecast = currentWeather.WeatherEntries[0].Description;
         }
 
         public string LastUpdateTime { get => lastUpdateTime; set { lastUpdateTime = value; RaisePropertyChanged(); } }

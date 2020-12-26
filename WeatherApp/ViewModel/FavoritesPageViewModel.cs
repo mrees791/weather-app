@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WeatherApp.Models.FileFormats;
 using WeatherApp.Utility;
+using WeatherLibrary.Models.OpenWeatherMap;
 
 namespace WeatherApp.ViewModel
 {
@@ -33,21 +34,21 @@ namespace WeatherApp.ViewModel
             }
         }
 
-        public void AddNewFavoriteZipCode(string zipCode)
+        public void AddNewFavoriteZipCode(string zipCode, OneCall oneCall)
         {
             if (!favoritesFile.HasZipCodeEntry(zipCode))
             {
                 favoritesFile.AddZipCodeEntry(zipCode);
 
-                AddNewFavoritesBoxVm(zipCode);
+                AddNewFavoritesBoxVm(zipCode, oneCall);
 
                 SaveFavoritesFile();
             }
         }
 
-        private void AddNewFavoritesBoxVm(string zipCode)
+        private void AddNewFavoritesBoxVm(string zipCode, OneCall oneCall)
         {
-            var favoritesBoxVm = new FavoritesBoxViewModel();
+            var favoritesBoxVm = new FavoritesBoxViewModel(zipCode);
             favoritesBoxVm.ZipCode = zipCode;
             favoritesBoxVm.UpdateCurrentWeather();
             favoritesBoxViewModels.Add(favoritesBoxVm);
@@ -58,13 +59,13 @@ namespace WeatherApp.ViewModel
             favoritesFile.WriteFile(AppDirectories.FavoritesFile);
         }
 
-        public void LoadFavoritesFile()
+        public void LoadFavoritesFile(OneCall oneCall)
         {
             favoritesFile.ReadFile(AppDirectories.FavoritesFile);
 
             foreach (var zipCode in favoritesFile.ZipCodes)
             {
-                AddNewFavoritesBoxVm(zipCode);
+                AddNewFavoritesBoxVm(zipCode, oneCall);
             }
         }
 

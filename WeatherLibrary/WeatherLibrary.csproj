@@ -44,35 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\OpenWeatherMap\ForecastController.cs" />
-    <Compile Include="Controllers\OpenWeatherMap\OneCallController.cs" />
-    <Compile Include="Controllers\WeatherGov\HourlyController.cs" />
-    <Compile Include="Controllers\WeatherGov\PeriodController.cs" />
-    <Compile Include="Controllers\Zippo\ZippoController.cs" />
+    <Compile Include="ApiInfo.cs" />
+    <Compile Include="Models\OpenWeatherMap\CurrentWeather.cs" />
     <Compile Include="Models\OpenWeatherMap\DailyEntry.cs" />
     <Compile Include="Models\OpenWeatherMap\DailyTemperature.cs" />
-    <Compile Include="Models\OpenWeatherMap\ForecastEntry.cs" />
-    <Compile Include="Models\OpenWeatherMap\Forecast.cs" />
-    <Compile Include="Models\OpenWeatherMap\ForecastRequest.cs" />
-    <Compile Include="Models\OpenWeatherMap\ForecastMain.cs" />
     <Compile Include="Models\OpenWeatherMap\HourlyEntry.cs" />
     <Compile Include="Models\OpenWeatherMap\OneCall.cs" />
     <Compile Include="Models\OpenWeatherMap\OneCallRequest.cs" />
     <Compile Include="Models\OpenWeatherMap\Weather.cs" />
+    <Compile Include="Models\Temperature.cs" />
     <Compile Include="Models\TemperatureFormat.cs" />
-    <Compile Include="Models\WeatherGov\Hourly.cs" />
-    <Compile Include="Models\WeatherGov\HourlyProperties.cs" />
-    <Compile Include="Models\WeatherGov\HourlyRequest.cs" />
-    <Compile Include="Models\WeatherGov\Period.cs" />
-    <Compile Include="Models\WeatherGov\Points.cs" />
-    <Compile Include="Models\WeatherGov\PointsProperties.cs" />
     <Compile Include="Models\WeatherType.cs" />
     <Compile Include="Models\Zippo\ZippoDetails.cs" />
     <Compile Include="Models\Zippo\Place.cs" />
     <Compile Include="Models\Zippo\ZippoRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\OpenWeatherMap\ApiInfo.cs" />
-    <Compile Include="Utility\TemperatureUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

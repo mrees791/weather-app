@@ -4,25 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WeatherLibrary.Controllers.OpenWeatherMap;
-using WeatherLibrary.Controllers.WeatherGov;
-using WeatherLibrary.Controllers.Zippo;
+using WeatherLibrary.Models;
 using WeatherLibrary.Models.OpenWeatherMap;
-using WeatherLibrary.Models.WeatherGov;
 using WeatherLibrary.Models.Zippo;
-using WeatherLibrary.Utility;
 
 namespace WeatherApp.ViewModel
 {
     public class FavoritesBoxViewModel : ViewModelBase
     {
-        private OneCallRequest oneCallRequest;
         private ZippoRequest zipRequest;
-        private HourlyRequest hourlyRequest;
-
-        private OneCallController oneCallController;
-        private ZippoController zipController;
-        private HourlyController hourlyController;
+        private OneCallRequest oneCallRequest;
+        private Place place;
 
         private string zipCode;
         private string city;
@@ -38,69 +30,45 @@ namespace WeatherApp.ViewModel
 
         private string shortForecast;
 
-        public FavoritesBoxViewModel()
+        public FavoritesBoxViewModel(string zipCode)
         {
+            this.zipCode = zipCode;
             oneCallRequest = new OneCallRequest();
             zipRequest = new ZippoRequest();
-            hourlyRequest = new HourlyRequest();
-
-            oneCallController = new OneCallController();
-            zipController = new ZippoController();
-            hourlyController = new HourlyController();
-        }
-
-        private void UpdateZipInfo()
-        {
-            zipController.RequestZipCodeDetails(zipCode, zipRequest);
-
-            Place place = zipRequest.Details.Places[0];
-
-            City = place.CityName;
-            State = place.State;
+            zipRequest.RequestZipCodeDetails(zipCode);
+            place = zipRequest.Details.Places[0];
+            city = place.CityName;
+            state = place.State;
         }
 
         public void UpdateCurrentWeather()
         {
-            Place place = zipRequest.Details.Places[0];
+            oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
+            var currentWeather = oneCallRequest.OneCall.CurrentWeather;
+            var daily = oneCallRequest.OneCall.DailyEntries[0];
 
-            hourlyController.RequestHourly(place.Latitude, place.Longitude, hourlyRequest);
-            oneCallController.RequestOneCall(place.Latitude, place.Longitude, oneCallRequest);
+            Temperature temperature = new Temperature(currentWeather.TemperatureCelsius, TemperatureFormat.Celsius);
+            Temperature dailyHigh = new Temperature(daily.DailyTemperature.DailyHighCelsius, TemperatureFormat.Celsius);
+            Temperature dailyLow = new Temperature(daily.DailyTemperature.DailyLowCelsius, TemperatureFormat.Celsius);
 
-            var period = hourlyRequest.Hourly.Properties.Periods[0];
+            CurrentWeatherFahrenheit = string.Format("{0:0.##}", temperature.Fahrenheit);
+            CurrentWeatherCelsius = string.Format("{0:0.##}", temperature.Celsius);
 
-            bool periodIsFahrenheit = period.TemperatureUnit == "F";
-
-            if (periodIsFahrenheit)
-            {
-                double currentFahrenheit = period.Temperature;
-                double currentCelsius = TemperatureUtility.ConvertFahrenheitToCelsuis(currentFahrenheit);
-
-                CurrentWeatherFahrenheit = string.Format("{0:0.##}", currentFahrenheit);
-                CurrentWeatherCelsius = string.Format("{0:0.##}", currentCelsius);
-            }
-            else
-            {
-                double currentCelsius = period.Temperature;
-                double currentFahrenheit = TemperatureUtility.ConvertCelsiusToFahrenheit(currentCelsius);
-
-                CurrentWeatherFahrenheit = string.Format("{0:0.##}", currentFahrenheit);
-                CurrentWeatherCelsius = string.Format("{0:0.##}", currentCelsius);
-            }
-            double highCelsius = oneCallRequest.OneCall.DailyEntries[0].DailyTemperature.DailyMaxCelsius;
-            double lowCelsius = oneCallRequest.OneCall.DailyEntries[0].DailyTemperature.DailyMinCelsius;
-            double highFahrenheit = TemperatureUtility.ConvertCelsiusToFahrenheit(highCelsius);
-            double lowFahrenheit = TemperatureUtility.ConvertCelsiusToFahrenheit(lowCelsius);
+            double highCelsius = dailyHigh.Celsius;
+            double lowCelsius = dailyLow.Celsius;
+            double highFahrenheit = dailyHigh.Fahrenheit;
+            double lowFahrenheit = dailyLow.Fahrenheit;
 
             DailyHighCelsius = string.Format("{0:0.##}", highCelsius);
             DailyLowCelsius = string.Format("{0:0.##}", lowCelsius);
             DailyHighFahrenheit = string.Format("{0:0.##}", highFahrenheit);
             DailyLowFahrenheit = string.Format("{0:0.##}", lowFahrenheit);
 
-            ShortForecast = period.ShortForecast;
+            ShortForecast = currentWeather.WeatherEntries[0].Description;
         }
 
 
-        public string ZipCode { get => zipCode; set { zipCode = value; UpdateZipInfo(); RaisePropertyChanged(); } }
+        public string ZipCode { get => zipCode; set { zipCode = value; RaisePropertyChanged(); } }
         public string City { get => city; set { city = value; RaisePropertyChanged(); } }
         public string State { get => state; set { state = value; RaisePropertyChanged(); } }
 

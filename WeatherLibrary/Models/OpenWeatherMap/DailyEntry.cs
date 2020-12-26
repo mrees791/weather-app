@@ -14,5 +14,7 @@ namespace WeatherLibrary.Models.OpenWeatherMap
 
         [JsonProperty("weather")]
         public List<Weather> WeatherEntries { get; set; }
+
+        public DateTime DateTime { get; set; }
     }
 }

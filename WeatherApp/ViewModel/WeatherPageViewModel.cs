@@ -8,10 +8,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WeatherApp.Utility;
-using WeatherLibrary.Controllers;
-using WeatherLibrary.Controllers.OpenWeatherMap;
+using WeatherLibrary.Models;
 using WeatherLibrary.Models.OpenWeatherMap;
-using WeatherLibrary.Utility;
 
 namespace WeatherApp.ViewModel
 {
@@ -41,20 +39,22 @@ namespace WeatherApp.ViewModel
 
             for (int i = 0; i < dayWeatherViewModels.Count; i++)
             {
-                var date = DateTime.Now.AddDays(i);
                 var daily = dailies[i];
                 var vm = dayWeatherViewModels[i];
 
                 var weather = daily.WeatherEntries[0];
 
-                vm.Date = FormatDateString(date);
+                vm.Date = FormatDateString(daily.DateTime);
+
+                var temperatureHigh = new Temperature(daily.DailyTemperature.DailyHighCelsius, TemperatureFormat.Celsius);
+                var temperatureLow = new Temperature(daily.DailyTemperature.DailyLowCelsius, TemperatureFormat.Celsius);
 
                 vm.Description = GetFinalDescription(weather.Description);
                 vm.WeatherType = weather.GetWeatherType();
-                vm.TemperatureCelsiusMin = string.Format("{0:0.00}", daily.DailyTemperature.DailyMinCelsius);
-                vm.TemperatureCelsiusMax = string.Format("{0:0.00}", daily.DailyTemperature.DailyMaxCelsius);
-                vm.TemperatureFahrenheitMin = string.Format("{0:0.00}", TemperatureUtility.ConvertCelsiusToFahrenheit(daily.DailyTemperature.DailyMinCelsius));
-                vm.TemperatureFahrenheitMax = string.Format("{0:0.00}", TemperatureUtility.ConvertCelsiusToFahrenheit(daily.DailyTemperature.DailyMaxCelsius));
+                vm.TemperatureCelsiusMin = string.Format("{0:0.00}", temperatureLow.Celsius);
+                vm.TemperatureCelsiusMax = string.Format("{0:0.00}", temperatureHigh.Celsius);
+                vm.TemperatureFahrenheitMin = string.Format("{0:0.00}", temperatureLow.Fahrenheit);
+                vm.TemperatureFahrenheitMax = string.Format("{0:0.00}", temperatureHigh.Fahrenheit);
                 vm.IconUrl = GetIconUrl(vm);
             }
         }

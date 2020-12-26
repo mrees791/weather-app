@@ -14,5 +14,10 @@ namespace WeatherLibrary.Models.OpenWeatherMap
 
         [JsonProperty("daily")]
         public List<DailyEntry> DailyEntries { get; set; }
+
+        [JsonProperty("current")]
+        public CurrentWeather CurrentWeather { get; set; }
+
+        public DateTime RequestDateTime { get; set; }
     }
 }

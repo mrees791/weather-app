@@ -10,9 +10,9 @@ namespace WeatherLibrary.Models.OpenWeatherMap
     public class DailyTemperature
     {
         [JsonProperty("min")]
-        public double DailyMinCelsius { get; set; }
+        public double DailyLowCelsius { get; set; }
 
         [JsonProperty("max")]
-        public double DailyMaxCelsius { get; set; }
+        public double DailyHighCelsius { get; set; }
     }
 }
