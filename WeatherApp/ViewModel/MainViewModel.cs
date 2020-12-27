@@ -43,7 +43,6 @@ namespace WeatherApp.ViewModel
         private string windowTitle;
         private string errorMessage;
         private bool hasErrorMessage;
-        private bool userCanSearch;
 
         private SearchSettings searchSettings;
 
@@ -95,7 +94,6 @@ namespace WeatherApp.ViewModel
             WindowTitle = string.Format("Weather v{0}.{1}", version.Major, version.Minor);
 
             ErrorMessage = "";
-            UserCanSearch = true;
 
             oneCallRequest = new OneCallRequest();
             zipRequest = new ZippoRequest();
@@ -164,7 +162,6 @@ namespace WeatherApp.ViewModel
 
         private void UpdateWeatherData()
         {
-            UserCanSearch = true;
             requestTime = DateTime.Now;
             zipRequest.RequestZipCodeDetails(ZipInput);
 
@@ -189,14 +186,12 @@ namespace WeatherApp.ViewModel
                 {
                     ErrorMessage = oneCallRequest.ErrorMessage;
                     HasErrorMessage = true;
-                    //UserCanSearch = false;
                 }
             }
             else
             {
                 ErrorMessage = zipRequest.ErrorMessage;
                 HasErrorMessage = true;
-                //UserCanSearch = false;
             }
         }
 
@@ -327,7 +322,5 @@ namespace WeatherApp.ViewModel
         public HourlyChartViewModel HourlyChartFahrenheitVm { get => hourlyChartFahrenheitVm; }
         public HourlyChartViewModel HourlyChartCelsiusVm { get => hourlyChartCelsiusVm; }
         public bool HasErrorMessage { get => hasErrorMessage; set { hasErrorMessage = value; RaisePropertyChanged(); } }
-
-        public bool UserCanSearch { get => userCanSearch; set { userCanSearch = value; RaisePropertyChanged(); } }
     }
 }
