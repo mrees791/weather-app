@@ -110,11 +110,10 @@ namespace WeatherApp.ViewModel
             hourlyChartCelsiusVm = new HourlyChartViewModel(TemperatureFormat.Celsius);
 
             InitializeFiles();
-
             InitializeCommands();
-            SearchCurrentZip();
+            //InitializeUpdater();
 
-            InitializeUpdater();
+            SearchCurrentZip();
         }
 
         private void InitializeUpdater()
@@ -165,6 +164,7 @@ namespace WeatherApp.ViewModel
 
         private void UpdateWeatherData()
         {
+            UserCanSearch = true;
             requestTime = DateTime.Now;
             zipRequest.RequestZipCodeDetails(ZipInput);
 
@@ -184,20 +184,19 @@ namespace WeatherApp.ViewModel
                     UpdateWeatherPageVm();
 
                     HasErrorMessage = false;
-                    UserCanSearch = true;
                 }
                 else
                 {
                     ErrorMessage = oneCallRequest.ErrorMessage;
                     HasErrorMessage = true;
-                    UserCanSearch = false;
+                    //UserCanSearch = false;
                 }
             }
             else
             {
                 ErrorMessage = zipRequest.ErrorMessage;
                 HasErrorMessage = true;
-                UserCanSearch = false;
+                //UserCanSearch = false;
             }
         }
 
