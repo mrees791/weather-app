@@ -23,6 +23,8 @@ namespace WeatherApp
         public MainWindow()
         {
             InitializeComponent();
+
+            ((App)Application.Current).WindowPlace.Register(this, "MainWindow");
         }
     }
 }

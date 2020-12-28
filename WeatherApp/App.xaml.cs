@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestoreWindowPlace;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,8 +14,11 @@ namespace WeatherApp
     /// </summary>
     public partial class App : Application
     {
+        public WindowPlace WindowPlace { get; }
+
         public App()
         {
+            this.WindowPlace = new WindowPlace("window.config");
             //DispatcherUnhandledException += App_DispatcherUnhandledException;
         }
 
@@ -23,5 +27,11 @@ namespace WeatherApp
             MessageBox.Show("An error occured. Check the log file for more details.", "Error");
             e.Handled = true;
         }*/
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            this.WindowPlace.Save();
+            base.OnExit(e);
+        }
     }
 }
