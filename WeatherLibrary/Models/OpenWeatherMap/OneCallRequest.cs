@@ -9,14 +9,14 @@ namespace WeatherLibrary.Models.OpenWeatherMap
 {
     public class OneCallRequest
     {
+        private bool validRequest;
+        private string errorMessage;
         private OneCall oneCall;
 
         public OneCallRequest()
         {
 
         }
-
-        public OneCall OneCall { get => oneCall; }
 
 
         public void RequestOneCall(double latitude, double longitude)
@@ -54,5 +54,9 @@ namespace WeatherLibrary.Models.OpenWeatherMap
                 }
             }
         }
+
+        public bool ValidRequest { get => validRequest; }
+        public string ErrorMessage { get => errorMessage; }
+        public OneCall OneCall { get => oneCall; }
     }
 }

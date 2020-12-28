@@ -9,6 +9,8 @@ namespace WeatherLibrary.Models.Zippo
 {
     public class ZippoRequest
     {
+        private bool validRequest;
+        private string errorMessage;
         private ZippoDetails details;
 
         public ZippoRequest()
@@ -23,10 +25,12 @@ namespace WeatherLibrary.Models.Zippo
             using (var webClient = new System.Net.WebClient())
             {
                 string jsonZip = webClient.DownloadString(zipApiUrl);
-                Details = JsonConvert.DeserializeObject<ZippoDetails>(jsonZip);
+                details = JsonConvert.DeserializeObject<ZippoDetails>(jsonZip);
             }
         }
 
-        public ZippoDetails Details { get => details; set => details = value; }
+        public ZippoDetails Details { get => details; }
+        public bool ValidRequest { get => validRequest; }
+        public string ErrorMessage { get => errorMessage; }
     }
 }
