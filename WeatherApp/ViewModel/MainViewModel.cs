@@ -64,7 +64,7 @@ namespace WeatherApp.ViewModel
         private OneCallRequest oneCallRequest;
         private ZippoRequest zipRequest;
 
-        private int periodAmount = 7;
+        private int hourlyEntryAmount = 7;
         private DateTime requestTime;
 
         private HourlyChartViewModel hourlyChartFahrenheitVm;
@@ -165,34 +165,18 @@ namespace WeatherApp.ViewModel
             requestTime = DateTime.Now;
             zipRequest.RequestZipCodeDetails(ZipInput);
 
-            if (zipRequest.IsValidRequest)
-            {
-                Place place = zipRequest.Details.Places[0];
-                oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
-                var hourlyEntries = oneCallRequest.OneCall.HourlyEntries;
+            Place place = zipRequest.Details.Places[0];
+            oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
+            var hourlyEntries = oneCallRequest.OneCall.HourlyEntries;
 
-                if (oneCallRequest.IsValidRequest)
-                {
-                    hourlyChartFahrenheitVm.UpdateHourlyChart(hourlyEntries, periodAmount);
-                    hourlyChartCelsiusVm.UpdateHourlyChart(hourlyEntries, periodAmount);
-                    //forecastController.RequestForecast(place.Latitude, place.Longitude, forecastRequest);
-                    UpdateCurrentWeatherPanelVm();
+            hourlyChartFahrenheitVm.UpdateHourlyChart(hourlyEntries, this.hourlyEntryAmount);
+            hourlyChartCelsiusVm.UpdateHourlyChart(hourlyEntries, this.hourlyEntryAmount);
+            UpdateCurrentWeatherPanelVm();
 
-                    UpdateWeatherPageVm();
+            UpdateWeatherPageVm();
 
-                    HasErrorMessage = false;
-                }
-                else
-                {
-                    ErrorMessage = oneCallRequest.ErrorMessage;
-                    HasErrorMessage = true;
-                }
-            }
-            else
-            {
-                ErrorMessage = zipRequest.ErrorMessage;
-                HasErrorMessage = true;
-            }
+            HasErrorMessage = false;
+            ErrorMessage = string.Empty;
         }
 
         private void UpdateFavoriteButton()

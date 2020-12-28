@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace WeatherLibrary.Models.OpenWeatherMap
 {
+    /// <summary>
+    /// The root object that is requested from the OpenWeatherMap API.
+    /// </summary>
     public class OneCall
     {
         [JsonProperty("hourly")]
