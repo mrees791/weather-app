@@ -19,14 +19,9 @@ namespace WeatherApp
         public App()
         {
             this.WindowPlace = new WindowPlace("window.config");
+            //this.Logger = LogManager.GetCurrentClassLogger();
             //DispatcherUnhandledException += App_DispatcherUnhandledException;
         }
-
-        /*private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
-        {
-            MessageBox.Show("An error occured. Check the log file for more details.", "Error");
-            e.Handled = true;
-        }*/
 
         protected override void OnExit(ExitEventArgs e)
         {
