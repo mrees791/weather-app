@@ -53,7 +53,7 @@ namespace WeatherApp.ViewModel
 
         public void UpdateCurrentWeather()
         {
-            if (zipRequest.Details == null)
+            if (!zipRequest.IsValidRequest)
             {
                 UpdateZip();
             }
