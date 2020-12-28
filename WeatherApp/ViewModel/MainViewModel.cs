@@ -165,18 +165,35 @@ namespace WeatherApp.ViewModel
             requestTime = DateTime.Now;
             zipRequest.RequestZipCodeDetails(ZipInput);
 
-            Place place = zipRequest.Details.Places[0];
-            oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
-            var hourlyEntries = oneCallRequest.OneCall.HourlyEntries;
+            if (zipRequest.IsValidRequest)
+            {
+                Place place = zipRequest.Details.Places[0];
+                oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
 
-            hourlyChartFahrenheitVm.UpdateHourlyChart(hourlyEntries, this.hourlyEntryAmount);
-            hourlyChartCelsiusVm.UpdateHourlyChart(hourlyEntries, this.hourlyEntryAmount);
-            UpdateCurrentWeatherPanelVm();
+                if (oneCallRequest.IsValidRequest)
+                {
+                    var hourlyEntries = oneCallRequest.OneCall.HourlyEntries;
 
-            UpdateWeatherPageVm();
+                    hourlyChartFahrenheitVm.UpdateHourlyChart(hourlyEntries, this.hourlyEntryAmount);
+                    hourlyChartCelsiusVm.UpdateHourlyChart(hourlyEntries, this.hourlyEntryAmount);
+                    UpdateCurrentWeatherPanelVm();
 
-            HasErrorMessage = false;
-            ErrorMessage = string.Empty;
+                    UpdateWeatherPageVm();
+
+                    HasErrorMessage = false;
+                    ErrorMessage = string.Empty;
+                }
+                else
+                {
+                    HasErrorMessage = true;
+                    ErrorMessage = oneCallRequest.ErrorMessage;
+                }
+            }
+            else
+            {
+                HasErrorMessage = true;
+                ErrorMessage = zipRequest.ErrorMessage;
+            }
         }
 
         private void UpdateFavoriteButton()

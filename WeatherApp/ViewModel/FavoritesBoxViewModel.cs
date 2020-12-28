@@ -43,9 +43,12 @@ namespace WeatherApp.ViewModel
         {
             zipRequest.RequestZipCodeDetails(zipCode);
 
-            place = zipRequest.Details.Places[0];
-            city = place.CityName;
-            state = place.State;
+            if (zipRequest.IsValidRequest)
+            {
+                place = zipRequest.Details.Places[0];
+                city = place.CityName;
+                state = place.State;
+            }
         }
 
         public void UpdateCurrentWeather()
@@ -55,28 +58,35 @@ namespace WeatherApp.ViewModel
                 UpdateZip();
             }
 
-            oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
-            var currentWeather = oneCallRequest.OneCall.CurrentWeather;
-            var daily = oneCallRequest.OneCall.DailyEntries[0];
+            if (zipRequest.IsValidRequest)
+            {
+                oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
 
-            Temperature temperature = new Temperature(currentWeather.TemperatureCelsius, TemperatureFormat.Celsius);
-            Temperature dailyHigh = new Temperature(daily.DailyTemperature.DailyHighCelsius, TemperatureFormat.Celsius);
-            Temperature dailyLow = new Temperature(daily.DailyTemperature.DailyLowCelsius, TemperatureFormat.Celsius);
+                if (oneCallRequest.IsValidRequest)
+                {
+                    var currentWeather = oneCallRequest.OneCall.CurrentWeather;
+                    var daily = oneCallRequest.OneCall.DailyEntries[0];
 
-            CurrentWeatherFahrenheit = string.Format("{0:0.##}", temperature.Fahrenheit);
-            CurrentWeatherCelsius = string.Format("{0:0.##}", temperature.Celsius);
+                    Temperature temperature = new Temperature(currentWeather.TemperatureCelsius, TemperatureFormat.Celsius);
+                    Temperature dailyHigh = new Temperature(daily.DailyTemperature.DailyHighCelsius, TemperatureFormat.Celsius);
+                    Temperature dailyLow = new Temperature(daily.DailyTemperature.DailyLowCelsius, TemperatureFormat.Celsius);
 
-            double highCelsius = dailyHigh.Celsius;
-            double lowCelsius = dailyLow.Celsius;
-            double highFahrenheit = dailyHigh.Fahrenheit;
-            double lowFahrenheit = dailyLow.Fahrenheit;
+                    CurrentWeatherFahrenheit = string.Format("{0:0.##}", temperature.Fahrenheit);
+                    CurrentWeatherCelsius = string.Format("{0:0.##}", temperature.Celsius);
 
-            DailyHighCelsius = string.Format("{0:0.##}", highCelsius);
-            DailyLowCelsius = string.Format("{0:0.##}", lowCelsius);
-            DailyHighFahrenheit = string.Format("{0:0.##}", highFahrenheit);
-            DailyLowFahrenheit = string.Format("{0:0.##}", lowFahrenheit);
+                    double highCelsius = dailyHigh.Celsius;
+                    double lowCelsius = dailyLow.Celsius;
+                    double highFahrenheit = dailyHigh.Fahrenheit;
+                    double lowFahrenheit = dailyLow.Fahrenheit;
 
-            ShortForecast = currentWeather.WeatherEntries[0].Description;
+                    DailyHighCelsius = string.Format("{0:0.##}", highCelsius);
+                    DailyLowCelsius = string.Format("{0:0.##}", lowCelsius);
+                    DailyHighFahrenheit = string.Format("{0:0.##}", highFahrenheit);
+                    DailyLowFahrenheit = string.Format("{0:0.##}", lowFahrenheit);
+
+                    ShortForecast = currentWeather.WeatherEntries[0].Description;
+                }
+            }
         }
 
 
