@@ -160,12 +160,12 @@ namespace WeatherApp.ViewModel
             requestTime = DateTime.Now;
             zipRequest.RequestZipCodeDetails(ZipInput);
 
-            if (zipRequest.HasValidZipDetails())
+            if (zipRequest.IsValidRequest)
             {
                 Place place = zipRequest.Details.GetZipPlace();
                 oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
 
-                if (oneCallRequest.HasValidOneCall())
+                if (oneCallRequest.IsValidRequest)
                 {
                     var hourlyEntries = oneCallRequest.OneCall.HourlyEntries;
 
