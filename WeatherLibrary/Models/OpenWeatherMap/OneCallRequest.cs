@@ -11,6 +11,7 @@ namespace WeatherLibrary.Models.OpenWeatherMap
     {
         private DateTime requestDateTime;
         private OneCall oneCall;
+        private bool isValidRequest;
 
         public OneCallRequest()
         {
@@ -20,6 +21,7 @@ namespace WeatherLibrary.Models.OpenWeatherMap
 
         public void RequestOneCall(double latitude, double longitude)
         {
+            isValidRequest = false;
             oneCall = null;
 
             using (var webClient = new System.Net.WebClient())
@@ -53,15 +55,12 @@ namespace WeatherLibrary.Models.OpenWeatherMap
                     var daily = oneCall.DailyEntries[iDay];
                     daily.DateTime = firstDayDate.AddDays(iDay);
                 }
+                isValidRequest = true;
             }
-        }
-
-        public bool HasValidOneCall()
-        {
-            return oneCall != null;
         }
 
         public OneCall OneCall { get => oneCall; }
         public DateTime RequestDateTime { get => requestDateTime; }
+        public bool IsValidRequest { get => isValidRequest; }
     }
 }

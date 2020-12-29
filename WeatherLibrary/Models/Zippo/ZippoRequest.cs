@@ -10,6 +10,7 @@ namespace WeatherLibrary.Models.Zippo
     public class ZippoRequest
     {
         private ZippoDetails details;
+        private bool isValidRequest;
 
         public ZippoRequest()
         {
@@ -18,6 +19,7 @@ namespace WeatherLibrary.Models.Zippo
 
         public void RequestZipCodeDetails(string zipCode)
         {
+            isValidRequest = false;
             details = null;
             string zipApiUrl = $"http://api.zippopotam.us/us/{zipCode}";
 
@@ -25,14 +27,11 @@ namespace WeatherLibrary.Models.Zippo
             {
                 string jsonZip = webClient.DownloadString(zipApiUrl);
                 details = JsonConvert.DeserializeObject<ZippoDetails>(jsonZip);
+                isValidRequest = true;
             }
         }
 
-        public bool HasValidZipDetails()
-        {
-            return details != null;
-        }
-
         public ZippoDetails Details { get => details; }
+        public bool IsValidRequest { get => isValidRequest; }
     }
 }
