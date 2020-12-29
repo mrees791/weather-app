@@ -85,8 +85,6 @@ namespace WeatherApp.ViewModel
                     DailyLowFahrenheit = string.Format("{0:0.##}", lowFahrenheit);
 
                     ShortForecast = currentWeather.WeatherEntries[0].Description;
-
-                    throw new DivideByZeroException();
                 }
             }
         }
