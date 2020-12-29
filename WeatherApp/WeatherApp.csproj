@@ -148,9 +148,6 @@
     <Compile Include="Views\DayWeatherPanel.xaml.cs">
       <DependentUpon>DayWeatherPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ErrorPanel.xaml.cs">
-      <DependentUpon>ErrorPanel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\FavoriteBoxPanel.xaml.cs">
       <DependentUpon>FavoriteBoxPanel.xaml</DependentUpon>
     </Compile>
@@ -230,10 +227,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DayWeatherPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ErrorPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
