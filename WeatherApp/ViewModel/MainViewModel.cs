@@ -41,8 +41,6 @@ namespace WeatherApp.ViewModel
         private ViewModelLocator vml;
 
         private string windowTitle;
-        private string errorMessage;
-        private bool hasErrorMessage;
 
         private SearchSettings searchSettings;
 
@@ -89,11 +87,8 @@ namespace WeatherApp.ViewModel
             ////}
             
             vml = App.Current.Resources["Locator"] as ViewModelLocator;
-
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             WindowTitle = string.Format("Weather v{0}.{1}", version.Major, version.Minor);
-
-            ErrorMessage = "";
 
             oneCallRequest = new OneCallRequest();
             zipRequest = new ZippoRequest();
@@ -312,12 +307,9 @@ namespace WeatherApp.ViewModel
         public ICommand SearchNewZipCodeCommand { get => searchNewZipCodeCommand; }
         public string WindowTitle { get => windowTitle; set { windowTitle = value; RaisePropertyChanged(); } }
 
-        public string ErrorMessage { get => errorMessage; set { errorMessage = value; RaisePropertyChanged(); } }
-
         public string ZipErrorMessage { get => zipErrorMessage; set { zipErrorMessage = value; RaisePropertyChanged(); } }
 
         public HourlyChartViewModel HourlyChartFahrenheitVm { get => hourlyChartFahrenheitVm; }
         public HourlyChartViewModel HourlyChartCelsiusVm { get => hourlyChartCelsiusVm; }
-        public bool HasErrorMessage { get => hasErrorMessage; set { hasErrorMessage = value; RaisePropertyChanged(); } }
     }
 }

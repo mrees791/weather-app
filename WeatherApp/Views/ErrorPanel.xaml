@@ -6,8 +6,11 @@
              xmlns:local="clr-namespace:WeatherApp.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Visibility="{Binding Source={StaticResource Locator},Path=MainVm.HasErrorMessage,Converter={StaticResource BooleanCollapseConverter}}" Margin="5">
+    <StackPanel>
+        
+    </StackPanel>
+    <!--<StackPanel Visibility="{Binding Source={StaticResource Locator},Path=MainVm.HasErrorMessage,Converter={StaticResource BooleanCollapseConverter}}" Margin="5">
         <TextBox Text="{Binding Source={StaticResource Locator},Path=MainVm.ErrorMessage}" Style="{StaticResource ErrorMessageStyle}"/>
         <TextBox Text="Please check your internet connection." Style="{StaticResource ErrorMessageStyle}"/>
-    </StackPanel>
+    </StackPanel>-->
 </UserControl>
