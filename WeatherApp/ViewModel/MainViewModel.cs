@@ -62,7 +62,6 @@ namespace WeatherApp.ViewModel
         private OneCallRequest oneCallRequest;
         private ZippoRequest zipRequest;
 
-        private int hourlyEntryAmount = 7;
         private DateTime requestTime;
 
         private HourlyChartViewModel hourlyChartFahrenheitVm;
@@ -97,7 +96,6 @@ namespace WeatherApp.ViewModel
             ZipInput = "43762";
 
             SetCurrentPageToWeatherPage();
-            currentWeatherVm = vml.CurrentWeatherVm;
             weatherPageVm = vml.WeatherPageVm;
             hourlyChartFahrenheitVm = new HourlyChartViewModel(TemperatureFormat.Fahrenheit);
             hourlyChartCelsiusVm = new HourlyChartViewModel(TemperatureFormat.Celsius);
@@ -157,34 +155,7 @@ namespace WeatherApp.ViewModel
 
         private void UpdateWeatherData()
         {
-            requestTime = DateTime.Now;
-            zipRequest.RequestZipCodeDetails(ZipInput);
-
-            if (zipRequest.IsValidRequest)
-            {
-                Place place = zipRequest.Details.GetZipPlace();
-                oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
-
-                if (oneCallRequest.IsValidRequest)
-                {
-                    var hourlyEntries = oneCallRequest.OneCall.HourlyEntries;
-
-                    hourlyChartFahrenheitVm.UpdateHourlyChart(hourlyEntries, this.hourlyEntryAmount);
-                    hourlyChartCelsiusVm.UpdateHourlyChart(hourlyEntries, this.hourlyEntryAmount);
-                    UpdateCurrentWeatherPanelVm();
-
-                    UpdateWeatherPageVm();
-
-                    //HasErrorMessage = false;
-                    //ErrorMessage = string.Empty;
-                }
-                else
-                {
-                }
-            }
-            else
-            {
-            }
+            weatherPageVm.UpdateWeatherData(zipInput);
         }
 
         private void UpdateFavoriteButton()
@@ -192,7 +163,7 @@ namespace WeatherApp.ViewModel
             CurrentZipIsFavorited = favoritesFile.HasZipCodeEntry(zipInput);
         }
 
-        private void UpdateWeatherPageVm()
+        /*private void UpdateWeatherPageVm()
         {
             weatherPageVm.UpdateDailyForecast(oneCallRequest);
         }
@@ -200,7 +171,7 @@ namespace WeatherApp.ViewModel
         private void UpdateCurrentWeatherPanelVm()
         {
             currentWeatherVm.UpdateCurrentWeather(oneCallRequest, zipRequest);
-        }
+        }*/
 
         private void InitializeCommands()
         {

@@ -26,8 +26,8 @@
                     </ListView>
                 </StackPanel>
                 <StackPanel>
-                    <local:HourlyChartView DataContext="{Binding Source={StaticResource Locator},Path=MainVm.HourlyChartFahrenheitVm}"  Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}"/>
-                    <local:HourlyChartView DataContext="{Binding Source={StaticResource Locator},Path=MainVm.HourlyChartCelsiusVm}"  Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}"/>
+                    <local:HourlyChartView DataContext="{Binding HourlyChartFahrenheitVm}"  Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}"/>
+                    <local:HourlyChartView DataContext="{Binding HourlyChartCelsiusVm}"  Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>

@@ -10,17 +10,33 @@ using System.Threading.Tasks;
 using WeatherApp.Utility;
 using WeatherLibrary.Models;
 using WeatherLibrary.Models.OpenWeatherMap;
+using WeatherLibrary.Models.Zippo;
 
 namespace WeatherApp.ViewModel
 {
     public class WeatherPageViewModel : ViewModelBase
     {
-        private ObservableCollection<DayWeatherViewModel> dayWeatherViewModels;
         public readonly int NumberOfDailyEntries = 5;
+        public readonly int HourlyEntryAmount = 7;
+        private bool hasError;
+        private string errorMessage;
+        private HourlyChartViewModel hourlyChartCelsiusVm;
+        private HourlyChartViewModel hourlyChartFahrenheitVm;
+        private CurrentWeatherViewModel currentWeatherVm;
+        private ObservableCollection<DayWeatherViewModel> dayWeatherViewModels;
+
+        private ZippoRequest zipRequest;
+        private OneCallRequest oneCallRequest;
 
         public WeatherPageViewModel()
         {
             string iconDir = AppDirectories.IconDirectory;
+            zipRequest = new ZippoRequest();
+            oneCallRequest = new OneCallRequest();
+
+            hourlyChartCelsiusVm = new HourlyChartViewModel(TemperatureFormat.Celsius);
+            hourlyChartFahrenheitVm = new HourlyChartViewModel(TemperatureFormat.Fahrenheit);
+            currentWeatherVm = new CurrentWeatherViewModel();
             dayWeatherViewModels = new ObservableCollection<DayWeatherViewModel>();
 
             for (int i = 0; i < NumberOfDailyEntries; i++)
@@ -31,11 +47,41 @@ namespace WeatherApp.ViewModel
             }
         }
 
-        public ObservableCollection<DayWeatherViewModel> DayWeatherViewModels { get => dayWeatherViewModels; }
-
-        public void UpdateDailyForecast(OneCallRequest request)
+        public void UpdateWeatherData(string zipInput)
         {
-            var dailies = request.OneCall.DailyEntries;
+            zipRequest.RequestZipCodeDetails(zipInput);
+
+            if (zipRequest.IsValidRequest)
+            {
+                Place place = zipRequest.Details.GetZipPlace();
+                oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
+
+                if (oneCallRequest.IsValidRequest)
+                {
+                    var hourlyEntries = oneCallRequest.OneCall.HourlyEntries;
+
+                    hourlyChartFahrenheitVm.UpdateHourlyChart(hourlyEntries, HourlyEntryAmount);
+                    hourlyChartCelsiusVm.UpdateHourlyChart(hourlyEntries, HourlyEntryAmount);
+
+                    UpdateDailyForecast();
+                    currentWeatherVm.UpdateCurrentWeather(oneCallRequest, zipRequest);
+
+                    //HasErrorMessage = false;
+                    //ErrorMessage = string.Empty;
+                }
+                else
+                {
+                }
+            }
+            else
+            {
+            }
+        }
+
+
+        private void UpdateDailyForecast()
+        {
+            var dailies = oneCallRequest.OneCall.DailyEntries;
 
             for (int i = 0; i < dayWeatherViewModels.Count; i++)
             {
@@ -96,5 +142,10 @@ namespace WeatherApp.ViewModel
         {
             return string.Format("{0} {1}", CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(date.Month), date.Day);
         }
+
+        public ObservableCollection<DayWeatherViewModel> DayWeatherViewModels { get => dayWeatherViewModels; }
+        public CurrentWeatherViewModel CurrentWeatherVm { get => currentWeatherVm; }
+        public HourlyChartViewModel HourlyChartCelsiusVm { get => hourlyChartCelsiusVm; }
+        public HourlyChartViewModel HourlyChartFahrenheitVm { get => hourlyChartFahrenheitVm; }
     }
 }

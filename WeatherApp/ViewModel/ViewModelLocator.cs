@@ -43,7 +43,6 @@ namespace WeatherApp.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<UserSettingsViewModel>();
-            SimpleIoc.Default.Register<CurrentWeatherViewModel>();
             SimpleIoc.Default.Register<WeatherPageViewModel>();
             SimpleIoc.Default.Register<FavoritesPageViewModel>();
         }
@@ -61,14 +60,6 @@ namespace WeatherApp.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<WeatherPageViewModel>();
-            }
-        }
-
-        public CurrentWeatherViewModel CurrentWeatherVm
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<CurrentWeatherViewModel>();
             }
         }
 
