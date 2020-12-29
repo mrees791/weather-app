@@ -13,6 +13,8 @@ namespace WeatherApp.ViewModel
 {
     public class FavoritesPageViewModel : ViewModelBase
     {
+        private bool hasError;
+        private string errorMessage;
         private ObservableCollection<FavoritesBoxViewModel> favoritesBoxViewModels;
         private FavoritesFile favoritesFile;
 
@@ -61,23 +63,47 @@ namespace WeatherApp.ViewModel
 
         public void LoadFavoritesFile(OneCall oneCall)
         {
-            favoritesFile.ReadFile(AppDirectories.FavoritesFile);
+            HasError = false;
+            ErrorMessage = string.Empty;
 
-            foreach (var zipCode in favoritesFile.ZipCodes)
+            try
             {
-                AddNewFavoritesBoxVm(zipCode, oneCall);
+                favoritesFile.ReadFile(AppDirectories.FavoritesFile);
+
+                foreach (var zipCode in favoritesFile.ZipCodes)
+                {
+                    AddNewFavoritesBoxVm(zipCode, oneCall);
+                }
+            }
+            catch (Exception ex)
+            {
+                HasError = true;
+                ErrorMessage = "Error loading favorites file.";
             }
         }
 
         public void UpdateFavoritesCurrentWeather()
         {
-            foreach (var fbvm in favoritesBoxViewModels)
+            HasError = false;
+            ErrorMessage = string.Empty;
+
+            try
             {
-                fbvm.UpdateCurrentWeather();
+                foreach (var fbvm in favoritesBoxViewModels)
+                {
+                    fbvm.UpdateCurrentWeather();
+                }
+            }
+            catch (Exception ex)
+            {
+                HasError = true;
+                ErrorMessage = "Error updating weather.";
             }
         }
 
         public ObservableCollection<FavoritesBoxViewModel> FavoritesBoxViewModels { get => favoritesBoxViewModels; }
         public FavoritesFile FavoritesFile { get => favoritesFile; set => favoritesFile = value; }
+        public bool HasError { get => hasError; set { hasError = value; RaisePropertyChanged(); } }
+        public string ErrorMessage { get => errorMessage; set { errorMessage = value; RaisePropertyChanged(); } }
     }
 }
