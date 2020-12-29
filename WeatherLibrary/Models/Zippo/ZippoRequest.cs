@@ -18,6 +18,7 @@ namespace WeatherLibrary.Models.Zippo
 
         public void RequestZipCodeDetails(string zipCode)
         {
+            details = null;
             string zipApiUrl = $"http://api.zippopotam.us/us/{zipCode}";
 
             using (var webClient = new System.Net.WebClient())
@@ -25,6 +26,11 @@ namespace WeatherLibrary.Models.Zippo
                 string jsonZip = webClient.DownloadString(zipApiUrl);
                 details = JsonConvert.DeserializeObject<ZippoDetails>(jsonZip);
             }
+        }
+
+        public bool HasValidZipDetails()
+        {
+            return details != null;
         }
 
         public ZippoDetails Details { get => details; }

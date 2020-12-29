@@ -165,12 +165,12 @@ namespace WeatherApp.ViewModel
             requestTime = DateTime.Now;
             zipRequest.RequestZipCodeDetails(ZipInput);
 
-            if (zipRequest.IsValidRequest)
+            if (zipRequest.HasValidZipDetails())
             {
-                Place place = zipRequest.Details.Places[0];
+                Place place = zipRequest.Details.GetZipPlace();
                 oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
 
-                if (oneCallRequest.IsValidRequest)
+                if (oneCallRequest.HasValidOneCall())
                 {
                     var hourlyEntries = oneCallRequest.OneCall.HourlyEntries;
 
@@ -180,19 +180,15 @@ namespace WeatherApp.ViewModel
 
                     UpdateWeatherPageVm();
 
-                    HasErrorMessage = false;
-                    ErrorMessage = string.Empty;
+                    //HasErrorMessage = false;
+                    //ErrorMessage = string.Empty;
                 }
                 else
                 {
-                    HasErrorMessage = true;
-                    ErrorMessage = oneCallRequest.ErrorMessage;
                 }
             }
             else
             {
-                HasErrorMessage = true;
-                ErrorMessage = zipRequest.ErrorMessage;
             }
         }
 
@@ -208,7 +204,7 @@ namespace WeatherApp.ViewModel
 
         private void UpdateCurrentWeatherPanelVm()
         {
-            currentWeatherVm.UpdateCurrentWeather(oneCallRequest.OneCall, zipRequest);
+            currentWeatherVm.UpdateCurrentWeather(oneCallRequest, zipRequest);
         }
 
         private void InitializeCommands()

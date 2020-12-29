@@ -20,6 +20,8 @@ namespace WeatherLibrary.Models.OpenWeatherMap
 
         public void RequestOneCall(double latitude, double longitude)
         {
+            oneCall = null;
+
             using (var webClient = new System.Net.WebClient())
             {
                 string appId = ApiInfo.AppId;
@@ -52,6 +54,11 @@ namespace WeatherLibrary.Models.OpenWeatherMap
                     daily.DateTime = firstDayDate.AddDays(iDay);
                 }
             }
+        }
+
+        public bool HasValidOneCall()
+        {
+            return oneCall != null;
         }
 
         public OneCall OneCall { get => oneCall; }

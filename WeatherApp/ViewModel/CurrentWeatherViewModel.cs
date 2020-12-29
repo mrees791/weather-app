@@ -19,10 +19,10 @@ namespace WeatherApp.ViewModel
         private string temperatureCelsius;
         private string shortForecast;
 
-        public void UpdateCurrentWeather(OneCall oneCall, ZippoRequest zipCodeRequest)
+        public void UpdateCurrentWeather(OneCallRequest oneCallRequest, ZippoRequest zipCodeRequest)
         {
-            LastUpdateTime = string.Format("{0:hh:mm:ss tt}", oneCall.RequestDateTime);
-            var currentWeather = oneCall.CurrentWeather;
+            LastUpdateTime = string.Format("{0:hh:mm:ss tt}", oneCallRequest.RequestDateTime);
+            var currentWeather = oneCallRequest.OneCall.CurrentWeather;
             Temperature temperature = new Temperature(currentWeather.TemperatureCelsius, TemperatureFormat.Celsius);
             Place place = zipCodeRequest.Details.Places[0];
             City = place.CityName;

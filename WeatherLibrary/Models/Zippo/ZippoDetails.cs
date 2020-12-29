@@ -20,5 +20,10 @@ namespace WeatherLibrary.Models.Zippo
 
         [JsonProperty("places")]
         public List<Place> Places { get; set; }
+
+        public Place GetZipPlace()
+        {
+            return Places[0];
+        }
     }
 }
