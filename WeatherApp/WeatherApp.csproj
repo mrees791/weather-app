@@ -119,8 +119,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Converters\BooleanCollapseConverter.cs" />
-    <Compile Include="Converters\FalseBooleanCollapseConverter.cs" />
+    <Compile Include="Converters\CollapseIfFalseConverter.cs" />
+    <Compile Include="Converters\CollapseIfTrueConverter.cs" />
     <Compile Include="Converters\FavoritesStarIconConverter.cs" />
     <Compile Include="Converters\ShowIfCelsiusConverter.cs" />
     <Compile Include="Converters\ShowIfFahrenheitConverter.cs" />
@@ -147,6 +147,9 @@
     </Compile>
     <Compile Include="Views\DayWeatherPanel.xaml.cs">
       <DependentUpon>DayWeatherPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ErrorMessagePanel.xaml.cs">
+      <DependentUpon>ErrorMessagePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FavoriteBoxPanel.xaml.cs">
       <DependentUpon>FavoriteBoxPanel.xaml</DependentUpon>
@@ -227,6 +230,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DayWeatherPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ErrorMessagePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

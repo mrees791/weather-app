@@ -49,12 +49,31 @@ namespace WeatherApp.ViewModel
 
         public void UpdateWeatherData(string zipInput)
         {
-            zipRequest.RequestZipCodeDetails(zipInput);
+            HasError = false;
+            ErrorMessage = string.Empty;
+            try
+            {
+                zipRequest.RequestZipCodeDetails(zipInput);
+            }
+            catch (Exception ex)
+            {
+                HasError = true;
+                ErrorMessage = "Error retrieving zip-code data.\nMake sure you entered a valid U.S. zip-code.";
+            }
 
             if (zipRequest.IsValidRequest)
             {
                 Place place = zipRequest.Details.GetZipPlace();
-                oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
+
+                try
+                {
+                    oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
+                }
+                catch (Exception ex)
+                {
+                    HasError = true;
+                    ErrorMessage = "Error retrieving weather data.";
+                }
 
                 if (oneCallRequest.IsValidRequest)
                 {
@@ -65,16 +84,7 @@ namespace WeatherApp.ViewModel
 
                     UpdateDailyForecast();
                     currentWeatherVm.UpdateCurrentWeather(oneCallRequest, zipRequest);
-
-                    //HasErrorMessage = false;
-                    //ErrorMessage = string.Empty;
                 }
-                else
-                {
-                }
-            }
-            else
-            {
             }
         }
 
@@ -147,5 +157,7 @@ namespace WeatherApp.ViewModel
         public CurrentWeatherViewModel CurrentWeatherVm { get => currentWeatherVm; }
         public HourlyChartViewModel HourlyChartCelsiusVm { get => hourlyChartCelsiusVm; }
         public HourlyChartViewModel HourlyChartFahrenheitVm { get => hourlyChartFahrenheitVm; }
+        public bool HasError { get => hasError; set { hasError = value; RaisePropertyChanged(); } }
+        public string ErrorMessage { get => errorMessage; set { errorMessage = value; RaisePropertyChanged(); } }
     }
 }

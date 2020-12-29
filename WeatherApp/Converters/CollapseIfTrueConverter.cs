@@ -10,7 +10,7 @@ using System.Windows.Data;
 namespace WeatherApp.Converters
 {
     // Collapses an element if the boolean is true, makes it visible if the boolean is false.
-    public class FalseBooleanCollapseConverter : IValueConverter
+    public class CollapseIfTrueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

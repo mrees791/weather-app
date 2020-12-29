@@ -12,9 +12,9 @@
         <views:TopMenuPanel DockPanel.Dock="Top"/>
         <!--<TextBox DockPanel.Dock="Top" Text="{Binding ErrorMessage}" IsReadOnly="True"/>-->
         <Grid Margin="0">
-            <views:WeatherPage Visibility="{Binding ShowWeatherPage,Converter={StaticResource BooleanCollapseConverter}}" DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"/>
-            <views:FavoritesPage Visibility="{Binding ShowFavoritesPage,Converter={StaticResource BooleanCollapseConverter}}" DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"/>
-            <views:SettingsPage Visibility="{Binding ShowSettingsPage,Converter={StaticResource BooleanCollapseConverter}}" DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"/>
+            <views:WeatherPage Visibility="{Binding ShowWeatherPage,Converter={StaticResource CollapseIfFalseConverter}}" DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"/>
+            <views:FavoritesPage Visibility="{Binding ShowFavoritesPage,Converter={StaticResource CollapseIfFalseConverter}}" DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"/>
+            <views:SettingsPage Visibility="{Binding ShowSettingsPage,Converter={StaticResource CollapseIfFalseConverter}}" DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"/>
         </Grid>
     </DockPanel>
 </Window>

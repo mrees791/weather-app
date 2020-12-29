@@ -13,8 +13,8 @@
                 <ResourceDictionary Source="Skins/Skin1.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <vm:ViewModelLocator x:Key="Locator"/>
-            <converters:BooleanCollapseConverter x:Key="BooleanCollapseConverter"/>
-            <converters:FalseBooleanCollapseConverter x:Key="FalseBooleanCollapseConverter"/>
+            <converters:CollapseIfFalseConverter x:Key="CollapseIfFalseConverter"/>
+            <converters:CollapseIfTrueConverter x:Key="CollapseIfTrueConverter"/>
             <converters:FavoritesStarIconConverter x:Key="FavoritesStarIconConverter"/>
             <converters:ShowIfFahrenheitConverter x:Key="ShowIfFahrenheitConverter"/>
             <converters:ShowIfCelsiusConverter x:Key="ShowIfCelsiusConverter"/>
