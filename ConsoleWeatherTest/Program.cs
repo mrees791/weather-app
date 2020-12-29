@@ -17,27 +17,19 @@ namespace ConsoleWeatherTest
         public void Start()
         {
             var oneCallRequest = new OneCallRequest();
-
             oneCallRequest.RequestOneCall(33.441792, -94.037689);
 
-            if (oneCallRequest.IsValidRequest)
+            Console.WriteLine("Hourly");
+            for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine("Hourly");
-                for (int i = 0; i < 5; i++)
-                {
-                    var hourly = oneCallRequest.OneCall.HourlyEntries[i];
-                    Console.WriteLine($"{hourly.DateTime.ToShortTimeString()} - {hourly.TemperatureCelsius}C");
-                }
-                Console.WriteLine("\nDaily");
-                for (int i = 0; i < 7; i++)
-                {
-                    var daily = oneCallRequest.OneCall.DailyEntries[i];
-                    Console.WriteLine($"{daily.DateTime.ToShortDateString()} - High: {daily.DailyTemperature.DailyHighCelsius}C Low: {daily.DailyTemperature.DailyLowCelsius}C {daily.WeatherEntries[0].Description}");
-                }
+                var hourly = oneCallRequest.OneCall.HourlyEntries[i];
+                Console.WriteLine($"{hourly.DateTime.ToShortTimeString()} - {hourly.TemperatureCelsius}C");
             }
-            else
+            Console.WriteLine("\nDaily");
+            for (int i = 0; i < 7; i++)
             {
-                Console.WriteLine("Error sending one call request.");
+                var daily = oneCallRequest.OneCall.DailyEntries[i];
+                Console.WriteLine($"{daily.DateTime.ToShortDateString()} - High: {daily.DailyTemperature.DailyHighCelsius}C Low: {daily.DailyTemperature.DailyLowCelsius}C {daily.WeatherEntries[0].Description}");
             }
         }
     }

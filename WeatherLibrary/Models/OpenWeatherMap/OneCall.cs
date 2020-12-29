@@ -20,7 +20,5 @@ namespace WeatherLibrary.Models.OpenWeatherMap
 
         [JsonProperty("current")]
         public CurrentWeather CurrentWeather { get; set; }
-
-        public DateTime RequestDateTime { get; set; }
     }
 }
