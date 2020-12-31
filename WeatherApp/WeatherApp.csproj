@@ -127,6 +127,7 @@
     <Compile Include="Models\FileFormats\FavoritesFile.cs" />
     <Compile Include="Models\FileFormats\FileBase.cs" />
     <Compile Include="Models\FileFormats\SettingsFile.cs" />
+    <Compile Include="Models\FileFormats\XmlFileBase.cs" />
     <Compile Include="Models\SearchSettings.cs" />
     <Compile Include="Models\UI\WpfSkin.cs" />
     <Compile Include="Utility\AppDirectories.cs" />

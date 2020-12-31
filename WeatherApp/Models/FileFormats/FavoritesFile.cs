@@ -9,18 +9,13 @@ using System.Xml.Serialization;
 namespace WeatherApp.Models.FileFormats
 {
     [XmlRoot(ElementName = "favorites")]
-    public class FavoritesFile : FileBase
+    public class FavoritesFile : XmlFileBase
     {
-        private XmlSerializer serializer;
-        private string versionString;
-        private Version version;
         private List<string> zipCodes;
 
         public FavoritesFile()
         {
             serializer = new XmlSerializer(typeof(FavoritesFile));
-            version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            versionString = version.ToString();
             zipCodes = new List<string>();
         }
 
@@ -39,7 +34,7 @@ namespace WeatherApp.Models.FileFormats
             zipCodes.Remove(zipCode);
         }
 
-        public void ReadFile(string path)
+        public override void ReadFile(string path)
         {
             SetDefaults();
 
@@ -55,7 +50,7 @@ namespace WeatherApp.Models.FileFormats
             }
         }
 
-        public void WriteFile(string path)
+        public override void WriteFile(string path)
         {
             using (var writer = new StreamWriter(path))
             {
@@ -63,25 +58,12 @@ namespace WeatherApp.Models.FileFormats
             }
         }
 
-        public void SetDefaults()
+        public override void SetDefaults()
         {
             this.zipCodes.Clear();
         }
 
         [XmlElement(ElementName = "zip")]
         public List<string> ZipCodes { get => zipCodes; }
-        public Version Version { get => version; }
-        [XmlAttribute("appVersion")]
-        public string VersionString
-        {
-            get
-            {
-                return versionString;
-            }
-            set
-            {
-                versionString = value;
-            }
-        }
     }
 }
