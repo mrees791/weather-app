@@ -4,19 +4,23 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace WeatherApp.Models.FileFormats
 {
+    [XmlRoot(ElementName = "favoritesFile")]
     public class FavoritesFile : FileBase
     {
+        private XmlSerializer serializer;
+        private string versionString;
         private Version version;
         private List<string> zipCodes;
 
-        public List<string> ZipCodes { get => zipCodes; }
-
         public FavoritesFile()
         {
+            serializer = new XmlSerializer(typeof(FavoritesFile));
             version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            versionString = version.ToString();
             zipCodes = new List<string>();
         }
 
@@ -37,61 +41,47 @@ namespace WeatherApp.Models.FileFormats
 
         public void ReadFile(string path)
         {
-            using (var reader = new BinaryReader(File.Open(path, FileMode.Open)))
+            SetDefaults();
+
+            using (var reader = new StreamReader(path))
             {
-                string fileVersion = ReadVersion(reader);
-                this.zipCodes = ReadZipCodes(reader);
+                var readFile = (FavoritesFile)serializer.Deserialize(reader);
+                var fileVersion = readFile.Version;
+
+                foreach (var zip in readFile.ZipCodes)
+                {
+                    AddZipCodeEntry(zip);
+                }
             }
         }
 
         public void WriteFile(string path)
         {
-            using (var writer = new BinaryWriter(File.Open(path, FileMode.Create)))
+            using (var writer = new StreamWriter(path))
             {
-                WriteVersion(writer);
-                WriteZipCodes(writer);
-            }
-        }
-
-        private string ReadVersion(BinaryReader reader)
-        {
-            return reader.ReadString();
-        }
-
-        private void WriteVersion(BinaryWriter writer)
-        {
-            writer.Write(version.ToString());
-        }
-
-        private List<string> ReadZipCodes(BinaryReader reader)
-        {
-            List<string> zipCodes = new List<string>();
-
-            int numberOfZips = reader.ReadInt32();
-
-            for (int iZip = 0; iZip < numberOfZips; iZip++)
-            {
-                zipCodes.Add(reader.ReadString());
-            }
-
-            return zipCodes;
-        }
-
-        private void WriteZipCodes(BinaryWriter writer)
-        {
-            int numberOfZips = zipCodes.Count;
-
-            writer.Write(numberOfZips);
-
-            for (int iZip = 0; iZip < numberOfZips; iZip++)
-            {
-                writer.Write(zipCodes[iZip]);
+                serializer.Serialize(writer, this);
             }
         }
 
         public void SetDefaults()
         {
             this.zipCodes.Clear();
+        }
+
+        [XmlElement(ElementName = "zipCode")]
+        public List<string> ZipCodes { get => zipCodes; }
+        public Version Version { get => version; }
+        [XmlAttribute("appVersion")]
+        public string VersionString
+        {
+            get
+            {
+                return versionString;
+            }
+            set
+            {
+                versionString = value;
+            }
         }
     }
 }
