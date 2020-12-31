@@ -135,6 +135,7 @@ namespace WeatherApp.ViewModel
 
         private void InitializeFiles()
         {
+            Directory.CreateDirectory(AppDirectories.UserDataDirectory);
             InitializeFavoritesFile();
         }
 

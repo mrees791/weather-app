@@ -6,14 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Xml.Serialization;
 using WeatherApp.Models.UI;
 using WeatherApp.ViewModel;
 using WeatherLibrary.Models;
 
 namespace WeatherApp.Models.FileFormats
 {
+    [XmlRoot(ElementName = "settings")]
     public class SettingsFile : FileBase
     {
+        private XmlSerializer serializer;
+        private string versionString;
         private Version version;
         private TemperatureFormat defaultTemperatureFormat;
         private TemperatureFormat activeTemperatureFormat;
@@ -26,7 +30,10 @@ namespace WeatherApp.Models.FileFormats
 
         public SettingsFile()
         {
+            serializer = new XmlSerializer(typeof(FavoritesFile));
             version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            versionString = version.ToString();
+
             defaultTemperatureFormat = TemperatureFormat.Fahrenheit;
             activeTemperatureFormat = defaultTemperatureFormat;
             defaultFont = System.Drawing.SystemFonts.DefaultFont.FontFamily;
@@ -52,13 +59,13 @@ namespace WeatherApp.Models.FileFormats
 
         public void ReadFile(string path)
         {
-            using (var reader = new BinaryReader(File.Open(path, FileMode.Open)))
+            /*using (var reader = new BinaryReader(File.Open(path, FileMode.Open)))
             {
                 string fileVersion = ReadVersion(reader);
                 this.activeTemperatureFormat = ReadTemperatureFormat(reader);
                 this.activeSkin = ReadActiveSkin(reader);
                 this.activeFontFamily = ReadActiveFontFamily(reader);
-            }
+            }*/
         }
 
         private WpfSkin ReadActiveSkin(BinaryReader reader)
@@ -111,13 +118,13 @@ namespace WeatherApp.Models.FileFormats
 
         public void WriteFile(string path)
         {
-            using (var writer = new BinaryWriter(File.Open(path, FileMode.Create)))
+            /*using (var writer = new BinaryWriter(File.Open(path, FileMode.Create)))
             {
                 WriteVersion(writer);
                 WriteTemperatureFormat(writer);
                 WriteActiveSkin(writer);
                 WriteActiveFontFamily(writer);
-            }
+            }*/
         }
         
         private void WriteActiveFontFamily(BinaryWriter writer)
