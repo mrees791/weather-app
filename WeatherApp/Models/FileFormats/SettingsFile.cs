@@ -14,11 +14,8 @@ using WeatherLibrary.Models;
 namespace WeatherApp.Models.FileFormats
 {
     [XmlRoot(ElementName = "settings")]
-    public class SettingsFile : FileBase
+    public class SettingsFile : XmlFileBase
     {
-        private XmlSerializer serializer;
-        private string versionString;
-        private Version version;
         private TemperatureFormat defaultTemperatureFormat;
         private TemperatureFormat activeTemperatureFormat;
         private WpfSkin activeSkin;
@@ -31,8 +28,6 @@ namespace WeatherApp.Models.FileFormats
         public SettingsFile()
         {
             serializer = new XmlSerializer(typeof(FavoritesFile));
-            version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            versionString = version.ToString();
 
             defaultTemperatureFormat = TemperatureFormat.Fahrenheit;
             activeTemperatureFormat = defaultTemperatureFormat;
@@ -57,7 +52,7 @@ namespace WeatherApp.Models.FileFormats
             };
         }
 
-        public void ReadFile(string path)
+        public override void ReadFile(string path)
         {
             /*using (var reader = new BinaryReader(File.Open(path, FileMode.Open)))
             {
@@ -109,14 +104,14 @@ namespace WeatherApp.Models.FileFormats
             return reader.ReadString();
         }
 
-        public void SetDefaults()
+        public override void SetDefaults()
         {
             activeTemperatureFormat = TemperatureFormat.Fahrenheit;
             activeSkin = skins[0];
             activeFontFamily = defaultFont;
         }
 
-        public void WriteFile(string path)
+        public override void WriteFile(string path)
         {
             /*using (var writer = new BinaryWriter(File.Open(path, FileMode.Create)))
             {
