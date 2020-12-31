@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace WeatherApp.Models.FileFormats
 {
-    [XmlRoot(ElementName = "favoritesFile")]
+    [XmlRoot(ElementName = "favorites")]
     public class FavoritesFile : FileBase
     {
         private XmlSerializer serializer;
@@ -68,7 +68,7 @@ namespace WeatherApp.Models.FileFormats
             this.zipCodes.Clear();
         }
 
-        [XmlElement(ElementName = "zipCode")]
+        [XmlElement(ElementName = "zip")]
         public List<string> ZipCodes { get => zipCodes; }
         public Version Version { get => version; }
         [XmlAttribute("appVersion")]
