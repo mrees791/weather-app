@@ -7,9 +7,8 @@ using System.Xml.Serialization;
 
 namespace WeatherApp.Models.FileFormats
 {
-    public abstract class XmlFileBase : FileBase
+    public abstract class XmlFileBase
     {
-        protected XmlSerializer serializer;
         protected string versionString;
         protected Version version;
 
@@ -33,8 +32,6 @@ namespace WeatherApp.Models.FileFormats
             }
         }
 
-        public abstract void ReadFile(string path);
         public abstract void SetDefaults();
-        public abstract void WriteFile(string path);
     }
 }

@@ -11,12 +11,11 @@ namespace WeatherApp.Models.FileFormats
     [XmlRoot(ElementName = "favorites")]
     public class FavoritesFile : XmlFileBase
     {
-        private List<string> zipCodes;
+        private HashSet<string> zipCodes;
 
         public FavoritesFile()
         {
-            serializer = new XmlSerializer(typeof(FavoritesFile));
-            zipCodes = new List<string>();
+            zipCodes = new HashSet<string>();
         }
 
         public bool HasZipCodeEntry(string zipCode)
@@ -24,17 +23,17 @@ namespace WeatherApp.Models.FileFormats
             return zipCodes.Contains(zipCode);
         }
 
-        public void AddZipCodeEntry(string zipCode)
+        public bool AddZipCodeEntry(string zipCode)
         {
-            zipCodes.Add(zipCode);
+            return zipCodes.Add(zipCode);
         }
 
-        public void RemoveZipCodeEntry(string zipCode)
+        public bool RemoveZipCodeEntry(string zipCode)
         {
-            zipCodes.Remove(zipCode);
+            return zipCodes.Remove(zipCode);
         }
 
-        public override void ReadFile(string path)
+        /*public override void ReadFile(string path)
         {
             SetDefaults();
 
@@ -56,14 +55,14 @@ namespace WeatherApp.Models.FileFormats
             {
                 serializer.Serialize(writer, this);
             }
-        }
+        }*/
 
         public override void SetDefaults()
         {
-            this.zipCodes.Clear();
+            zipCodes.Clear();
         }
 
         [XmlElement(ElementName = "zip")]
-        public List<string> ZipCodes { get => zipCodes; }
+        public HashSet<string> ZipCodes { get => zipCodes; }
     }
 }

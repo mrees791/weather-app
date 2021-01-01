@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeatherApp.Models;
 using WeatherApp.Models.FileFormats;
 using WeatherApp.Utility;
 using WeatherLibrary.Models.OpenWeatherMap;
@@ -16,39 +17,43 @@ namespace WeatherApp.ViewModel
         private bool hasError;
         private string errorMessage;
         private ObservableCollection<FavoritesBoxViewModel> favoritesBoxViewModels;
-        private FavoritesFile favoritesFile;
+        private AppFiles appFiles;
 
         public FavoritesPageViewModel()
         {
+            appFiles = ((App)App.Current).AppFiles;
             favoritesBoxViewModels = new ObservableCollection<FavoritesBoxViewModel>();
+
+            LoadFavoritesFile();
         }
 
         public void RemoveFavoriteZipCode(string zipCode)
         {
-            favoritesFile.RemoveZipCodeEntry(zipCode);
+            if (appFiles.FavoritesFile.RemoveZipCodeEntry(zipCode))
+            {
+                RemoveFavoritesBoxVm(zipCode);
+            }
+        }
 
+        private void RemoveFavoritesBoxVm(string zipCode)
+        {
             var favoritesBoxEntry = favoritesBoxViewModels.Where(fbvm => fbvm.ZipCode == zipCode).FirstOrDefault();
 
             if (favoritesBoxEntry != null)
             {
                 favoritesBoxViewModels.Remove(favoritesBoxEntry);
-                SaveFavoritesFile();
             }
         }
 
-        public void AddNewFavoriteZipCode(string zipCode, OneCall oneCall)
+        public void AddNewFavoriteZipCode(string zipCode)
         {
-            if (!favoritesFile.HasZipCodeEntry(zipCode))
+            if (appFiles.FavoritesFile.AddZipCodeEntry(zipCode))
             {
-                favoritesFile.AddZipCodeEntry(zipCode);
-
-                AddNewFavoritesBoxVm(zipCode, oneCall);
-
-                SaveFavoritesFile();
+                AddNewFavoritesBoxVm(zipCode);
             }
         }
 
-        private void AddNewFavoritesBoxVm(string zipCode, OneCall oneCall)
+        private void AddNewFavoritesBoxVm(string zipCode)
         {
             var favoritesBoxVm = new FavoritesBoxViewModel(zipCode);
             favoritesBoxVm.ZipCode = zipCode;
@@ -56,23 +61,16 @@ namespace WeatherApp.ViewModel
             favoritesBoxViewModels.Add(favoritesBoxVm);
         }
 
-        public void SaveFavoritesFile()
-        {
-            favoritesFile.WriteFile(AppDirectories.FavoritesFile);
-        }
-
-        public void LoadFavoritesFile(OneCall oneCall)
+        public void LoadFavoritesFile()
         {
             HasError = false;
             ErrorMessage = string.Empty;
 
             try
             {
-                favoritesFile.ReadFile(AppDirectories.FavoritesFile);
-
-                foreach (var zipCode in favoritesFile.ZipCodes)
+                foreach (var zipCode in appFiles.FavoritesFile.ZipCodes)
                 {
-                    AddNewFavoritesBoxVm(zipCode, oneCall);
+                    AddNewFavoritesBoxVm(zipCode);
                 }
             }
             catch (Exception ex)
@@ -102,7 +100,6 @@ namespace WeatherApp.ViewModel
         }
 
         public ObservableCollection<FavoritesBoxViewModel> FavoritesBoxViewModels { get => favoritesBoxViewModels; }
-        public FavoritesFile FavoritesFile { get => favoritesFile; set => favoritesFile = value; }
         public bool HasError { get => hasError; set { hasError = value; RaisePropertyChanged(); } }
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; RaisePropertyChanged(); } }
     }

@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using WeatherApp.Models;
 using WeatherApp.Models.FileFormats;
+using WeatherApp.Models.UI;
 using WeatherApp.Utility;
 using WeatherLibrary.Models;
 
@@ -22,7 +23,7 @@ namespace WeatherApp.ViewModel
     public class UserSettingsViewModel : ViewModelBase
     {
         private readonly string baseStyleFileName = "Styles/BaseStyle.xaml";
-        private SettingsFile settingsFile;
+        private AppFiles appFiles;
         private ObservableCollection<WpfSkinViewModel> skinViewModels;
         private ObservableCollection<FontFamilyViewModel> systemFontViewModels;
 
@@ -48,16 +49,17 @@ namespace WeatherApp.ViewModel
         private ICommand setCelsiusTemperatureCommand;
         public ICommand SetCelsiusTemperatureCommand { get => setCelsiusTemperatureCommand; }
 
+        private WpfSkin[] skins;
+
         public UserSettingsViewModel()
         {
-            settingsFile = new SettingsFile();
+            appFiles = ((App)App.Current).AppFiles;
+
+            InitializeSkins();
             CreateSkinViewModels();
             InitializeSystemFonts();
-            ActiveSkinVm = skinViewModels[0];
-            SelectedSkinVm = ActiveSkinVm;
 
-            ActiveFontVm = defaultFontVm;
-            SelectedFontVm = ActiveFontVm;
+            LoadSettings();
 
             applySettingsCommand = new RelayCommand(() =>
             {
@@ -75,18 +77,25 @@ namespace WeatherApp.ViewModel
             {
                 ActiveTemperatureFormat = TemperatureFormat.Celsius;
             });
-
-            LoadSettings();
         }
 
-        private void SaveSettings()
+        private void InitializeSkins()
         {
-            settingsFile.WriteFile(AppDirectories.SettingsFile);
+            skins = new WpfSkin[]
+            {
+                new Models.UI.WpfSkin("Light Blue", "Skins/Skin1.xaml"),
+                new Models.UI.WpfSkin("Light Red", "Skins/Skin2.xaml"),
+                new Models.UI.WpfSkin("Light Gray", "Skins/Skin3.xaml")
+            };
         }
 
         private void LoadSettings()
         {
-            if (!File.Exists(AppDirectories.SettingsFile))
+            SelectedFontVm = systemFontViewModels.Where(vm => vm.FontFamily.Name == appFiles.SettingsFile.ActiveFontName).FirstOrDefault();
+            SelectedSkinVm = skinViewModels.Where(vm => vm.WpfSkin.DisplayName == appFiles.SettingsFile.ActiveSkinName).FirstOrDefault();
+            ActiveTemperatureFormat = appFiles.SettingsFile.ActiveTemperatureFormat;
+            ApplySettings();
+            /*if (!File.Exists(AppDirectories.SettingsFile))
             {
                 SetDefaultSettings();
             }
@@ -97,7 +106,7 @@ namespace WeatherApp.ViewModel
                     settingsFile.ReadFile(AppDirectories.SettingsFile);
                     SelectedFontVm = systemFontViewModels.Where(vm => vm.FontFamily.Name == settingsFile.ActiveFontFamily.Name).FirstOrDefault();
                     SelectedSkinVm = skinViewModels.Where(vm => vm.WpfSkin == settingsFile.ActiveSkin).FirstOrDefault();
-                    ActiveTemperatureFormat = settingsFile.TemperatureFormat;
+                    ActiveTemperatureFormat = settingsFile.ActiveTemperatureFormat;
                     ApplySettings();
                 }
                 catch (Exception ex)
@@ -105,28 +114,30 @@ namespace WeatherApp.ViewModel
                     MessageBox.Show(ex.Message);
                     SetDefaultSettings();
                 }
-            }
+            }*/
         }
 
         private void SetDefaultSettings()
         {
-            settingsFile.SetDefaults();
-            SelectedFontVm = systemFontViewModels.Where(vm => vm.FontFamily.Name == settingsFile.ActiveFontFamily.Name).FirstOrDefault();
-            SelectedSkinVm = skinViewModels.Where(vm => vm.WpfSkin == settingsFile.ActiveSkin).FirstOrDefault();
-            ActiveTemperatureFormat = settingsFile.TemperatureFormat;
+            appFiles.SettingsFile.SetDefaults();
             ApplySettings();
+            /*SelectedFontVm = systemFontViewModels.Where(vm => vm.FontFamily.Name == settingsFile.ActiveFontFamily.Name).FirstOrDefault();
+            SelectedSkinVm = skinViewModels.Where(vm => vm.WpfSkin.DisplayName == settingsFile.ActiveSkinName).FirstOrDefault();
+            ActiveTemperatureFormat = settingsFile.ActiveTemperatureFormat;
+            ApplySettings();*/
         }
 
         private void InitializeSystemFonts()
         {
             systemFontViewModels = new ObservableCollection<FontFamilyViewModel>();
+            var systemFonts = new InstalledFontCollection().Families;
 
-            foreach (var font in settingsFile.SystemFonts)
+            foreach (var font in systemFonts)
             {
                 var fontVm = new FontFamilyViewModel(font);
                 systemFontViewModels.Add(fontVm);
 
-                if (font.Name == settingsFile.DefaultFont.Name)
+                if (font.Name == System.Drawing.SystemFonts.DefaultFont.FontFamily.Name)
                 {
                     defaultFontVm = fontVm;
                 }
@@ -137,14 +148,13 @@ namespace WeatherApp.ViewModel
         {
             ActiveFontVm = SelectedFontVm;
             ActiveSkinVm = SelectedSkinVm;
-            settingsFile.WriteFile(AppDirectories.SettingsFile);
         }
 
         private void CreateSkinViewModels()
         {
             skinViewModels = new ObservableCollection<WpfSkinViewModel>();
 
-            foreach (var skin in settingsFile.Skins)
+            foreach (var skin in skins)
             {
                 skinViewModels.Add(new WpfSkinViewModel(skin));
             }
@@ -168,7 +178,8 @@ namespace WeatherApp.ViewModel
             set
             {
                 activeSkinVm = value;
-                settingsFile.ActiveSkin = activeSkinVm.WpfSkin;
+                appFiles.SettingsFile.ActiveSkinName = activeSkinVm.DisplayName;
+                //settingsFile.ActiveSkin = activeSkinVm.WpfSkin;
                 UpdateSkinResources();
                 RaisePropertyChanged();
             }
@@ -183,14 +194,13 @@ namespace WeatherApp.ViewModel
             baseStyle.Source = new Uri(baseStyleFileName, UriKind.Relative);
             currentResources.MergedDictionaries.Add(baseStyle);
             var skinDict = new ResourceDictionary();
-            skinDict.Source = new Uri(settingsFile.ActiveSkin.FileName, UriKind.Relative);
+            skinDict.Source = new Uri(activeSkinVm.WpfSkin.FileName, UriKind.Relative);
             currentResources.MergedDictionaries.Add(skinDict);
         }
 
         public ObservableCollection<FontFamilyViewModel> SystemFontViewModels { get => systemFontViewModels; }
         public FontFamilyViewModel SelectedFontVm { get => selectedFontVm; set { selectedFontVm = value; RaisePropertyChanged(); } }
-        public FontFamilyViewModel ActiveFontVm { get => activeFontVm; set { activeFontVm = value; settingsFile.ActiveFontFamily = activeFontVm.FontFamily; RaisePropertyChanged(); } }
-        public SettingsFile SettingsFile { get => settingsFile; }
-        public TemperatureFormat ActiveTemperatureFormat { get => activeTemperatureFormat; set { activeTemperatureFormat = value; settingsFile.TemperatureFormat = value; SaveSettings(); RaisePropertyChanged(); } }
+        public FontFamilyViewModel ActiveFontVm { get => activeFontVm; set { activeFontVm = value; appFiles.SettingsFile.ActiveFontName = activeFontVm.FontFamily.Name; RaisePropertyChanged(); } }
+        public TemperatureFormat ActiveTemperatureFormat { get => activeTemperatureFormat; set { activeTemperatureFormat = value; appFiles.SettingsFile.ActiveTemperatureFormat = value; RaisePropertyChanged(); } }
     }
 }

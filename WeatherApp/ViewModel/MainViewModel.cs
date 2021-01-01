@@ -72,7 +72,7 @@ namespace WeatherApp.ViewModel
         private bool currentZipIsFavorited;
 
         // Files
-        private FavoritesFile favoritesFile;
+        private AppFiles appFiles;
 
         public MainViewModel()
         {
@@ -84,7 +84,8 @@ namespace WeatherApp.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
-            
+            appFiles = ((App)App.Current).AppFiles;
+
             vml = App.Current.Resources["Locator"] as ViewModelLocator;
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             WindowTitle = string.Format("Weather v{0}.{1}", version.Major, version.Minor);
@@ -135,13 +136,12 @@ namespace WeatherApp.ViewModel
 
         private void InitializeFiles()
         {
-            Directory.CreateDirectory(AppDirectories.UserDataDirectory);
             InitializeFavoritesFile();
         }
 
         private void InitializeFavoritesFile()
         {
-            favoritesFile = new FavoritesFile();
+            /*favoritesFile = new FavoritesFile();
             vml.FavoritesPageVm.FavoritesFile = favoritesFile;
 
             if (File.Exists(AppDirectories.FavoritesFile))
@@ -151,7 +151,7 @@ namespace WeatherApp.ViewModel
             else
             {
                 vml.FavoritesPageVm.SaveFavoritesFile();
-            }
+            }*/
         }
 
         private void UpdateWeatherData()
@@ -161,7 +161,7 @@ namespace WeatherApp.ViewModel
 
         private void UpdateFavoriteButton()
         {
-            CurrentZipIsFavorited = favoritesFile.HasZipCodeEntry(zipInput);
+            CurrentZipIsFavorited = appFiles.FavoritesFile.HasZipCodeEntry(zipInput);
         }
 
         /*private void UpdateWeatherPageVm()
@@ -227,7 +227,7 @@ namespace WeatherApp.ViewModel
             {
                 if (!currentZipIsFavorited)
                 {
-                    vml.FavoritesPageVm.AddNewFavoriteZipCode(zipInput, oneCallRequest.OneCall);
+                    vml.FavoritesPageVm.AddNewFavoriteZipCode(zipInput);
                 }
                 else
                 {
