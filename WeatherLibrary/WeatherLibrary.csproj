@@ -44,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiInfo.cs" />
     <Compile Include="Models\OpenWeatherMap\CurrentWeather.cs" />
     <Compile Include="Models\OpenWeatherMap\DailyEntry.cs" />
     <Compile Include="Models\OpenWeatherMap\DailyTemperature.cs" />

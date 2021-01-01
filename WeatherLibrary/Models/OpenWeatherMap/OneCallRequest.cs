@@ -26,10 +26,8 @@ namespace WeatherLibrary.Models.OpenWeatherMap
 
             using (var webClient = new System.Net.WebClient())
             {
-                string appId = ApiInfo.AppId;
-
                 webClient.Headers.Add("user-agent", "Requesting one-call object.");
-                string oneCallRequestUrl = string.Format("https://api.openweathermap.org/data/2.5/onecall?lat={0}&lon={1}&exclude=minutely,alerts&units=metric&appid={2}", latitude, longitude, appId);
+                string oneCallRequestUrl = string.Format("https://api.openweathermap.org/data/2.5/onecall?lat={0}&lon={1}&exclude=minutely,alerts&units=metric&appid=3100d50a8e2711f5ffd084405ec5cbb5", latitude, longitude);
 
                 string jsonOneCall = webClient.DownloadString(oneCallRequestUrl);
                 oneCall = JsonConvert.DeserializeObject<OneCall>(jsonOneCall);
