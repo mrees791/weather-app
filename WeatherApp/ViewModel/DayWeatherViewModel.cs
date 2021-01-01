@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeatherApp.Models.UI;
 using WeatherLibrary.Models;
 
 namespace WeatherApp.ViewModel
@@ -16,12 +17,13 @@ namespace WeatherApp.ViewModel
         private string temperatureFahrenheitMin;
         private string temperatureFahrenheitMax;
         private string description;
-        private string iconUrl;
         private WeatherType weatherType;
+        private WeatherIcon weatherIcon;
+        private string iconUrl;
 
         public DayWeatherViewModel()
         {
-            weatherType = WeatherType.Unknown;
+            WeatherType = WeatherType.Unknown;
         }
 
         public string Date { get => date; set { date = value; RaisePropertyChanged(); } }
@@ -31,8 +33,8 @@ namespace WeatherApp.ViewModel
         public string TemperatureFahrenheitMax { get => temperatureFahrenheitMax; set { temperatureFahrenheitMax = value; RaisePropertyChanged(); } }
         public string Description { get => description; set { description = value; RaisePropertyChanged(); } }
 
-        public string IconUrl { get => iconUrl; set { iconUrl = value; RaisePropertyChanged(); } }
+        public string IconUrl { get => iconUrl; private set { iconUrl = value; RaisePropertyChanged(); } }
 
-        public WeatherType WeatherType { get => weatherType; set => weatherType = value; }
+        public WeatherType WeatherType { get => weatherType; set { weatherType = value; weatherIcon = new WeatherIcon(WeatherType); IconUrl = weatherIcon.IconUrl; } }
     }
 }

@@ -42,7 +42,7 @@ namespace WeatherApp.ViewModel
             for (int i = 0; i < NumberOfDailyEntries; i++)
             {
                 var dayWeatherVm = new DayWeatherViewModel();
-                dayWeatherVm.IconUrl = GetIconUrl(dayWeatherVm);
+                //dayWeatherVm.IconUrl = GetIconUrl(dayWeatherVm);
                 dayWeatherViewModels.Add(dayWeatherVm);
             }
         }
@@ -111,7 +111,7 @@ namespace WeatherApp.ViewModel
                 vm.TemperatureCelsiusMax = string.Format("{0:0.00}", temperatureHigh.Celsius);
                 vm.TemperatureFahrenheitMin = string.Format("{0:0.00}", temperatureLow.Fahrenheit);
                 vm.TemperatureFahrenheitMax = string.Format("{0:0.00}", temperatureHigh.Fahrenheit);
-                vm.IconUrl = GetIconUrl(vm);
+                //vm.IconUrl = GetIconUrl(vm);
             }
         }
 

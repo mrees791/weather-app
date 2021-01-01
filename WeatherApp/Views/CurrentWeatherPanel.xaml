@@ -7,6 +7,7 @@
              xmlns:vm="clr-namespace:WeatherApp.ViewModel"
              mc:Ignorable="d">
     <StackPanel HorizontalAlignment="Center" DataContext="{Binding CurrentWeatherVm}">
+        <Frame Source="{Binding IconUrl}" IsTabStop="False" NavigationUIVisibility="Hidden"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="{Binding City}" FontSize="18"/>
             <TextBlock Text=", " FontSize="18"/>
@@ -16,7 +17,6 @@
             <TextBlock Text="{Binding TemperatureFahrenheit}" HorizontalAlignment="Center" FontSize="36" Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}"/>
             <TextBlock Text="{Binding TemperatureCelsius}" HorizontalAlignment="Center" FontSize="36" Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}"/>
         </StackPanel>
-        <TextBlock Text="{Binding ShortForecast}" HorizontalAlignment="Center" FontSize="12"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="Last Updated: "/>
             <TextBlock Text="{Binding LastUpdateTime}"/>
