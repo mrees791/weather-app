@@ -65,11 +65,8 @@ namespace WeatherApp.ViewModel
         private OneCallRequest oneCallRequest;
         private ZippoRequest zipRequest;
 
-        private DateTime requestTime;
-
         private HourlyChartViewModel hourlyChartFahrenheitVm;
         private HourlyChartViewModel hourlyChartCelsiusVm;
-        private CurrentWeatherViewModel currentWeatherVm;
         private WeatherPageViewModel weatherPageVm;
 
         private bool currentZipIsFavorited;
