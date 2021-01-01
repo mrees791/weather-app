@@ -8,17 +8,16 @@ using WeatherLibrary.Models;
 
 namespace WeatherApp.Models.UI
 {
-
+    /// <summary>
+    /// Gets the icon URL for different weather types.
+    /// </summary>
     public class WeatherIcon
     {
-        private string iconUrl;
-
-        public WeatherIcon(WeatherType weatherType)
+        public WeatherIcon()
         {
-            this.iconUrl = GetIconUrl(weatherType);
         }
 
-        private string GetIconUrl(WeatherType weatherType)
+        public string GetIconUrl(WeatherType weatherType)
         {
             string iconDirectory = AppDirectories.IconDirectory;
 
@@ -36,7 +35,5 @@ namespace WeatherApp.Models.UI
 
             return iconDirectory + "unknown.xaml";
         }
-
-        public string IconUrl { get => iconUrl; }
     }
 }

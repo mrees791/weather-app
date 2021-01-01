@@ -13,13 +13,18 @@ namespace WeatherApp.ViewModel
 {
     public class CurrentWeatherViewModel : ViewModelBase
     {
+        private WeatherIcon weatherIcon;
         private string lastUpdateTime;
         private string city;
         private string state;
         private string temperatureFahrenheit;
         private string temperatureCelsius;
         private string iconUrl;
-        private WeatherIcon weatherIcon;
+
+        public CurrentWeatherViewModel()
+        {
+            weatherIcon = new WeatherIcon();
+        }
 
         public void UpdateCurrentWeather(OneCallRequest oneCallRequest, ZippoRequest zipCodeRequest)
         {
@@ -33,18 +38,14 @@ namespace WeatherApp.ViewModel
             State = place.State;
             TemperatureFahrenheit = string.Format("{0:0.##}º F", temperature.Fahrenheit);
             TemperatureCelsius = string.Format("{0:0.##}º C", temperature.Celsius);
-            weatherIcon = new WeatherIcon(weatherType);
-            IconUrl = weatherIcon.IconUrl;
+            IconUrl = weatherIcon.GetIconUrl(weatherType);
         }
 
-        public string LastUpdateTime { get => lastUpdateTime; set { lastUpdateTime = value; RaisePropertyChanged(); } }
-
-        public string City { get => city; set { city = value; RaisePropertyChanged(); } }
-        public string State { get => state; set { state = value; RaisePropertyChanged(); } }
-        public string TemperatureFahrenheit { get => temperatureFahrenheit; set { temperatureFahrenheit = value; RaisePropertyChanged(); } }
-
-        public string TemperatureCelsius { get => temperatureCelsius; set { temperatureCelsius = value; RaisePropertyChanged(); } }
-
+        public string LastUpdateTime { get => lastUpdateTime; private set { lastUpdateTime = value; RaisePropertyChanged(); } }
+        public string City { get => city; private set { city = value; RaisePropertyChanged(); } }
+        public string State { get => state; private set { state = value; RaisePropertyChanged(); } }
+        public string TemperatureFahrenheit { get => temperatureFahrenheit; private set { temperatureFahrenheit = value; RaisePropertyChanged(); } }
+        public string TemperatureCelsius { get => temperatureCelsius; private set { temperatureCelsius = value; RaisePropertyChanged(); } }
         public string IconUrl { get => iconUrl; private set { iconUrl = value; RaisePropertyChanged(); } }
     }
 }
