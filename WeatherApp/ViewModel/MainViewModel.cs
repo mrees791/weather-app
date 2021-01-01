@@ -51,10 +51,12 @@ namespace WeatherApp.ViewModel
         private ICommand favoriteCurrentZipCommand;
         private ICommand searchZipCodeCommand;
         private ICommand searchNewZipCodeCommand;
+        private RelayCommand refreshWeatherCommand;
         private bool showWeatherPage;
         private bool showFavoritesPage;
         private bool showSettingsPage;
 
+        private string currentZip;
         private string zipInput;
 
         private bool zipIsValid;
@@ -137,14 +139,21 @@ namespace WeatherApp.ViewModel
             }).Start();
         }
 
+        private void RefreshWeather()
+        {
+            UpdateWeatherData(currentZip);
+            SetCurrentPageToWeatherPage();
+        }
+
         private void SearchCurrentZip()
         {
             ValidateZip();
 
             if (zipIsValid)
             {
+                currentZip = ZipInput;
                 UpdateFavoriteButton();
-                UpdateWeatherData();
+                UpdateWeatherData(ZipInput);
                 SetCurrentPageToWeatherPage();
             }
         }
@@ -169,9 +178,9 @@ namespace WeatherApp.ViewModel
             }*/
         }
 
-        private void UpdateWeatherData()
+        private void UpdateWeatherData(string zip)
         {
-            weatherPageVm.UpdateWeatherData(zipInput);
+            weatherPageVm.UpdateWeatherData(zip);
         }
 
         private void UpdateFavoriteButton()
@@ -215,6 +224,10 @@ namespace WeatherApp.ViewModel
             {
                 this.ZipInput = zip;
                 SearchCurrentZip();
+            });
+            refreshWeatherCommand = new RelayCommand(() =>
+            {
+                RefreshWeather();
             });
         }
 
@@ -298,5 +311,6 @@ namespace WeatherApp.ViewModel
 
         public HourlyChartViewModel HourlyChartFahrenheitVm { get => hourlyChartFahrenheitVm; }
         public HourlyChartViewModel HourlyChartCelsiusVm { get => hourlyChartCelsiusVm; }
+        public RelayCommand RefreshWeatherCommand { get => refreshWeatherCommand; }
     }
 }

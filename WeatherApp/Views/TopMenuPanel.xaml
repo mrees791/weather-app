@@ -14,13 +14,31 @@
         </StackPanel>
         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
             <StackPanel Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Style.Resources>
+                            <Style TargetType="{x:Type Frame}">
+                                <Setter Property="Margin" Value="5"/>
+                                <Setter Property="Width" Value="25"/>
+                                <Setter Property="Height" Value="25"/>
+                                <Setter Property="IsTabStop" Value="False"/>
+                                <Setter Property="NavigationUIVisibility" Value="Hidden"/>
+                            </Style>
+                        </Style.Resources>
+                    </Style>
+                </StackPanel.Resources>
                 <TextBlock Text="{Binding ZipErrorMessage}" VerticalAlignment="Center" Foreground="{DynamicResource ZipErrorMessageForeground}"/>
+                <Button Command="{Binding RefreshWeatherCommand}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Frame Source="/WeatherApp;component/Resources/Images/reload.xaml"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
                 <Button Command="{Binding FavoriteCurrentZipCommand}">
                     <Button.Template>
                         <ControlTemplate>
-                            <Border Margin="5">
-                                <Frame Source="{Binding CurrentZipIsFavorited,Converter={StaticResource FavoritesStarIconConverter}}" IsTabStop="False" NavigationUIVisibility="Hidden" Width="25" Height="25"/>
-                            </Border>
+                            <Frame Source="{Binding CurrentZipIsFavorited,Converter={StaticResource FavoritesStarIconConverter}}"/>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>

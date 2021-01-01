@@ -8,9 +8,11 @@
         DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"
         mc:Ignorable="d"
         Title="{Binding WindowTitle}" Icon="Resources/Images/icon.ico" Padding="0" Margin="0">
+    <Window.InputBindings>
+        <KeyBinding Key="F5" Command="{Binding RefreshWeatherCommand}"/>
+    </Window.InputBindings>
     <DockPanel LastChildFill="True" Style="{DynamicResource MainPanel}" Margin="0">
         <views:TopMenuPanel DockPanel.Dock="Top"/>
-        <!--<TextBox DockPanel.Dock="Top" Text="{Binding ErrorMessage}" IsReadOnly="True"/>-->
         <Grid Margin="0">
             <views:WeatherPage Visibility="{Binding ShowWeatherPage,Converter={StaticResource CollapseIfFalseConverter}}" DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"/>
             <views:FavoritesPage Visibility="{Binding ShowFavoritesPage,Converter={StaticResource CollapseIfFalseConverter}}" DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"/>
