@@ -100,7 +100,7 @@ namespace WeatherApp.ViewModel
         private void SetDefaultSettings()
         {
             appFiles.SettingsFile.SetDefaults();
-            ApplySettings();
+            LoadSettings();
         }
 
         private void InitializeSystemFonts()
