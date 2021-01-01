@@ -11,11 +11,11 @@ namespace WeatherApp.Models.FileFormats
     [XmlRoot(ElementName = "favorites")]
     public class FavoritesFile : XmlFileBase
     {
-        private HashSet<string> zipCodes;
+        private List<string> zipCodes;
 
         public FavoritesFile()
         {
-            zipCodes = new HashSet<string>();
+            zipCodes = new List<string>();
         }
 
         public bool HasZipCodeEntry(string zipCode)
@@ -25,7 +25,15 @@ namespace WeatherApp.Models.FileFormats
 
         public bool AddZipCodeEntry(string zipCode)
         {
-            return zipCodes.Add(zipCode);
+            if (zipCodes.Contains(zipCode))
+            {
+                return false;
+            }
+            else
+            {
+                zipCodes.Add(zipCode);
+                return true;
+            }
         }
 
         public bool RemoveZipCodeEntry(string zipCode)
@@ -63,6 +71,6 @@ namespace WeatherApp.Models.FileFormats
         }
 
         [XmlElement(ElementName = "zip")]
-        public HashSet<string> ZipCodes { get => zipCodes; }
+        public List<string> ZipCodes { get => zipCodes; }
     }
 }

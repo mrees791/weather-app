@@ -95,36 +95,12 @@ namespace WeatherApp.ViewModel
             SelectedSkinVm = skinViewModels.Where(vm => vm.WpfSkin.DisplayName == appFiles.SettingsFile.ActiveSkinName).FirstOrDefault();
             ActiveTemperatureFormat = appFiles.SettingsFile.ActiveTemperatureFormat;
             ApplySettings();
-            /*if (!File.Exists(AppDirectories.SettingsFile))
-            {
-                SetDefaultSettings();
-            }
-            else
-            {
-                try
-                {
-                    settingsFile.ReadFile(AppDirectories.SettingsFile);
-                    SelectedFontVm = systemFontViewModels.Where(vm => vm.FontFamily.Name == settingsFile.ActiveFontFamily.Name).FirstOrDefault();
-                    SelectedSkinVm = skinViewModels.Where(vm => vm.WpfSkin == settingsFile.ActiveSkin).FirstOrDefault();
-                    ActiveTemperatureFormat = settingsFile.ActiveTemperatureFormat;
-                    ApplySettings();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    SetDefaultSettings();
-                }
-            }*/
         }
 
         private void SetDefaultSettings()
         {
             appFiles.SettingsFile.SetDefaults();
             ApplySettings();
-            /*SelectedFontVm = systemFontViewModels.Where(vm => vm.FontFamily.Name == settingsFile.ActiveFontFamily.Name).FirstOrDefault();
-            SelectedSkinVm = skinViewModels.Where(vm => vm.WpfSkin.DisplayName == settingsFile.ActiveSkinName).FirstOrDefault();
-            ActiveTemperatureFormat = settingsFile.ActiveTemperatureFormat;
-            ApplySettings();*/
         }
 
         private void InitializeSystemFonts()
@@ -179,7 +155,6 @@ namespace WeatherApp.ViewModel
             {
                 activeSkinVm = value;
                 appFiles.SettingsFile.ActiveSkinName = activeSkinVm.DisplayName;
-                //settingsFile.ActiveSkin = activeSkinVm.WpfSkin;
                 UpdateSkinResources();
                 RaisePropertyChanged();
             }

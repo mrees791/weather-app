@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Command;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System;
+using System.Device.Location;
 using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -92,9 +93,9 @@ namespace WeatherApp.ViewModel
 
             oneCallRequest = new OneCallRequest();
             zipRequest = new ZippoRequest();
-
             searchSettings = new SearchSettings();
-            ZipInput = "43762";
+
+            ZipInput = GetDefaultZip();
 
             SetCurrentPageToWeatherPage();
             weatherPageVm = vml.WeatherPageVm;
@@ -106,6 +107,20 @@ namespace WeatherApp.ViewModel
             //InitializeUpdater();
 
             SearchCurrentZip();
+        }
+
+        /// <summary>
+        /// This is a temporary solution until we can register for zipcodeapi.com to find the user's current zip code.
+        /// </summary>
+        /// <returns></returns>
+        private string GetDefaultZip()
+        {
+            if (appFiles.FavoritesFile.ZipCodes.Count > 0)
+            {
+                return appFiles.FavoritesFile.ZipCodes[0];
+            }
+
+            return "43701";
         }
 
         private void InitializeUpdater()
