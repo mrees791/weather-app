@@ -7,7 +7,7 @@
     <SolidColorBrush x:Key="DefaultButtonForeground" Color="Black"/>
     <SolidColorBrush x:Key="ActiveButtonBackground" Color="#cfe7ff"/>
     <SolidColorBrush x:Key="ActiveButtonForeground" Color="Black"/>
-    <SolidColorBrush x:Key="MainPanelBackground" Color="#e6f2ff"/>
+    <SolidColorBrush x:Key="MainPanelBackground" Color="#8bc1ff"/>
     <SolidColorBrush x:Key="TopMenuDockPanelBackground" Color="#5885ae"/>
     <SolidColorBrush x:Key="ZipErrorMessageForeground" Color="White"/>
     <!-- Hourly chart colors -->

@@ -13,7 +13,6 @@ namespace WeatherApp.ViewModel
 {
     public class CurrentWeatherViewModel : ViewModelBase
     {
-        private WeatherIcon weatherIcon;
         private string lastUpdateTime;
         private string city;
         private string state;
@@ -23,7 +22,6 @@ namespace WeatherApp.ViewModel
 
         public CurrentWeatherViewModel()
         {
-            weatherIcon = new WeatherIcon();
         }
 
         public void UpdateCurrentWeather(OneCallRequest oneCallRequest, ZippoRequest zipCodeRequest)
@@ -38,7 +36,7 @@ namespace WeatherApp.ViewModel
             State = place.State;
             TemperatureFahrenheit = string.Format("{0:0.##}º F", temperature.Fahrenheit);
             TemperatureCelsius = string.Format("{0:0.##}º C", temperature.Celsius);
-            IconUrl = weatherIcon.GetIconUrl(weatherType);
+            IconUrl = weather.GetIconUrl();
         }
 
         public string LastUpdateTime { get => lastUpdateTime; private set { lastUpdateTime = value; RaisePropertyChanged(); } }

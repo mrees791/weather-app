@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WeatherApp.Views"
              xmlns:vm="clr-namespace:WeatherApp.ViewModel"
+             xmlns:views="clr-namespace:WeatherApp.Views"
              mc:Ignorable="d">
     <StackPanel HorizontalAlignment="Center" DataContext="{Binding CurrentWeatherVm}">
-        <Frame Source="{Binding IconUrl}" IsTabStop="False" NavigationUIVisibility="Hidden"/>
+        <!--<Frame Source="{Binding IconUrl}" IsTabStop="False" NavigationUIVisibility="Hidden"/>-->
+        <views:WeatherIconPanel/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="{Binding City}" FontSize="18"/>
             <TextBlock Text=", " FontSize="18"/>

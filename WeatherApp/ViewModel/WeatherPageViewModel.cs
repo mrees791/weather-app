@@ -121,6 +121,8 @@ namespace WeatherApp.ViewModel
                 vm.TemperatureCelsiusMax = string.Format("{0:0.00}", temperatureHigh.Celsius);
                 vm.TemperatureFahrenheitMin = string.Format("{0:0.00}", temperatureLow.Fahrenheit);
                 vm.TemperatureFahrenheitMax = string.Format("{0:0.00}", temperatureHigh.Fahrenheit);
+
+                vm.IconUrl = weather.GetIconUrl();
             }
         }
 

@@ -173,6 +173,9 @@
     <Compile Include="Views\TopMenuPanel.xaml.cs">
       <DependentUpon>TopMenuPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WeatherIconPanel.xaml.cs">
+      <DependentUpon>WeatherIconPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WeatherPage.xaml.cs">
       <DependentUpon>WeatherPage.xaml</DependentUpon>
     </Compile>
@@ -188,31 +191,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Resource Include="Resources\Images\sun1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-    <Resource Include="Resources\Images\cloud1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-    <Resource Include="Resources\Images\rain1.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-    <Resource Include="Resources\Images\unknown.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
     <Resource Include="Resources\Images\favorite_star_off.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
     <Resource Include="Resources\Images\favorite_star_on.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-    <Resource Include="Resources\Images\snow1.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
@@ -269,6 +252,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TopMenuPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WeatherIconPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

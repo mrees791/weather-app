@@ -33,7 +33,8 @@ namespace WeatherApp.ViewModel
         public string TemperatureFahrenheitMin { get => temperatureFahrenheitMin; set { temperatureFahrenheitMin = value; RaisePropertyChanged(); } }
         public string TemperatureFahrenheitMax { get => temperatureFahrenheitMax; set { temperatureFahrenheitMax = value; RaisePropertyChanged(); } }
         public string Description { get => description; set { description = value; RaisePropertyChanged(); } }
-        public string IconUrl { get => iconUrl; private set { iconUrl = value; RaisePropertyChanged(); } }
-        public WeatherType WeatherType { get => weatherType; set { weatherType = value; IconUrl = weatherIcon.GetIconUrl(weatherType); } }
+        public string IconUrl { get => iconUrl; set { iconUrl = value; RaisePropertyChanged(); } }
+        public WeatherType WeatherType { get => weatherType; set { weatherType = value; RaisePropertyChanged(); } }
+        //public WeatherType WeatherType { get => weatherType; set { weatherType = value; IconUrl = weatherIcon.GetIconUrl(weatherType); } }
     }
 }

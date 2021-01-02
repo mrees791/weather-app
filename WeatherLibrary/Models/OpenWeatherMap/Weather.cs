@@ -13,6 +13,8 @@ namespace WeatherLibrary.Models.OpenWeatherMap
         public string Description { get; set; }
         [JsonProperty("description")]
         public string DetailDescription { get; set; }
+        [JsonProperty("icon")]
+        public string IconId { get; set; }
 
         public WeatherType GetWeatherType()
         {
@@ -29,6 +31,11 @@ namespace WeatherLibrary.Models.OpenWeatherMap
                 default:
                     return WeatherType.Unknown;
             }
+        }
+
+        public string GetIconUrl()
+        {
+            return $"http://openweathermap.org/img/wn/{IconId}@4x.png";
         }
     }
 }
