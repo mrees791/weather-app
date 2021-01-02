@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         Title="{Binding WindowTitle}" Icon="Resources/Images/icon.ico" Padding="0" Margin="0">
     <Window.InputBindings>
-        <KeyBinding Key="F5" Command="{Binding RefreshWeatherCommand}"/>
+        <KeyBinding Key="F5" Command="{Binding Source={StaticResource Locator}, Path=TopMenuVm.RefreshWeatherCommand}"/>
     </Window.InputBindings>
     <DockPanel Style="{DynamicResource MainPanel}" Margin="0">
         <views:TopMenuPanel DockPanel.Dock="Top" DataContext="{Binding Source={StaticResource Locator},Path=TopMenuVm}"/>
