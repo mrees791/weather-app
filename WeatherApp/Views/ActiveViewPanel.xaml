@@ -1,4 +1,4 @@
-﻿<!-- Shows the active page based on the SelectedViewModel property in the MainViewModel. -->
+﻿<!-- Shows the active view (Weather Page, Favorites Page, Settings Page.) -->
 <UserControl x:Class="WeatherApp.Views.ActiveViewPanel"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,7 +9,20 @@
             xmlns:views="clr-namespace:WeatherApp.Views"
             xmlns:vm="clr-namespace:WeatherApp.ViewModel"
             d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
+    <!-- Currently using three booleans from the MainViewModel to determine the active view (Weather, Favorites, Settings) -->
+    <!-- Ideally, we would use an Active View Model, DataTemplates, and a ContentControl to determine the active view but this 
+    has too many minor side effects as explained below. -->
+    <StackPanel>
+        <views:WeatherPage Visibility="{Binding Source={StaticResource Locator},Path=MainVm.ShowWeatherPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
+        <views:FavoritesPage Visibility="{Binding Source={StaticResource Locator},Path=MainVm.ShowFavoritesPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
+        <views:SettingsPage Visibility="{Binding Source={StaticResource Locator},Path=MainVm.ShowSettingsPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
+    </StackPanel>
+    <!--
+    Using DataTemplates bound to an active view model has too many minor side effects:
+    ToolTips in the hourly chart stop working
+    Pages take slightly longer to load and images have to be reloaded when switching pages.
+    -->
+    <!--<UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:WeatherPageViewModel}">
             <views:WeatherPage/>
         </DataTemplate>
@@ -22,5 +35,5 @@
     </UserControl.Resources>
     <Grid Margin="0">
         <ContentControl Content="{Binding SelectedViewModel}"/>
-    </Grid>
+    </Grid>-->
 </UserControl>
