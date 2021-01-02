@@ -90,7 +90,7 @@ namespace WeatherApp.ViewModel
 
         private void RefreshWeather()
         {
-            UpdateWeatherData(currentZip);
+            vml.WeatherPageVm.UpdateWeatherData(currentZip);
             vml.MainVm.SetCurrentPageToWeatherPage();
         }
 
@@ -101,7 +101,7 @@ namespace WeatherApp.ViewModel
             if (zipIsValid)
             {
                 ZipErrorMessage = string.Empty;
-                UpdateWeatherData(zip);
+                vml.WeatherPageVm.UpdateWeatherData(zip);
                 vml.MainVm.SetCurrentPageToWeatherPage();
 
                 bool validWeatherRequest = !vml.WeatherPageVm.HasError;
@@ -118,11 +118,6 @@ namespace WeatherApp.ViewModel
             }
         }
 
-        private void UpdateWeatherData(string zip)
-        {
-            vml.WeatherPageVm.UpdateWeatherData(zip);
-        }
-
         private void UpdateFavoriteButton()
         {
             CurrentZipIsFavorited = appFiles.FavoritesFile.HasZipCodeEntry(currentZip);
@@ -130,14 +125,11 @@ namespace WeatherApp.ViewModel
 
         private bool ValidateZip(string zip)
         {
-            if (zip != null)
-            {
-                var regexMatch = Regex.Match(zip, @"^\d{5}$");
+            var regexMatch = Regex.Match(zip, @"^\d{5}$");
 
-                if (regexMatch.Success)
-                {
-                    return true;
-                }
+            if (regexMatch.Success)
+            {
+                return true;
             }
 
             return false;

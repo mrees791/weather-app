@@ -42,9 +42,11 @@ namespace WeatherApp.ViewModel
             for (int i = 0; i < NumberOfDailyEntries; i++)
             {
                 var dayWeatherVm = new DayWeatherViewModel();
-                //dayWeatherVm.IconUrl = GetIconUrl(dayWeatherVm);
                 dayWeatherViewModels.Add(dayWeatherVm);
             }
+
+            HasError = true;
+            ErrorMessage = "No zip code requested.";
         }
 
         public void UpdateWeatherData(string zipInput)
