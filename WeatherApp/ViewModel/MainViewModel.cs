@@ -40,25 +40,24 @@ namespace WeatherApp.ViewModel
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         private ViewModelLocator vml;
-
         private string windowTitle;
+        private AppFiles appFiles;
 
         private SearchSettings searchSettings;
 
-        private ICommand setCurrentPageToWeatherPageCommand;
-        private ICommand setCurrentPageToFavoritesPageCommand;
-        private ICommand setCurrentPageToSettingsPageCommand;
-        private ICommand favoriteCurrentZipCommand;
-        private ICommand searchZipCodeCommand;
-        private ICommand searchNewZipCodeCommand;
+        private RelayCommand setCurrentPageToWeatherPageCommand;
+        private RelayCommand setCurrentPageToFavoritesPageCommand;
+        private RelayCommand setCurrentPageToSettingsPageCommand;
+        private RelayCommand favoriteCurrentZipCommand;
+        private RelayCommand searchNewZipCodeCommand;
+        private RelayCommand<string> searchFavoriteZipCodeCommand;
         private RelayCommand refreshWeatherCommand;
-        private ViewModelBase selectedViewModel;
 
         private string currentZip;
         private string zipInput;
-
-        private bool zipIsValid;
         private string zipErrorMessage;
+        private bool zipIsValid;
+        private bool currentZipIsFavorited;
 
         private OneCallRequest oneCallRequest;
         private ZippoRequest zipRequest;
@@ -66,11 +65,7 @@ namespace WeatherApp.ViewModel
         private HourlyChartViewModel hourlyChartFahrenheitVm;
         private HourlyChartViewModel hourlyChartCelsiusVm;
         private WeatherPageViewModel weatherPageVm;
-
-        private bool currentZipIsFavorited;
-
-        // Files
-        private AppFiles appFiles;
+        private ViewModelBase selectedViewModel;
 
         public MainViewModel()
         {
@@ -85,6 +80,7 @@ namespace WeatherApp.ViewModel
             appFiles = ((App)App.Current).AppFiles;
 
             vml = App.Current.Resources["Locator"] as ViewModelLocator;
+            weatherPageVm = vml.WeatherPageVm;
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             WindowTitle = string.Format("Weather v{0}.{1}", version.Major, version.Minor);
 
@@ -92,18 +88,15 @@ namespace WeatherApp.ViewModel
             zipRequest = new ZippoRequest();
             searchSettings = new SearchSettings();
 
-            ZipInput = GetDefaultZip();
-
-            SetCurrentPageToWeatherPage();
-            weatherPageVm = vml.WeatherPageVm;
             hourlyChartFahrenheitVm = new HourlyChartViewModel(TemperatureFormat.Fahrenheit);
             hourlyChartCelsiusVm = new HourlyChartViewModel(TemperatureFormat.Celsius);
 
-            InitializeFiles();
-            InitializeCommands();
-            //InitializeUpdater();
+            ZipInput = GetDefaultZip();
+            SearchZip(ZipInput);
 
-            SearchCurrentZip();
+            SetCurrentPageToWeatherPage();
+
+            InitializeCommands();
         }
 
         /// <summary>
@@ -122,12 +115,6 @@ namespace WeatherApp.ViewModel
 
         private void InitializeUpdater()
         {
-            /*DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
-            timer.Tick += delegate
-            {
-                StartApplicationUpdater();
-            };
-            timer.Start();*/
             new Task(() =>
             {
                 StartApplicationUpdater();
@@ -140,37 +127,22 @@ namespace WeatherApp.ViewModel
             SetCurrentPageToWeatherPage();
         }
 
-        private void SearchCurrentZip()
+        private void SearchZip(string zip)
         {
-            ValidateZip();
+            zipIsValid = ValidateZip(zip);
 
             if (zipIsValid)
             {
-                currentZip = ZipInput;
+                currentZip = zip;
+                ZipErrorMessage = string.Empty;
                 UpdateFavoriteButton();
-                UpdateWeatherData(ZipInput);
+                UpdateWeatherData(zip);
                 SetCurrentPageToWeatherPage();
-            }
-        }
-
-        private void InitializeFiles()
-        {
-            InitializeFavoritesFile();
-        }
-
-        private void InitializeFavoritesFile()
-        {
-            /*favoritesFile = new FavoritesFile();
-            vml.FavoritesPageVm.FavoritesFile = favoritesFile;
-
-            if (File.Exists(AppDirectories.FavoritesFile))
-            {
-                vml.FavoritesPageVm.LoadFavoritesFile(oneCallRequest.OneCall);
             }
             else
             {
-                vml.FavoritesPageVm.SaveFavoritesFile();
-            }*/
+                ZipErrorMessage = "You must enter a valid U.S. zip code.";
+            }
         }
 
         private void UpdateWeatherData(string zip)
@@ -180,18 +152,8 @@ namespace WeatherApp.ViewModel
 
         private void UpdateFavoriteButton()
         {
-            CurrentZipIsFavorited = appFiles.FavoritesFile.HasZipCodeEntry(zipInput);
+            CurrentZipIsFavorited = appFiles.FavoritesFile.HasZipCodeEntry(ZipInput);
         }
-
-        /*private void UpdateWeatherPageVm()
-        {
-            weatherPageVm.UpdateDailyForecast(oneCallRequest);
-        }
-
-        private void UpdateCurrentWeatherPanelVm()
-        {
-            currentWeatherVm.UpdateCurrentWeather(oneCallRequest, zipRequest);
-        }*/
 
         private void InitializeCommands()
         {
@@ -207,18 +169,18 @@ namespace WeatherApp.ViewModel
             {
                 SetCurrentPageToSettingsPage();
             });
-            searchZipCodeCommand = new RelayCommand(() =>
-            {
-                SearchCurrentZip();
-            });
             favoriteCurrentZipCommand = new RelayCommand(() =>
             {
                 ToggleCurrentZipFavorite();
             });
-            searchNewZipCodeCommand = new RelayCommand<string>((zip) =>
+            searchNewZipCodeCommand = new RelayCommand(() =>
             {
-                this.ZipInput = zip;
-                SearchCurrentZip();
+                SearchZip(ZipInput);
+            });
+            searchFavoriteZipCodeCommand = new RelayCommand<string>((zip) =>
+            {
+                ZipInput = zip;
+                SearchZip(zip);
             });
             refreshWeatherCommand = new RelayCommand(() =>
             {
@@ -226,38 +188,32 @@ namespace WeatherApp.ViewModel
             });
         }
 
-        private void ValidateZip()
+        private bool ValidateZip(string zip)
         {
-            var regexMatch = Regex.Match(zipInput, @"^\d{5}$");
+            if (zip != null)
+            {
+                var regexMatch = Regex.Match(zip, @"^\d{5}$");
 
-            if (regexMatch.Success)
-            {
-                zipIsValid = true;
-                ZipErrorMessage = "";
+                if (regexMatch.Success)
+                {
+                    return true;
+                }
             }
-            else
-            {
-                zipIsValid = false;
-                ZipErrorMessage = "You must enter a valid U.S. zip code.";
-            }
+
+            return false;
         }
 
         private void ToggleCurrentZipFavorite()
         {
-            ValidateZip();
-
-            if (zipIsValid)
+            if (!currentZipIsFavorited)
             {
-                if (!currentZipIsFavorited)
-                {
-                    vml.FavoritesPageVm.AddNewFavoriteZipCode(zipInput);
-                }
-                else
-                {
-                    vml.FavoritesPageVm.RemoveFavoriteZipCode(zipInput);
-                }
-                UpdateFavoriteButton();
+                vml.FavoritesPageVm.AddNewFavoriteZipCode(currentZip);
             }
+            else
+            {
+                vml.FavoritesPageVm.RemoveFavoriteZipCode(currentZip);
+            }
+            UpdateFavoriteButton();
         }
 
         private void StartApplicationUpdater()
@@ -280,23 +236,21 @@ namespace WeatherApp.ViewModel
             SelectedViewModel = vml.UserSettingsVm;
         }
 
-        public ICommand SearchZipCodeCommand { get => searchZipCodeCommand; }
-        public ICommand SetCurrentPageToFavoritesPageCommand { get => setCurrentPageToFavoritesPageCommand; }
-        public ICommand SetCurrentPageToSettingsPageCommand { get => setCurrentPageToSettingsPageCommand; }
-        public ICommand SetCurrentPageToWeatherPageCommand { get => setCurrentPageToWeatherPageCommand; }
-        public string ZipInput { get => zipInput; set { searchSettings.ZipCode = value; zipInput = value; RaisePropertyChanged(); } }
-
-        public bool CurrentZipIsFavorited { get => currentZipIsFavorited; set { currentZipIsFavorited = value; RaisePropertyChanged(); } }
-
-        public ICommand FavoriteCurrentZipCommand { get => favoriteCurrentZipCommand; }
-        public ICommand SearchNewZipCodeCommand { get => searchNewZipCodeCommand; }
         public string WindowTitle { get => windowTitle; set { windowTitle = value; RaisePropertyChanged(); } }
-
+        public string ZipInput { get => zipInput; set { searchSettings.ZipCode = value; zipInput = value; RaisePropertyChanged(); } }
         public string ZipErrorMessage { get => zipErrorMessage; set { zipErrorMessage = value; RaisePropertyChanged(); } }
+        public bool CurrentZipIsFavorited { get => currentZipIsFavorited; set { currentZipIsFavorited = value; RaisePropertyChanged(); } }
 
         public HourlyChartViewModel HourlyChartFahrenheitVm { get => hourlyChartFahrenheitVm; }
         public HourlyChartViewModel HourlyChartCelsiusVm { get => hourlyChartCelsiusVm; }
-        public RelayCommand RefreshWeatherCommand { get => refreshWeatherCommand; }
         public ViewModelBase SelectedViewModel { get => selectedViewModel; set { selectedViewModel = value; RaisePropertyChanged(); } }
+
+        public RelayCommand FavoriteCurrentZipCommand { get => favoriteCurrentZipCommand; }
+        public RelayCommand SearchNewZipCodeCommand { get => searchNewZipCodeCommand; }
+        public RelayCommand RefreshWeatherCommand { get => refreshWeatherCommand; }
+        public RelayCommand SetCurrentPageToFavoritesPageCommand { get => setCurrentPageToFavoritesPageCommand; }
+        public RelayCommand SetCurrentPageToSettingsPageCommand { get => setCurrentPageToSettingsPageCommand; }
+        public RelayCommand SetCurrentPageToWeatherPageCommand { get => setCurrentPageToWeatherPageCommand; }
+        public RelayCommand<string> SearchFavoriteZipCodeCommand { get => searchFavoriteZipCodeCommand; }
     }
 }

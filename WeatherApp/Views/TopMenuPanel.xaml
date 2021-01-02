@@ -44,7 +44,7 @@
                 </Button>
             </StackPanel>
             <TextBox Width="125" Text="{Binding ZipInput}" VerticalContentAlignment="Center"/>
-            <Button Content="Search" Command="{Binding SearchZipCodeCommand}"/>
+            <Button Content="Search" Command="{Binding SearchNewZipCodeCommand}"/>
         </StackPanel>
         <StackPanel/>
     </DockPanel>
