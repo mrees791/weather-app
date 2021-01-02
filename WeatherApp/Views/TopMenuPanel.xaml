@@ -34,7 +34,7 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-                <Button Command="{Binding FavoriteCurrentZipCommand}">
+                <Button Command="{Binding FavoriteCurrentZipCommand}" IsEnabled="{Binding UserCanToggleFavoriteButton}">
                     <Button.Template>
                         <ControlTemplate>
                             <Frame Source="{Binding CurrentZipIsFavorited,Converter={StaticResource FavoritesStarIconConverter}}"/>

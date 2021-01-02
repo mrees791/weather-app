@@ -29,7 +29,7 @@ namespace WeatherApp.ViewModel
         private string zipErrorMessage;
         private bool zipIsValid;
         private bool currentZipIsFavorited;
-        private bool userCanToggleFavoriteButton; // This needs to be false if there is an error.
+        private bool userCanToggleFavoriteButton;
 
         public TopMenuViewModel()
         {
@@ -106,7 +106,7 @@ namespace WeatherApp.ViewModel
                 UpdateFavoriteButton();
                 UpdateWeatherData(zip);
                 vml.MainVm.SetCurrentPageToWeatherPage();
-                UserCanToggleFavoriteButton = true;
+                UserCanToggleFavoriteButton = !vml.WeatherPageVm.HasError;
             }
             else
             {
