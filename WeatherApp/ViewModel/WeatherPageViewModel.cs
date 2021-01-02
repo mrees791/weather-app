@@ -16,6 +16,7 @@ namespace WeatherApp.ViewModel
 {
     public class WeatherPageViewModel : ViewModelBase
     {
+        private string currentZip;
         public readonly int NumberOfDailyEntries = 5;
         public readonly int HourlyEntryAmount = 7;
         private bool hasError;
@@ -47,6 +48,11 @@ namespace WeatherApp.ViewModel
 
             HasError = true;
             ErrorMessage = "No zip code requested.";
+        }
+
+        public void RefreshWeatherData()
+        {
+            UpdateWeatherData(currentZip);
         }
 
         public void UpdateWeatherData(string zipInput)
@@ -86,6 +92,8 @@ namespace WeatherApp.ViewModel
 
                     UpdateDailyForecast();
                     currentWeatherVm.UpdateCurrentWeather(oneCallRequest, zipRequest);
+
+                    currentZip = zipInput;
                 }
             }
         }
@@ -113,7 +121,6 @@ namespace WeatherApp.ViewModel
                 vm.TemperatureCelsiusMax = string.Format("{0:0.00}", temperatureHigh.Celsius);
                 vm.TemperatureFahrenheitMin = string.Format("{0:0.00}", temperatureLow.Fahrenheit);
                 vm.TemperatureFahrenheitMax = string.Format("{0:0.00}", temperatureHigh.Fahrenheit);
-                //vm.IconUrl = GetIconUrl(vm);
             }
         }
 
@@ -161,5 +168,7 @@ namespace WeatherApp.ViewModel
         public HourlyChartViewModel HourlyChartFahrenheitVm { get => hourlyChartFahrenheitVm; }
         public bool HasError { get => hasError; set { hasError = value; RaisePropertyChanged(); } }
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; RaisePropertyChanged(); } }
+
+        public string CurrentZip { get => currentZip; private set => currentZip = value; }
     }
 }

@@ -24,7 +24,7 @@ namespace WeatherApp.ViewModel
         private RelayCommand setCurrentPageToFavoritesPageCommand;
         private RelayCommand setCurrentPageToSettingsPageCommand;
 
-        private string currentZip;
+        //private string currentZip;
         private string zipInput;
         private string zipErrorMessage;
         private bool zipIsValid;
@@ -90,7 +90,7 @@ namespace WeatherApp.ViewModel
 
         private void RefreshWeather()
         {
-            vml.WeatherPageVm.UpdateWeatherData(currentZip);
+            vml.WeatherPageVm.RefreshWeatherData();
             vml.MainVm.SetCurrentPageToWeatherPage();
         }
 
@@ -107,7 +107,6 @@ namespace WeatherApp.ViewModel
                 bool validWeatherRequest = !vml.WeatherPageVm.HasError;
                 if (validWeatherRequest)
                 {
-                    currentZip = zip;
                     UserCanToggleFavoriteButton = true;
                     UpdateFavoriteButton();
                 }
@@ -120,7 +119,7 @@ namespace WeatherApp.ViewModel
 
         private void UpdateFavoriteButton()
         {
-            CurrentZipIsFavorited = appFiles.FavoritesFile.HasZipCodeEntry(currentZip);
+            CurrentZipIsFavorited = appFiles.FavoritesFile.HasZipCodeEntry(vml.WeatherPageVm.CurrentZip);
         }
 
         private bool ValidateZip(string zip)
@@ -139,11 +138,11 @@ namespace WeatherApp.ViewModel
         {
             if (!currentZipIsFavorited)
             {
-                vml.FavoritesPageVm.AddNewFavoriteZipCode(currentZip);
+                vml.FavoritesPageVm.AddNewFavoriteZipCode(vml.WeatherPageVm.CurrentZip);
             }
             else
             {
-                vml.FavoritesPageVm.RemoveFavoriteZipCode(currentZip);
+                vml.FavoritesPageVm.RemoveFavoriteZipCode(vml.WeatherPageVm.CurrentZip);
             }
             UpdateFavoriteButton();
         }
