@@ -20,7 +20,7 @@ using WeatherLibrary.Models;
 
 namespace WeatherApp.ViewModel
 {
-    public class UserSettingsViewModel : ViewModelBase
+    public class SettingsPageViewModel : ViewModelBase
     {
         private readonly string baseStyleFileName = "Styles/BaseStyle.xaml";
         private AppFiles appFiles;
@@ -51,7 +51,7 @@ namespace WeatherApp.ViewModel
 
         private WpfSkin[] skins;
 
-        public UserSettingsViewModel()
+        public SettingsPageViewModel()
         {
             appFiles = ((App)App.Current).AppFiles;
 

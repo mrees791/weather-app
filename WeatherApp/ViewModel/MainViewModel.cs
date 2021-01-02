@@ -52,9 +52,7 @@ namespace WeatherApp.ViewModel
         private ICommand searchZipCodeCommand;
         private ICommand searchNewZipCodeCommand;
         private RelayCommand refreshWeatherCommand;
-        private bool showWeatherPage;
-        private bool showFavoritesPage;
-        private bool showSettingsPage;
+        private ViewModelBase selectedViewModel;
 
         private string currentZip;
         private string zipInput;
@@ -269,28 +267,18 @@ namespace WeatherApp.ViewModel
 
         private void SetCurrentPageToWeatherPage()
         {
-            ShowFavoritesPage = false;
-            ShowSettingsPage = false;
-            ShowWeatherPage = true;
+            SelectedViewModel = vml.WeatherPageVm;
         }
 
         private void SetCurrentPageToFavoritesPage()
         {
-            ShowSettingsPage = false;
-            ShowWeatherPage = false;
-            ShowFavoritesPage = true;
+            SelectedViewModel = vml.FavoritesPageVm;
         }
 
         private void SetCurrentPageToSettingsPage()
         {
-            ShowWeatherPage = false;
-            ShowFavoritesPage = false;
-            ShowSettingsPage = true;
+            SelectedViewModel = vml.UserSettingsVm;
         }
-
-        public bool ShowWeatherPage { get => showWeatherPage; set { showWeatherPage = value; RaisePropertyChanged(); } }
-        public bool ShowFavoritesPage { get => showFavoritesPage; set { showFavoritesPage = value; RaisePropertyChanged(); } }
-        public bool ShowSettingsPage { get => showSettingsPage; set { showSettingsPage = value; RaisePropertyChanged(); } }
 
         public ICommand SearchZipCodeCommand { get => searchZipCodeCommand; }
         public ICommand SetCurrentPageToFavoritesPageCommand { get => setCurrentPageToFavoritesPageCommand; }
@@ -309,5 +297,6 @@ namespace WeatherApp.ViewModel
         public HourlyChartViewModel HourlyChartFahrenheitVm { get => hourlyChartFahrenheitVm; }
         public HourlyChartViewModel HourlyChartCelsiusVm { get => hourlyChartCelsiusVm; }
         public RelayCommand RefreshWeatherCommand { get => refreshWeatherCommand; }
+        public ViewModelBase SelectedViewModel { get => selectedViewModel; set { selectedViewModel = value; RaisePropertyChanged(); } }
     }
 }

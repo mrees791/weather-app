@@ -42,7 +42,7 @@ namespace WeatherApp.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<UserSettingsViewModel>();
+            SimpleIoc.Default.Register<SettingsPageViewModel>();
             SimpleIoc.Default.Register<WeatherPageViewModel>();
             SimpleIoc.Default.Register<FavoritesPageViewModel>();
         }
@@ -71,11 +71,11 @@ namespace WeatherApp.ViewModel
             }
         }
 
-        public UserSettingsViewModel UserSettingsVm
+        public SettingsPageViewModel UserSettingsVm
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<UserSettingsViewModel>();
+                return ServiceLocator.Current.GetInstance<SettingsPageViewModel>();
             }
         }
         

@@ -5,18 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:WeatherApp.Views"
         xmlns:local="clr-namespace:WeatherApp"
+        xmlns:vm="clr-namespace:WeatherApp.ViewModel"
         DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"
         mc:Ignorable="d"
         Title="{Binding WindowTitle}" Icon="Resources/Images/icon.ico" Padding="0" Margin="0">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:WeatherPageViewModel}">
+            <views:WeatherPage/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:FavoritesPageViewModel}">
+            <views:FavoritesPage/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SettingsPageViewModel}">
+            <views:SettingsPage/>
+        </DataTemplate>
+    </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="F5" Command="{Binding RefreshWeatherCommand}"/>
     </Window.InputBindings>
     <DockPanel LastChildFill="True" Style="{DynamicResource MainPanel}" Margin="0">
         <views:TopMenuPanel DockPanel.Dock="Top"/>
         <Grid Margin="0">
-            <views:WeatherPage Visibility="{Binding ShowWeatherPage,Converter={StaticResource CollapseIfFalseConverter}}" DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"/>
-            <views:FavoritesPage Visibility="{Binding ShowFavoritesPage,Converter={StaticResource CollapseIfFalseConverter}}" DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"/>
-            <views:SettingsPage Visibility="{Binding ShowSettingsPage,Converter={StaticResource CollapseIfFalseConverter}}" DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"/>
+            <ContentControl Content="{Binding SelectedViewModel}"/>
         </Grid>
     </DockPanel>
 </Window>
