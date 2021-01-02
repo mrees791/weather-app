@@ -25,15 +25,12 @@ namespace WeatherApp.Models.FileFormats
 
         public bool AddZipCodeEntry(string zipCode)
         {
-            if (zipCodes.Contains(zipCode))
-            {
-                return false;
-            }
-            else
+            if (!HasZipCodeEntry(zipCode))
             {
                 zipCodes.Add(zipCode);
                 return true;
             }
+            return false;
         }
 
         public bool RemoveZipCodeEntry(string zipCode)

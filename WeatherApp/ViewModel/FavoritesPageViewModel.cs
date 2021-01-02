@@ -47,7 +47,7 @@ namespace WeatherApp.ViewModel
 
         public void AddNewFavoriteZipCode(string zipCode)
         {
-            if (appFiles.FavoritesFile.AddZipCodeEntry(zipCode))
+            if (!appFiles.FavoritesFile.HasZipCodeEntry(zipCode))
             {
                 AddNewFavoritesBoxVm(zipCode);
             }
@@ -59,6 +59,7 @@ namespace WeatherApp.ViewModel
             favoritesBoxVm.ZipCode = zipCode;
             favoritesBoxVm.UpdateCurrentWeather();
             favoritesBoxViewModels.Add(favoritesBoxVm);
+            appFiles.FavoritesFile.AddZipCodeEntry(zipCode);
         }
 
         public void LoadFavoritesFile()

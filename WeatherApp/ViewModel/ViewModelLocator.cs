@@ -45,6 +45,15 @@ namespace WeatherApp.ViewModel
             SimpleIoc.Default.Register<SettingsPageViewModel>();
             SimpleIoc.Default.Register<WeatherPageViewModel>();
             SimpleIoc.Default.Register<FavoritesPageViewModel>();
+            SimpleIoc.Default.Register<TopMenuViewModel>();
+        }
+
+        public TopMenuViewModel TopMenuVm
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<TopMenuViewModel>();
+            }
         }
 
         public FavoritesPageViewModel FavoritesPageVm

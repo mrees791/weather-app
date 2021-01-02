@@ -142,6 +142,7 @@
     <Compile Include="ViewModel\HourlyChartViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\SettingsPageViewModel.cs" />
+    <Compile Include="ViewModel\TopMenuViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\WeatherPageViewModel.cs" />
     <Compile Include="ViewModel\WpfSkinViewModel.cs" />

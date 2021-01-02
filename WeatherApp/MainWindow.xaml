@@ -13,7 +13,7 @@
         <KeyBinding Key="F5" Command="{Binding RefreshWeatherCommand}"/>
     </Window.InputBindings>
     <DockPanel Style="{DynamicResource MainPanel}" Margin="0">
-        <views:TopMenuPanel DockPanel.Dock="Top"/>
+        <views:TopMenuPanel DockPanel.Dock="Top" DataContext="{Binding Source={StaticResource Locator},Path=TopMenuVm}"/>
         <views:ActiveViewPanel/>
     </DockPanel>
 </Window>

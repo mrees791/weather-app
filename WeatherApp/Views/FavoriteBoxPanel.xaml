@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WeatherApp.Views"
              mc:Ignorable="d" >
     <StackPanel>
-        <Button Command="{Binding Source={StaticResource Locator},Path=MainVm.SearchFavoriteZipCodeCommand}" CommandParameter="{Binding ZipCode}" IsEnabled="True">
+        <Button Command="{Binding Source={StaticResource Locator},Path=TopMenuVm.SearchFavoriteZipCodeCommand}" CommandParameter="{Binding ZipCode}" IsEnabled="True">
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding City}"/>
