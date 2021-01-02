@@ -43,8 +43,6 @@ namespace WeatherApp.ViewModel
         private string windowTitle;
         private AppFiles appFiles;
 
-        private SearchSettings searchSettings;
-
         private RelayCommand setCurrentPageToWeatherPageCommand;
         private RelayCommand setCurrentPageToFavoritesPageCommand;
         private RelayCommand setCurrentPageToSettingsPageCommand;
@@ -86,7 +84,6 @@ namespace WeatherApp.ViewModel
 
             oneCallRequest = new OneCallRequest();
             zipRequest = new ZippoRequest();
-            searchSettings = new SearchSettings();
 
             hourlyChartFahrenheitVm = new HourlyChartViewModel(TemperatureFormat.Fahrenheit);
             hourlyChartCelsiusVm = new HourlyChartViewModel(TemperatureFormat.Celsius);
@@ -237,7 +234,7 @@ namespace WeatherApp.ViewModel
         }
 
         public string WindowTitle { get => windowTitle; set { windowTitle = value; RaisePropertyChanged(); } }
-        public string ZipInput { get => zipInput; set { searchSettings.ZipCode = value; zipInput = value; RaisePropertyChanged(); } }
+        public string ZipInput { get => zipInput; set { zipInput = value; RaisePropertyChanged(); } }
         public string ZipErrorMessage { get => zipErrorMessage; set { zipErrorMessage = value; RaisePropertyChanged(); } }
         public bool CurrentZipIsFavorited { get => currentZipIsFavorited; set { currentZipIsFavorited = value; RaisePropertyChanged(); } }
 
