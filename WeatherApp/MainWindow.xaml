@@ -9,24 +9,11 @@
         DataContext="{Binding Source={StaticResource Locator},Path=MainVm}"
         mc:Ignorable="d"
         Title="{Binding WindowTitle}" Icon="Resources/Images/icon.ico" Padding="0" Margin="0">
-    <Window.Resources>
-        <DataTemplate DataType="{x:Type vm:WeatherPageViewModel}">
-            <views:WeatherPage/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:FavoritesPageViewModel}">
-            <views:FavoritesPage/>
-        </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:SettingsPageViewModel}">
-            <views:SettingsPage/>
-        </DataTemplate>
-    </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="F5" Command="{Binding RefreshWeatherCommand}"/>
     </Window.InputBindings>
     <DockPanel LastChildFill="True" Style="{DynamicResource MainPanel}" Margin="0">
         <views:TopMenuPanel DockPanel.Dock="Top"/>
-        <Grid Margin="0">
-            <ContentControl Content="{Binding SelectedViewModel}"/>
-        </Grid>
+        <views:ActiveViewPanel/>
     </DockPanel>
 </Window>

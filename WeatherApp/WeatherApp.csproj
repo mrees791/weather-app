@@ -146,6 +146,9 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\WeatherPageViewModel.cs" />
     <Compile Include="ViewModel\WpfSkinViewModel.cs" />
+    <Compile Include="Views\ActiveViewPanel.xaml.cs">
+      <DependentUpon>ActiveViewPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CurrentWeatherPanel.xaml.cs">
       <DependentUpon>CurrentWeatherPanel.xaml</DependentUpon>
     </Compile>
@@ -230,6 +233,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\BaseStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ActiveViewPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
