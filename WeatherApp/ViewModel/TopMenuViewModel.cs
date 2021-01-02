@@ -24,7 +24,6 @@ namespace WeatherApp.ViewModel
         private RelayCommand setCurrentPageToFavoritesPageCommand;
         private RelayCommand setCurrentPageToSettingsPageCommand;
 
-        //private string currentZip;
         private string zipInput;
         private string zipErrorMessage;
         private bool zipIsValid;
