@@ -140,25 +140,6 @@ namespace WeatherApp.ViewModel
             return originalDescription;
         }
 
-        private string GetIconUrl(DayWeatherViewModel dayWeatherVm)
-        {
-            string iconDirectory = AppDirectories.IconDirectory;
-
-            switch (dayWeatherVm.WeatherType)
-            {
-                case WeatherLibrary.Models.WeatherType.Clear:
-                    return iconDirectory + "sun1.xaml";
-                case WeatherLibrary.Models.WeatherType.Cloudy:
-                    return iconDirectory + "cloud1.xaml";
-                case WeatherLibrary.Models.WeatherType.Rain:
-                    return iconDirectory + "rain1.xaml";
-                case WeatherLibrary.Models.WeatherType.Snow:
-                    return iconDirectory + "snow1.xaml";
-            }
-
-            return iconDirectory + "unknown.xaml";
-        }
-
         private string FormatDateString(DateTime date)
         {
             return string.Format("{0} {1}", CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(date.Month), date.Day);
