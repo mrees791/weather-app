@@ -85,7 +85,7 @@ namespace WeatherApp.ViewModel
 
                 if (oneCallRequest.IsValidRequest)
                 {
-                    var hourlyEntries = oneCallRequest.OneCall.HourlyEntries;
+                    List<HourlyEntry> hourlyEntries = oneCallRequest.OneCall.HourlyEntries;
 
                     hourlyChartFahrenheitVm.UpdateHourlyChart(hourlyEntries, HourlyEntryAmount);
                     hourlyChartCelsiusVm.UpdateHourlyChart(hourlyEntries, HourlyEntryAmount);
@@ -101,19 +101,19 @@ namespace WeatherApp.ViewModel
 
         private void UpdateDailyForecast()
         {
-            var dailies = oneCallRequest.OneCall.DailyEntries;
+            List<DailyEntry> dailies = oneCallRequest.OneCall.DailyEntries;
 
             for (int i = 0; i < dayWeatherViewModels.Count; i++)
             {
-                var daily = dailies[i];
-                var vm = dayWeatherViewModels[i];
+                DailyEntry daily = dailies[i];
+                DayWeatherViewModel vm = dayWeatherViewModels[i];
 
-                var weather = daily.WeatherEntries[0];
+                Weather weather = daily.WeatherEntries[0];
 
                 vm.Date = FormatDateString(daily.DateTime);
 
-                var temperatureHigh = new Temperature(daily.DailyTemperature.DailyHighCelsius, TemperatureFormat.Celsius);
-                var temperatureLow = new Temperature(daily.DailyTemperature.DailyLowCelsius, TemperatureFormat.Celsius);
+                Temperature temperatureHigh = new Temperature(daily.DailyTemperature.DailyHighCelsius, TemperatureFormat.Celsius);
+                Temperature temperatureLow = new Temperature(daily.DailyTemperature.DailyLowCelsius, TemperatureFormat.Celsius);
 
                 vm.Description = GetFinalDescription(weather.Description);
                 vm.TemperatureCelsiusMin = string.Format("{0:0.00}", temperatureLow.Celsius);
@@ -150,7 +150,6 @@ namespace WeatherApp.ViewModel
         public HourlyChartViewModel HourlyChartFahrenheitVm { get => hourlyChartFahrenheitVm; }
         public bool HasError { get => hasError; set { hasError = value; RaisePropertyChanged(); } }
         public string ErrorMessage { get => errorMessage; set { errorMessage = value; RaisePropertyChanged(); } }
-
         public string CurrentZip { get => currentZip; private set => currentZip = value; }
     }
 }
