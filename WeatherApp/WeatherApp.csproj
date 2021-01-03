@@ -130,7 +130,6 @@
     <Compile Include="Models\FileFormats\FileBase.cs" />
     <Compile Include="Models\FileFormats\SettingsFile.cs" />
     <Compile Include="Models\FileFormats\XmlFileBase.cs" />
-    <Compile Include="Models\UI\WeatherIcon.cs" />
     <Compile Include="Models\UI\WpfSkin.cs" />
     <Compile Include="Utility\AppDirectories.cs" />
     <Compile Include="Utility\UpdaterUtility.cs" />

@@ -53,7 +53,6 @@
     <Compile Include="Models\OpenWeatherMap\Weather.cs" />
     <Compile Include="Models\Temperature.cs" />
     <Compile Include="Models\TemperatureFormat.cs" />
-    <Compile Include="Models\WeatherType.cs" />
     <Compile Include="Models\Zippo\ZippoDetails.cs" />
     <Compile Include="Models\Zippo\Place.cs" />
     <Compile Include="Models\Zippo\ZippoRequest.cs" />

@@ -116,7 +116,6 @@ namespace WeatherApp.ViewModel
                 var temperatureLow = new Temperature(daily.DailyTemperature.DailyLowCelsius, TemperatureFormat.Celsius);
 
                 vm.Description = GetFinalDescription(weather.Description);
-                vm.WeatherType = weather.GetWeatherType();
                 vm.TemperatureCelsiusMin = string.Format("{0:0.00}", temperatureLow.Celsius);
                 vm.TemperatureCelsiusMax = string.Format("{0:0.00}", temperatureHigh.Celsius);
                 vm.TemperatureFahrenheitMin = string.Format("{0:0.00}", temperatureLow.Fahrenheit);

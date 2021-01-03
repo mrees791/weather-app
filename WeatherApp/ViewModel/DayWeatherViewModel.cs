@@ -11,8 +11,6 @@ namespace WeatherApp.ViewModel
 {
     public class DayWeatherViewModel : ViewModelBase
     {
-        private WeatherType weatherType;
-        private WeatherIcon weatherIcon;
         private string date;
         private string temperatureCelsiusMin;
         private string temperatureCelsiusMax;
@@ -23,8 +21,6 @@ namespace WeatherApp.ViewModel
 
         public DayWeatherViewModel()
         {
-            weatherIcon = new WeatherIcon();
-            WeatherType = WeatherType.Unknown;
         }
 
         public string Date { get => date; set { date = value; RaisePropertyChanged(); } }
@@ -34,7 +30,5 @@ namespace WeatherApp.ViewModel
         public string TemperatureFahrenheitMax { get => temperatureFahrenheitMax; set { temperatureFahrenheitMax = value; RaisePropertyChanged(); } }
         public string Description { get => description; set { description = value; RaisePropertyChanged(); } }
         public string IconUrl { get => iconUrl; set { iconUrl = value; RaisePropertyChanged(); } }
-        public WeatherType WeatherType { get => weatherType; set { weatherType = value; RaisePropertyChanged(); } }
-        //public WeatherType WeatherType { get => weatherType; set { weatherType = value; IconUrl = weatherIcon.GetIconUrl(weatherType); } }
     }
 }

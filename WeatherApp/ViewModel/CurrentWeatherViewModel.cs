@@ -29,7 +29,6 @@ namespace WeatherApp.ViewModel
             LastUpdateTime = string.Format("{0:hh:mm:ss tt}", oneCallRequest.RequestDateTime);
             CurrentWeather currentWeather = oneCallRequest.OneCall.CurrentWeather;
             Weather weather = currentWeather.WeatherEntries[0];
-            WeatherType weatherType = weather.GetWeatherType();
             Temperature temperature = new Temperature(currentWeather.TemperatureCelsius, TemperatureFormat.Celsius);
             Place place = zipCodeRequest.Details.Places[0];
             City = place.CityName;

@@ -16,23 +16,6 @@ namespace WeatherLibrary.Models.OpenWeatherMap
         [JsonProperty("icon")]
         public string IconId { get; set; }
 
-        public WeatherType GetWeatherType()
-        {
-            switch (Description)
-            {
-                case "Clear":
-                    return WeatherType.Clear;
-                case "Rain":
-                    return WeatherType.Rain;
-                case "Snow":
-                    return WeatherType.Snow;
-                case "Clouds":
-                    return WeatherType.Cloudy;
-                default:
-                    return WeatherType.Unknown;
-            }
-        }
-
         public string GetIconUrl()
         {
             return $"http://openweathermap.org/img/wn/{IconId}@4x.png";
