@@ -102,6 +102,7 @@ Project Link: [https://github.com/mrees791/weather-app](https://github.com/mrees
 * [RestoreWindowPlace](https://www.nuget.org/packages/RestoreWindowPlace)
 * [LiveCharts](https://lvcharts.net/)
 * [AutoUpdater.NET](https://github.com/ravibpatel/AutoUpdater.NET)
+* [Json.NET](https://www.newtonsoft.com/json)
 * [OpenWeatherMap Weather API](https://openweathermap.org/api)
 * [Zippopotam.us Zip API](https://www.zippopotam.us/)
 
