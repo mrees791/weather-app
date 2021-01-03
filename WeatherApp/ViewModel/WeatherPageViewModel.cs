@@ -107,11 +107,11 @@ namespace WeatherApp.ViewModel
             {
                 DailyEntry daily = dailies[i];
                 Weather weather = daily.WeatherEntries[0];
-                DayWeatherViewModel vm = dayWeatherViewModels[i];
 
                 Temperature temperatureHigh = new Temperature(daily.DailyTemperature.DailyHighCelsius, TemperatureFormat.Celsius);
                 Temperature temperatureLow = new Temperature(daily.DailyTemperature.DailyLowCelsius, TemperatureFormat.Celsius);
 
+                DayWeatherViewModel vm = dayWeatherViewModels[i];
                 vm.Date = FormatDateString(daily.DateTime);
                 vm.Description = GetFinalDescription(weather.Description);
                 vm.TemperatureCelsiusMin = string.Format("{0:0.00}", temperatureLow.Celsius);
