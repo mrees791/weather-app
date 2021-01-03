@@ -12,7 +12,9 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <img src="Images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/mrees791/weather-app">
+    <img src="Images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
   <h3 align="center">Weather App</h3>
 
