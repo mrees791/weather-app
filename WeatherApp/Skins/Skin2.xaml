@@ -2,19 +2,19 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
                     xmlns:local="clr-namespace:WeatherApp.Skins">
-    <!-- Light red Skin -->
+    <!-- Light Red Skin -->
     <SolidColorBrush x:Key="DefaultButtonBackground" Color="#fbafaf"/>
     <SolidColorBrush x:Key="DefaultButtonForeground" Color="Black"/>
     <SolidColorBrush x:Key="ActiveButtonBackground" Color="#ffcfcf"/>
     <SolidColorBrush x:Key="ActiveButtonForeground" Color="Black"/>
-    <SolidColorBrush x:Key="MainPanelBackground" Color="#ffe6e6"/>
+    <SolidColorBrush x:Key="MainPanelBackground" Color="#FFBFBF"/>
     <SolidColorBrush x:Key="TopMenuDockPanelBackground" Color="#ae5858"/>
     <SolidColorBrush x:Key="ZipErrorMessageForeground" Color="White"/>
     <!-- Hourly chart colors -->
     <!-- Hue: 0 -->
     <SolidColorBrush x:Key="LvcLineSeriesPointForeground" Color="#f39393"/>
     <SolidColorBrush x:Key="LvcLineSeriesStroke" Color="#f07777"/>
-    <SolidColorBrush x:Key="LvcLineSeriesFill" Color="#eeb4b4"/>
+    <SolidColorBrush x:Key="LvcLineSeriesFill" Color="#FFA3A3"/>
     <!-- Combobox colors -->
     <!-- Hue: 0 -->
     <SolidColorBrush x:Key="ComboBoxItemBackground" Color="White"/>
