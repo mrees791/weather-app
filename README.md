@@ -12,14 +12,12 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://www.vecteezy.com/free-vector/atom">
-    <img src="Images/logo.png" alt="Logo" width="80" height="80">
-  </a>
+  <img src="Images/logo.png" alt="Logo" width="80" height="80">
 
-  <h3 align="center">Periodic Table App</h3>
+  <h3 align="center">Weather App</h3>
 
   <p align="center">
-    An interactive periodic table of elements made for educational purposes.
+    A weather application which provides a daily and hourly forecast.
   </p>
 </p>
 
@@ -52,19 +50,19 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://github.com/mrees791/chemistry-app)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/mrees791/weather-app)
 
-This app is an interactive periodic table of elements where the user may click on an element to view more details. I made this to learn the fundamentals of Windows Presentation Foundation (WPF) and the Model-View-ViewModel (MVVM) design pattern.
+This application provides the daily and hourly forecast for any zip-code within the United States. It was made with Windows Presentation Foundation (WPF) and the Model-View-ViewModel (MVVM) design pattern. The OpenWeatherMap Weather API was used for collecting weather data and the Zippopotamus Zip API was used for collecting zip-code data. It was made for my CPSC-400 Programming Projects course. My primary goal during the development of this project was to gain experience working with JavaScript Object Notation (JSON) APIs and to learn how to implement automatic update functionality for desktop applications.
 
 ### Modules
-* ChemistryApp - The Periodic Table app itself including the GUI. Uses MVVM design pattern along with the MVVM Light Toolkit.
-* ChemistryLibrary - A small, reusable library with models needed for the periodic table of elements.
-* ChemistryTests - Contains unit tests for the ChemistryLibrary.
+* WeatherApp - The Weather app itself including the GUI. Uses MVVM design pattern along with the MVVM Light Toolkit.
+* WeatherLibrary - A small, reusable library with models needed for the OpenWeatherMap and Zippopotamus APIs.
+* WeatherTests - Contains unit tests for the WeatherLibrary.
 
 ### Built With
 
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/)
-* [.NET Framework 4.5.2](https://www.microsoft.com/en-us/download/details.aspx?id=42642)
+* [.NET Framework 4.7.2](https://dotnet.microsoft.com/download/dotnet-framework/net472)
 * [Windows Presentation Foundation](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/overview/?view=netdesktop-5.0)
 
 <!-- GETTING STARTED -->
@@ -81,9 +79,9 @@ In the Visual Studio Installer, install the .NET desktop development workload.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/mrees791/chemistry-app.git
+   git clone https://github.com/mrees791/weather-app.git
    ```
-2. Open the ChemistryApp.sln solution file with Visual Studio.
+2. Open the WeatherApp.sln solution file with Visual Studio.
 3. Build the solution in Visual Studio.
 
 <!-- CONTACT -->
@@ -91,7 +89,7 @@ In the Visual Studio Installer, install the .NET desktop development workload.
 
 Michael Rees - mrees791@gmail.com
 
-Project Link: [https://github.com/mrees791/chemistry-app](https://github.com/mrees791/chemistry-app)
+Project Link: [https://github.com/mrees791/weather-app](https://github.com/mrees791/weather-app)
 
 
 
@@ -100,7 +98,11 @@ Project Link: [https://github.com/mrees791/chemistry-app](https://github.com/mre
 * [MVVM Light Toolkit](http://www.mvvmlight.net/)
 * [NLog](https://nlog-project.org/)
 * [RestoreWindowPlace](https://www.nuget.org/packages/RestoreWindowPlace)
-* [Project Logo](https://www.vecteezy.com/free-vector/atom)
+* [LiveCharts](https://lvcharts.net/)
+* [AutoUpdater.NET](https://github.com/ravibpatel/AutoUpdater.NET)
+* [OpenWeatherMap Weather API](https://openweathermap.org/api)
+* [Zippopotam.us Zip API](https://www.zippopotam.us/)
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [product-screenshot]: Images/screenshot.png
