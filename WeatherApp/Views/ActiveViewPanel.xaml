@@ -12,11 +12,13 @@
     <!-- Currently using three booleans from the MainViewModel to determine the active view (Weather, Favorites, Settings) -->
     <!-- Ideally, we would use an Active View Model, DataTemplates, and a ContentControl to determine the active view but this 
     has too many minor side effects as explained below. -->
-    <StackPanel>
-        <views:WeatherPage Visibility="{Binding Source={StaticResource Locator},Path=MainVm.ShowWeatherPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
-        <views:FavoritesPage Visibility="{Binding Source={StaticResource Locator},Path=MainVm.ShowFavoritesPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
-        <views:SettingsPage Visibility="{Binding Source={StaticResource Locator},Path=MainVm.ShowSettingsPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
-    </StackPanel>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <views:WeatherPage Visibility="{Binding Source={StaticResource Locator},Path=MainVm.ShowWeatherPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
+            <views:FavoritesPage Visibility="{Binding Source={StaticResource Locator},Path=MainVm.ShowFavoritesPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
+            <views:SettingsPage Visibility="{Binding Source={StaticResource Locator},Path=MainVm.ShowSettingsPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
+        </StackPanel>
+    </ScrollViewer>
     <!--
     Using DataTemplates bound to an active view model has too many minor side effects:
     ToolTips in the hourly chart stop working
