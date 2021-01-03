@@ -28,7 +28,20 @@ namespace WeatherApp.ViewModel
         private string dailyHighCelsius;
         private string dailyLowCelsius;
 
-        private string shortForecast;
+        public FavoritesBoxViewModel()
+        {
+            if (IsInDesignMode)
+            {
+                City = "Columbus";
+                State = "Ohio";
+                CurrentWeatherFahrenheit = "40.62";
+                DailyHighFahrenheit = "41.04";
+                DailyLowFahrenheit = "30.67";
+                CurrentWeatherCelsius = "4.79";
+                DailyHighCelsius = "5.02";
+                DailyLowCelsius = "-0.74";
+            }
+        }
 
         public FavoritesBoxViewModel(string zipCode)
         {
@@ -74,8 +87,6 @@ namespace WeatherApp.ViewModel
             DailyLowCelsius = string.Format("{0:0.##}", lowCelsius);
             DailyHighFahrenheit = string.Format("{0:0.##}", highFahrenheit);
             DailyLowFahrenheit = string.Format("{0:0.##}", lowFahrenheit);
-
-            ShortForecast = currentWeather.WeatherEntries[0].Description;
         }
 
 
@@ -86,8 +97,6 @@ namespace WeatherApp.ViewModel
         public string CurrentWeatherFahrenheit { get => currentWeatherFahrenheit; set { currentWeatherFahrenheit = value; RaisePropertyChanged(); } }
         public string DailyHighFahrenheit { get => dailyHighFahrenheit; set { dailyHighFahrenheit = value; RaisePropertyChanged(); } }
         public string DailyLowFahrenheit { get => dailyLowFahrenheit; set { dailyLowFahrenheit = value; RaisePropertyChanged(); } }
-
-        public string ShortForecast { get => shortForecast; set { shortForecast = value; RaisePropertyChanged(); } }
 
         public string CurrentWeatherCelsius { get => currentWeatherCelsius; set { currentWeatherCelsius = value; RaisePropertyChanged(); } }
         public string DailyHighCelsius { get => dailyHighCelsius; set { dailyHighCelsius = value; RaisePropertyChanged(); } }

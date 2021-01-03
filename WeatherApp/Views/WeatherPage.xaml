@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WeatherApp.Views"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             mc:Ignorable="d" >
+             xmlns:vm="clr-namespace:WeatherApp.ViewModel"
+             mc:Ignorable="d">
     <StackPanel DataContext="{Binding Source={StaticResource Locator},Path=WeatherPageVm}">
         <local:ErrorMessagePanel Visibility="{Binding HasError,Converter={StaticResource CollapseIfFalseConverter}}"/>
         <StackPanel Visibility="{Binding HasError,Converter={StaticResource CollapseIfTrueConverter}}">

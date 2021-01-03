@@ -4,46 +4,57 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WeatherApp.Views"
-             mc:Ignorable="d" >
-    <StackPanel>
-        <Button Command="{Binding Source={StaticResource Locator},Path=TopMenuVm.SearchFavoriteZipCodeCommand}" CommandParameter="{Binding ZipCode}" IsEnabled="True">
+             xmlns:vm="clr-namespace:WeatherApp.ViewModel"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance vm:FavoritesBoxViewModel, IsDesignTimeCreatable=True}">
+    <UserControl.Template>
+        <ControlTemplate TargetType="{x:Type UserControl}">
+            <ContentPresenter Content="{Binding}"/>
+        </ControlTemplate>
+    </UserControl.Template>
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:FavoritesBoxViewModel}">
             <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding City}"/>
-                    <TextBlock Text=", "/>
-                    <TextBlock Text="{Binding State}"/>
-                </StackPanel>
-                <!-- Fahrenheit-->
-                <StackPanel Orientation="Horizontal" Visibility="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}">
-                    <TextBlock Text="{Binding CurrentWeatherFahrenheit}" FontSize="24"/>
-                    <TextBlock Text="º F" FontSize="24"/>
-                    <StackPanel Margin="10,0,0,0">
+                <Button Command="{Binding Source={StaticResource Locator},Path=TopMenuVm.SearchFavoriteZipCodeCommand}" CommandParameter="{Binding ZipCode}" IsEnabled="True">
+                    <StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding DailyHighFahrenheit}" FontSize="10"/>
-                            <TextBlock Text="º F" FontSize="10"/>
+                            <TextBlock Text="{Binding City}"/>
+                            <TextBlock Text=", "/>
+                            <TextBlock Text="{Binding State}"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding DailyLowFahrenheit}" FontSize="10"/>
-                            <TextBlock Text="º F" FontSize="10"/>
+                        <!-- Fahrenheit-->
+                        <StackPanel Orientation="Horizontal" Visibility="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}">
+                            <TextBlock Text="{Binding CurrentWeatherFahrenheit}" FontSize="24"/>
+                            <TextBlock Text="º F" FontSize="24"/>
+                            <StackPanel Margin="10,0,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding DailyHighFahrenheit}" FontSize="10"/>
+                                    <TextBlock Text="º F" FontSize="10"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding DailyLowFahrenheit}" FontSize="10"/>
+                                    <TextBlock Text="º F" FontSize="10"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                        <!-- Celsius -->
+                        <StackPanel Orientation="Horizontal" Visibility="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}">
+                            <TextBlock Text="{Binding CurrentWeatherCelsius}" FontSize="24"/>
+                            <TextBlock Text="º C" FontSize="24"/>
+                            <StackPanel Margin="10,0,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding DailyHighCelsius}" FontSize="10"/>
+                                    <TextBlock Text="º C" FontSize="10"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding DailyLowCelsius}" FontSize="10"/>
+                                    <TextBlock Text="º C" FontSize="10"/>
+                                </StackPanel>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
-                </StackPanel>
-                <!-- Celsius -->
-                <StackPanel Orientation="Horizontal" Visibility="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}">
-                    <TextBlock Text="{Binding CurrentWeatherCelsius}" FontSize="24"/>
-                    <TextBlock Text="º C" FontSize="24"/>
-                    <StackPanel Margin="10,0,0,0">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding DailyHighCelsius}" FontSize="10"/>
-                            <TextBlock Text="º C" FontSize="10"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding DailyLowCelsius}" FontSize="10"/>
-                            <TextBlock Text="º C" FontSize="10"/>
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
+                </Button>
             </StackPanel>
-        </Button>
-    </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
 </UserControl>
