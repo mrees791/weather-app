@@ -1,12 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:WeatherApp.Skins">
-    <!-- Light gray Skin -->
+    <!-- Light Gray Skin -->
     <SolidColorBrush x:Key="DefaultButtonBackground" Color="#d1d1d1"/>
     <SolidColorBrush x:Key="DefaultButtonForeground" Color="Black"/>
     <SolidColorBrush x:Key="ActiveButtonBackground" Color="#f0f0f0"/>
     <SolidColorBrush x:Key="ActiveButtonForeground" Color="Black"/>
-    <SolidColorBrush x:Key="MainPanelBackground" Color="#fcfcfc"/>
+    <SolidColorBrush x:Key="MainPanelBackground" Color="#FFF"/>
     <SolidColorBrush x:Key="TopMenuDockPanelBackground" Color="#9c9c9c"/>
     <SolidColorBrush x:Key="ZipErrorMessageForeground" Color="White"/>
     <!-- Hourly chart colors -->
