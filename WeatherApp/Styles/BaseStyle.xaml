@@ -14,16 +14,16 @@
     <SolidColorBrush x:Key="ZipErrorMessageForeground" Color="Red"/>
 
     <Style TargetType="{x:Type TextBox}">
-        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveFontVm.DisplayName}"/>
+        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveFontVm.DisplayName}"/>
     </Style>
     <Style TargetType="{x:Type Label}">
-        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveFontVm.DisplayName}"/>
+        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveFontVm.DisplayName}"/>
     </Style>
     <Style TargetType="{x:Type TextBlock}">
-        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveFontVm.DisplayName}"/>
+        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveFontVm.DisplayName}"/>
     </Style>
     <Style TargetType="{x:Type TextBox}" x:Key="ErrorMessageStyle">
-        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveFontVm.DisplayName}"/>
+        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveFontVm.DisplayName}"/>
         <Setter Property="IsReadOnly" Value="True"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -47,7 +47,7 @@
         </Setter>
     </Style>
     <Style TargetType="{x:Type Button}" x:Key="DefaultButton">
-        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveFontVm.DisplayName}"/>
+        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveFontVm.DisplayName}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -63,7 +63,7 @@
         </Style.Triggers>
     </Style>
     <Style TargetType="{x:Type Button}" x:Key="ActiveButtonStyle">
-        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveFontVm.DisplayName}"/>
+        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveFontVm.DisplayName}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -95,20 +95,20 @@
         <Setter Property="PointForeground" Value="{DynamicResource LvcLineSeriesPointForeground}"/>
         <Setter Property="Stroke" Value="{DynamicResource LvcLineSeriesStroke}"/>
         <Setter Property="Fill" Value="{DynamicResource LvcLineSeriesFill}"/>
-        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveFontVm.DisplayName}"/>
+        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveFontVm.DisplayName}"/>
     </Style>
     <Style TargetType="{x:Type lvc:Axis}">
         <Setter Property="Foreground" Value="Black"/>
-        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveFontVm.DisplayName}"/>
+        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveFontVm.DisplayName}"/>
     </Style>
     <Style TargetType="{x:Type lvc:VerticalLineSeries}">
         <Setter Property="Stroke" Value="Black"/>
-        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveFontVm.DisplayName}"/>
+        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveFontVm.DisplayName}"/>
     </Style>
     <Style TargetType="{x:Type lvc:CartesianChart}">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="Black"/>
-        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveFontVm.DisplayName}"/>
+        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveFontVm.DisplayName}"/>
     </Style>
     <Style TargetType="{x:Type lvc:Separator}">
         <Setter Property="Stroke" Value="#AAAAAA"/>
@@ -166,7 +166,7 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
         <Setter Property="TextElement.Foreground" Value="Black"/>
         <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveFontVm.DisplayName}"/>
+        <Setter Property="FontFamily" Value="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveFontVm.DisplayName}"/>
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
@@ -181,7 +181,7 @@
                                           ContentTemplate="{TemplateBinding ComboBox.SelectionBoxItemTemplate}"
                                           ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"/>
                         <TextBox x:Name="PART_EditableTextBox" Margin="3,3,23,3"
-                                 FontFamily="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveFontVm.DisplayName}"
+                                 FontFamily="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveFontVm.DisplayName}"
                                  IsReadOnly="{TemplateBinding IsReadOnly}"
                                  Visibility="Hidden" Background="Transparent"
                                  HorizontalAlignment="Left" VerticalAlignment="Center" Focusable="True">

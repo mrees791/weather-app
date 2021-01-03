@@ -13,7 +13,7 @@
             <TextBlock Text="{Binding Date}" HorizontalAlignment="Center"/>
             <views:WeatherIconPanel/>
             <!--<Frame Source="{Binding IconUrl}" IsTabStop="False" NavigationUIVisibility="Hidden"/>-->
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Visibility="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="High: "/>
                     <TextBlock Text="{Binding TemperatureCelsiusMax}"/>
@@ -25,7 +25,7 @@
                     <TextBlock Text="º C"/>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Visibility="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="High: "/>
                     <TextBlock Text="{Binding TemperatureFahrenheitMax}"/>

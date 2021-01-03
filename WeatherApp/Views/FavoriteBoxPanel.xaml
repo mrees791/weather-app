@@ -14,7 +14,7 @@
                     <TextBlock Text="{Binding State}"/>
                 </StackPanel>
                 <!-- Fahrenheit-->
-                <StackPanel Orientation="Horizontal" Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}">
+                <StackPanel Orientation="Horizontal" Visibility="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}">
                     <TextBlock Text="{Binding CurrentWeatherFahrenheit}" FontSize="24"/>
                     <TextBlock Text="º F" FontSize="24"/>
                     <StackPanel Margin="10,0,0,0">
@@ -29,7 +29,7 @@
                     </StackPanel>
                 </StackPanel>
                 <!-- Celsius -->
-                <StackPanel Orientation="Horizontal" Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}">
+                <StackPanel Orientation="Horizontal" Visibility="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}">
                     <TextBlock Text="{Binding CurrentWeatherCelsius}" FontSize="24"/>
                     <TextBlock Text="º C" FontSize="24"/>
                     <StackPanel Margin="10,0,0,0">

@@ -48,6 +48,14 @@ namespace WeatherApp.ViewModel
             SimpleIoc.Default.Register<TopMenuViewModel>();
         }
 
+        public MainViewModel MainVm
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
         public TopMenuViewModel TopMenuVm
         {
             get
@@ -72,15 +80,7 @@ namespace WeatherApp.ViewModel
             }
         }
 
-        public MainViewModel MainVm
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
-
-        public SettingsPageViewModel UserSettingsVm
+        public SettingsPageViewModel SettingsPageVm
         {
             get
             {

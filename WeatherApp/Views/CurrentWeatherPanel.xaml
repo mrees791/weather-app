@@ -8,7 +8,6 @@
              xmlns:views="clr-namespace:WeatherApp.Views"
              mc:Ignorable="d">
     <StackPanel HorizontalAlignment="Center" DataContext="{Binding CurrentWeatherVm}">
-        <!--<Frame Source="{Binding IconUrl}" IsTabStop="False" NavigationUIVisibility="Hidden"/>-->
         <views:WeatherIconPanel/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="{Binding City}" FontSize="18"/>
@@ -16,8 +15,8 @@
             <TextBlock Text="{Binding State}" FontSize="18"/>
         </StackPanel>
         <StackPanel>
-            <TextBlock Text="{Binding TemperatureFahrenheit}" HorizontalAlignment="Center" FontSize="36" Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}"/>
-            <TextBlock Text="{Binding TemperatureCelsius}" HorizontalAlignment="Center" FontSize="36" Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}"/>
+            <TextBlock Text="{Binding TemperatureFahrenheit}" HorizontalAlignment="Center" FontSize="36" Visibility="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}"/>
+            <TextBlock Text="{Binding TemperatureCelsius}" HorizontalAlignment="Center" FontSize="36" Visibility="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="Last Updated: "/>

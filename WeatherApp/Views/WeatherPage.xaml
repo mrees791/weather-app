@@ -6,31 +6,29 @@
              xmlns:local="clr-namespace:WeatherApp.Views"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" >
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" DataContext="{Binding Source={StaticResource Locator},Path=WeatherPageVm}">
-        <StackPanel>
-            <local:ErrorMessagePanel Visibility="{Binding HasError,Converter={StaticResource CollapseIfFalseConverter}}"/>
-            <StackPanel Visibility="{Binding HasError,Converter={StaticResource CollapseIfTrueConverter}}">
-                <local:CurrentWeatherPanel Margin="0,10,0,0"/>
-                <StackPanel>
-                    <Label Content="Daily"/>
-                    <ListView ItemsSource="{Binding DayWeatherViewModels}" BorderThickness="0" Background="Transparent">
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" IsEnabled="False"/>
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <local:DayWeatherPanel/>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListView>
-                </StackPanel>
-                <StackPanel>
-                    <local:HourlyChartView DataContext="{Binding HourlyChartFahrenheitVm}"  Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}"/>
-                    <local:HourlyChartView DataContext="{Binding HourlyChartCelsiusVm}"  Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}"/>
-                </StackPanel>
+    <StackPanel DataContext="{Binding Source={StaticResource Locator},Path=WeatherPageVm}">
+        <local:ErrorMessagePanel Visibility="{Binding HasError,Converter={StaticResource CollapseIfFalseConverter}}"/>
+        <StackPanel Visibility="{Binding HasError,Converter={StaticResource CollapseIfTrueConverter}}">
+            <local:CurrentWeatherPanel Margin="0,10,0,0"/>
+            <StackPanel>
+                <Label Content="Daily"/>
+                <ListView ItemsSource="{Binding DayWeatherViewModels}" BorderThickness="0" Background="Transparent">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" IsEnabled="False"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <local:DayWeatherPanel/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListView>
+            </StackPanel>
+            <StackPanel>
+                <local:HourlyChartView DataContext="{Binding HourlyChartFahrenheitVm}"  Visibility="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}"/>
+                <local:HourlyChartView DataContext="{Binding HourlyChartCelsiusVm}"  Visibility="{Binding Source={StaticResource Locator},Path=SettingsPageVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}"/>
             </StackPanel>
         </StackPanel>
-    </ScrollViewer>
+    </StackPanel>
 </UserControl>

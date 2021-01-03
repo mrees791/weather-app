@@ -8,54 +8,52 @@
              xmlns:vm="clr-namespace:WeatherApp.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel>
-            <Label Content="Settings"/>
-            <WrapPanel Margin="10,0,0,0">
-                <StackPanel Margin="0,0,10,0">
-                    <Label Content="Temperature"/>
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal" Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}">
-                            <Button ToolTip="Fahrenheit" Content="F" Padding="20px" Style="{DynamicResource ActiveButton}" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SetFahrenheitTemperatureCommand}"/>
-                            <Button ToolTip="Celsius" Content="C" Padding="20px" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SetCelsiusTemperatureCommand}"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}">
-                            <Button ToolTip="Fahrenheit" Content="F" Padding="20px" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SetFahrenheitTemperatureCommand}"/>
-                            <Button ToolTip="Celsius" Content="C" Padding="20px" Style="{DynamicResource ActiveButton}" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SetCelsiusTemperatureCommand}"/>
-                        </StackPanel>
+    <StackPanel DataContext="{Binding Source={StaticResource Locator},Path=SettingsPageVm}">
+        <Label Content="Settings"/>
+        <WrapPanel Margin="10,0,0,0">
+            <StackPanel Margin="0,0,10,0">
+                <Label Content="Temperature"/>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}">
+                        <Button ToolTip="Fahrenheit" Content="F" Padding="20px" Style="{DynamicResource ActiveButton}" Command="{Binding SetFahrenheitTemperatureCommand}"/>
+                        <Button ToolTip="Celsius" Content="C" Padding="20px" Command="{Binding SetCelsiusTemperatureCommand}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}">
+                        <Button ToolTip="Fahrenheit" Content="F" Padding="20px" Command="{Binding SetFahrenheitTemperatureCommand}"/>
+                        <Button ToolTip="Celsius" Content="C" Padding="20px" Style="{DynamicResource ActiveButton}" Command="{Binding SetCelsiusTemperatureCommand}"/>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Margin="0,0,10,0">
-                    <Label Content="Theme"/>
-                    <ComboBox ItemsSource="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SkinViewModels}"
-                              SelectedItem="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SelectedSkinVm}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate DataType="{x:Type vm:WpfSkinViewModel}">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding DisplayName}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </StackPanel>
-                <StackPanel Margin="0,0,10,0">
-                    <Label Content="Font Family"/>
-                    <ComboBox ItemsSource="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SystemFontViewModels}"
-                              SelectedItem="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SelectedFontVm}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate DataType="{x:Type vm:FontFamilyViewModel}">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding DisplayName}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </StackPanel>
-            </WrapPanel>
-            <WrapPanel Orientation="Horizontal" Margin="10,10,0,0">
-                <Button ToolTip="Apply settings" Content="Apply" Margin="0,0,5,0" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ApplySettingsCommand}" />
-                <Button ToolTip="Revert to default settings" Content="Default Settings" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.DefaultSettingsCommand}" />
-            </WrapPanel>
-        </StackPanel>
-    </ScrollViewer>
+            </StackPanel>
+            <StackPanel Margin="0,0,10,0">
+                <Label Content="Theme"/>
+                <ComboBox ItemsSource="{Binding SkinViewModels}"
+                              SelectedItem="{Binding SelectedSkinVm}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type vm:WpfSkinViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding DisplayName}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Margin="0,0,10,0">
+                <Label Content="Font Family"/>
+                <ComboBox ItemsSource="{Binding SystemFontViewModels}"
+                              SelectedItem="{Binding SelectedFontVm}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type vm:FontFamilyViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding DisplayName}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </WrapPanel>
+        <WrapPanel Orientation="Horizontal" Margin="10,10,0,0">
+            <Button ToolTip="Apply settings" Content="Apply" Margin="0,0,5,0" Command="{Binding ApplySettingsCommand}" />
+            <Button ToolTip="Revert to default settings" Content="Default Settings" Command="{Binding DefaultSettingsCommand}" />
+        </WrapPanel>
+    </StackPanel>
 </UserControl>
