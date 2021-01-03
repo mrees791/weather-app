@@ -43,16 +43,6 @@ namespace WeatherApp.ViewModel
         private string windowTitle;
         private AppFiles appFiles;
 
-        // SelectedViewModel would be used in the DataTemplates of the ActiveViewPanel
-        // to determine the active view. This has too many minor side effects
-        // so we are simply using three booleans as a temporary solution.
-        // private ViewModelBase selectedViewModel;
-
-        // Determines the active page in the ActiveViewPanel.
-        private bool showWeatherPage;
-        private bool showFavoritesPage;
-        private bool showSettingsPage;
-
         public MainViewModel()
         {
             ////if (IsInDesignMode)
@@ -68,8 +58,6 @@ namespace WeatherApp.ViewModel
             vml = App.Current.Resources["Locator"] as ViewModelLocator;
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             WindowTitle = string.Format("Weather v{0}.{1}", version.Major, version.Minor);
-
-            SetCurrentPageToWeatherPage();
         }
 
         private void InitializeUpdater()
@@ -85,31 +73,6 @@ namespace WeatherApp.ViewModel
             UpdaterUtility.CheckForUpdates();
         }
 
-        public void SetCurrentPageToWeatherPage()
-        {
-            ShowWeatherPage = true;
-            ShowFavoritesPage = false;
-            ShowSettingsPage = false;
-        }
-
-        public void SetCurrentPageToFavoritesPage()
-        {
-            ShowWeatherPage = false;
-            ShowFavoritesPage = true;
-            ShowSettingsPage = false;
-        }
-
-        public void SetCurrentPageToSettingsPage()
-        {
-            ShowWeatherPage = false;
-            ShowFavoritesPage = false;
-            ShowSettingsPage = true;
-        }
-
         public string WindowTitle { get => windowTitle; private set { windowTitle = value; RaisePropertyChanged(); } }
-
-        public bool ShowWeatherPage { get => showWeatherPage; private set { showWeatherPage = value; RaisePropertyChanged(); } }
-        public bool ShowFavoritesPage { get => showFavoritesPage; private set { showFavoritesPage = value; RaisePropertyChanged(); } }
-        public bool ShowSettingsPage { get => showSettingsPage; private set { showSettingsPage = value; RaisePropertyChanged(); } }
     }
 }

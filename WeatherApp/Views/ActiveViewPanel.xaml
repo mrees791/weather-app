@@ -14,9 +14,9 @@
     has too many minor side effects as explained below. -->
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <StackPanel>
-            <views:WeatherPage Visibility="{Binding Source={StaticResource Locator},Path=MainVm.ShowWeatherPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
-            <views:FavoritesPage Visibility="{Binding Source={StaticResource Locator},Path=MainVm.ShowFavoritesPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
-            <views:SettingsPage Visibility="{Binding Source={StaticResource Locator},Path=MainVm.ShowSettingsPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
+            <views:WeatherPage Visibility="{Binding Source={StaticResource Locator},Path=TopMenuVm.ShowWeatherPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
+            <views:FavoritesPage Visibility="{Binding Source={StaticResource Locator},Path=TopMenuVm.ShowFavoritesPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
+            <views:SettingsPage Visibility="{Binding Source={StaticResource Locator},Path=TopMenuVm.ShowSettingsPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
         </StackPanel>
     </ScrollViewer>
     <!--

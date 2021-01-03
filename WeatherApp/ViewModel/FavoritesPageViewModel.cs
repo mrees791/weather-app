@@ -81,7 +81,7 @@ namespace WeatherApp.ViewModel
             }
         }
 
-        public void UpdateFavoritesCurrentWeather()
+        public void RefreshFavorites()
         {
             HasError = false;
             ErrorMessage = string.Empty;

@@ -29,6 +29,18 @@ namespace WeatherApp.ViewModel
         private bool zipIsValid;
         private bool currentZipIsFavorited;
         private bool userCanToggleFavoriteButton;
+        private bool showRefreshAndFavoriteButtons;
+
+
+        // SelectedViewModel would be used in the DataTemplates of the ActiveViewPanel
+        // to determine the active view. This has too many minor side effects
+        // so we are simply using three booleans as a temporary solution.
+        // private ViewModelBase selectedViewModel;
+
+        // Determines the active page in the ActiveViewPanel.
+        private bool showWeatherPage;
+        private bool showFavoritesPage;
+        private bool showSettingsPage;
 
         public TopMenuViewModel()
         {
@@ -61,15 +73,15 @@ namespace WeatherApp.ViewModel
             });
             setCurrentPageToWeatherPageCommand = new RelayCommand(() =>
             {
-                vml.MainVm.SetCurrentPageToWeatherPage();
+                SetCurrentPageToWeatherPage();
             });
             setCurrentPageToFavoritesPageCommand = new RelayCommand(() =>
             {
-                vml.MainVm.SetCurrentPageToFavoritesPage();
+                SetCurrentPageToFavoritesPage();
             });
             setCurrentPageToSettingsPageCommand = new RelayCommand(() =>
             {
-                vml.MainVm.SetCurrentPageToSettingsPage();
+                SetCurrentPageToSettingsPage();
             });
         }
 
@@ -89,8 +101,14 @@ namespace WeatherApp.ViewModel
 
         private void RefreshWeather()
         {
-            vml.WeatherPageVm.RefreshWeatherData();
-            vml.MainVm.SetCurrentPageToWeatherPage();
+            if (showWeatherPage)
+            {
+                vml.WeatherPageVm.RefreshWeatherData();
+            }
+            else if (showFavoritesPage)
+            {
+                vml.FavoritesPageVm.RefreshFavorites();
+            }
         }
 
         private void SearchZip(string zip)
@@ -101,7 +119,7 @@ namespace WeatherApp.ViewModel
             {
                 ZipErrorMessage = string.Empty;
                 vml.WeatherPageVm.UpdateWeatherData(zip);
-                vml.MainVm.SetCurrentPageToWeatherPage();
+                SetCurrentPageToWeatherPage();
 
                 bool validWeatherRequest = !vml.WeatherPageVm.HasError;
                 if (validWeatherRequest)
@@ -146,10 +164,40 @@ namespace WeatherApp.ViewModel
             UpdateFavoriteButton();
         }
 
+        public void SetCurrentPageToWeatherPage()
+        {
+            ShowWeatherPage = true;
+            ShowFavoritesPage = false;
+            ShowSettingsPage = false;
+            ShowRefreshAndFavoriteButtons = true;
+        }
+
+        public void SetCurrentPageToFavoritesPage()
+        {
+            ShowWeatherPage = false;
+            ShowFavoritesPage = true;
+            ShowSettingsPage = false;
+            ShowRefreshAndFavoriteButtons = true;
+        }
+
+        public void SetCurrentPageToSettingsPage()
+        {
+            ShowWeatherPage = false;
+            ShowFavoritesPage = false;
+            ShowSettingsPage = true;
+            ShowRefreshAndFavoriteButtons = false;
+        }
+
+
+        public bool ShowWeatherPage { get => showWeatherPage; private set { showWeatherPage = value; RaisePropertyChanged(); } }
+        public bool ShowFavoritesPage { get => showFavoritesPage; private set { showFavoritesPage = value; RaisePropertyChanged(); } }
+        public bool ShowSettingsPage { get => showSettingsPage; private set { showSettingsPage = value; RaisePropertyChanged(); } }
+
         public string ZipInput { get => zipInput; set { zipInput = value; RaisePropertyChanged(); } }
         public string ZipErrorMessage { get => zipErrorMessage; set { zipErrorMessage = value; RaisePropertyChanged(); } }
         public bool CurrentZipIsFavorited { get => currentZipIsFavorited; set { currentZipIsFavorited = value; RaisePropertyChanged(); } }
         public bool UserCanToggleFavoriteButton { get => userCanToggleFavoriteButton; set { userCanToggleFavoriteButton = value; RaisePropertyChanged(); } }
+        public bool ShowRefreshAndFavoriteButtons { get => showRefreshAndFavoriteButtons; set { showRefreshAndFavoriteButtons = value; RaisePropertyChanged(); } }
 
         public RelayCommand FavoriteCurrentZipCommand { get => favoriteCurrentZipCommand; }
         public RelayCommand SearchNewZipCodeCommand { get => searchNewZipCodeCommand; }

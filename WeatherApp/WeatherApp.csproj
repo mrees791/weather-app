@@ -125,6 +125,7 @@
     <Compile Include="Converters\FavoritesStarIconConverter.cs" />
     <Compile Include="Converters\ShowIfCelsiusConverter.cs" />
     <Compile Include="Converters\ShowIfFahrenheitConverter.cs" />
+    <Compile Include="Converters\ShowIfTrueConverter.cs" />
     <Compile Include="Models\AppFiles.cs" />
     <Compile Include="Models\FileFormats\FavoritesFile.cs" />
     <Compile Include="Models\FileFormats\FileBase.cs" />

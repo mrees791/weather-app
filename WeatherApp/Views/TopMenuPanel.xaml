@@ -27,21 +27,22 @@
                     </Style>
                 </StackPanel.Resources>
                 <TextBlock Text="{Binding ZipErrorMessage}" VerticalAlignment="Center" Foreground="{DynamicResource ZipErrorMessageForeground}"/>
-                <Button Command="{Binding FavoriteCurrentZipCommand}" IsEnabled="{Binding UserCanToggleFavoriteButton}" ToolTip="Favorite"
-                        Visibility="{Binding Path=MainVm.ShowWeatherPage,Source={StaticResource Locator},Converter={StaticResource CollapseIfFalseConverter}}">
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Frame Source="{Binding CurrentZipIsFavorited,Converter={StaticResource FavoritesStarIconConverter}}"/>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <Button Command="{Binding RefreshWeatherCommand}" ToolTip="Refresh (F5)">
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Frame Source="/WeatherApp;component/Resources/Images/reload.xaml"/>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                <StackPanel Orientation="Horizontal" Visibility="{Binding Path=TopMenuVm.ShowRefreshAndFavoriteButtons,Source={StaticResource Locator},Converter={StaticResource ShowIfTrueConverter}}">
+                    <Button Command="{Binding FavoriteCurrentZipCommand}" IsEnabled="{Binding UserCanToggleFavoriteButton}" ToolTip="Favorite">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Frame Source="{Binding CurrentZipIsFavorited,Converter={StaticResource FavoritesStarIconConverter}}"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Command="{Binding RefreshWeatherCommand}" ToolTip="Refresh (F5)">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Frame Source="/WeatherApp;component/Resources/Images/reload.xaml"/>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
             </StackPanel>
             <TextBox Width="75" Text="{Binding ZipInput}" VerticalContentAlignment="Center" ToolTip="Zip code"/>
             <Button Content="Search" Command="{Binding SearchNewZipCodeCommand}" ToolTip="Search zip code"/>

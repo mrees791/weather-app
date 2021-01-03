@@ -18,6 +18,7 @@
             <converters:FavoritesStarIconConverter x:Key="FavoritesStarIconConverter"/>
             <converters:ShowIfFahrenheitConverter x:Key="ShowIfFahrenheitConverter"/>
             <converters:ShowIfCelsiusConverter x:Key="ShowIfCelsiusConverter"/>
+            <converters:ShowIfTrueConverter x:Key="ShowIfTrueConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
