@@ -106,21 +106,18 @@ namespace WeatherApp.ViewModel
             for (int i = 0; i < dayWeatherViewModels.Count; i++)
             {
                 DailyEntry daily = dailies[i];
-                DayWeatherViewModel vm = dayWeatherViewModels[i];
-
                 Weather weather = daily.WeatherEntries[0];
-
-                vm.Date = FormatDateString(daily.DateTime);
+                DayWeatherViewModel vm = dayWeatherViewModels[i];
 
                 Temperature temperatureHigh = new Temperature(daily.DailyTemperature.DailyHighCelsius, TemperatureFormat.Celsius);
                 Temperature temperatureLow = new Temperature(daily.DailyTemperature.DailyLowCelsius, TemperatureFormat.Celsius);
 
+                vm.Date = FormatDateString(daily.DateTime);
                 vm.Description = GetFinalDescription(weather.Description);
                 vm.TemperatureCelsiusMin = string.Format("{0:0.00}", temperatureLow.Celsius);
                 vm.TemperatureCelsiusMax = string.Format("{0:0.00}", temperatureHigh.Celsius);
                 vm.TemperatureFahrenheitMin = string.Format("{0:0.00}", temperatureLow.Fahrenheit);
                 vm.TemperatureFahrenheitMax = string.Format("{0:0.00}", temperatureHigh.Fahrenheit);
-
                 vm.IconUrl = weather.GetIconUrl();
             }
         }
