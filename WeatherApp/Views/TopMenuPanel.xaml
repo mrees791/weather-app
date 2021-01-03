@@ -43,8 +43,8 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
-            <TextBox Width="125" Text="{Binding ZipInput}" VerticalContentAlignment="Center"/>
-            <Button Content="Search" Command="{Binding SearchNewZipCodeCommand}"/>
+            <TextBox Width="75" Text="{Binding ZipInput}" VerticalContentAlignment="Center" ToolTip="Zip code"/>
+            <Button Content="Search" Command="{Binding SearchNewZipCodeCommand}" ToolTip="Search zip code"/>
         </StackPanel>
         <StackPanel/>
     </DockPanel>

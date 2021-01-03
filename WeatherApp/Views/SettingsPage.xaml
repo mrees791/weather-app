@@ -16,12 +16,12 @@
                     <Label Content="Temperature"/>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfFahrenheitConverter}}">
-                            <Button Content="F" Padding="20px" Style="{DynamicResource ActiveButton}" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SetFahrenheitTemperatureCommand}"/>
-                            <Button Content="C" Padding="20px" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SetCelsiusTemperatureCommand}"/>
+                            <Button ToolTip="Fahrenheit" Content="F" Padding="20px" Style="{DynamicResource ActiveButton}" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SetFahrenheitTemperatureCommand}"/>
+                            <Button ToolTip="Celsius" Content="C" Padding="20px" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SetCelsiusTemperatureCommand}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Visibility="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ActiveTemperatureFormat,Converter={StaticResource ShowIfCelsiusConverter}}">
-                            <Button Content="F" Padding="20px" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SetFahrenheitTemperatureCommand}"/>
-                            <Button Content="C" Padding="20px" Style="{DynamicResource ActiveButton}" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SetCelsiusTemperatureCommand}"/>
+                            <Button ToolTip="Fahrenheit" Content="F" Padding="20px" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SetFahrenheitTemperatureCommand}"/>
+                            <Button ToolTip="Celsius" Content="C" Padding="20px" Style="{DynamicResource ActiveButton}" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.SetCelsiusTemperatureCommand}"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
@@ -53,8 +53,8 @@
                 </StackPanel>
             </WrapPanel>
             <WrapPanel Orientation="Horizontal" Margin="10,10,0,0">
-                <Button Content="Apply" Margin="0,0,5,0" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ApplySettingsCommand}" />
-                <Button Content="Default Settings" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.DefaultSettingsCommand}" />
+                <Button ToolTip="Apply settings" Content="Apply" Margin="0,0,5,0" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.ApplySettingsCommand}" />
+                <Button ToolTip="Revert to default settings" Content="Default Settings" Command="{Binding Source={StaticResource Locator},Path=UserSettingsVm.DefaultSettingsCommand}" />
             </WrapPanel>
         </StackPanel>
     </ScrollViewer>
