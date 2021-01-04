@@ -21,10 +21,25 @@ namespace WeatherApp.ViewModel
 
         public FavoritesPageViewModel()
         {
-            appFiles = ((App)App.Current).AppFiles;
             favoritesBoxViewModels = new ObservableCollection<FavoritesBoxViewModel>();
 
-            LoadFavoritesFile();
+            if (!IsInDesignMode)
+            {
+                appFiles = ((App)App.Current).AppFiles;
+                LoadFavoritesFile();
+            }
+            else
+            {
+                InitializeDesignModeViewModel();
+            }
+        }
+
+        private void InitializeDesignModeViewModel()
+        {
+            FavoritesBoxViewModels.Add(new FavoritesBoxViewModel());
+            FavoritesBoxViewModels.Add(new FavoritesBoxViewModel());
+            FavoritesBoxViewModels.Add(new FavoritesBoxViewModel());
+            FavoritesBoxViewModels.Add(new FavoritesBoxViewModel());
         }
 
         public void RemoveFavoriteZipCode(string zipCode)

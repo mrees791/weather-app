@@ -17,7 +17,7 @@
             <views:WeatherPage/>
         </ScrollViewer>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Visibility="{Binding Source={StaticResource Locator},Path=TopMenuVm.ShowFavoritesPage,Converter={StaticResource CollapseIfFalseConverter}}">
-            <views:FavoritesPage/>
+            <views:FavoritesPage DataContext="{Binding Source={StaticResource Locator},Path=FavoritesPageVm}"/>
         </ScrollViewer>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Visibility="{Binding Source={StaticResource Locator},Path=TopMenuVm.ShowSettingsPage,Converter={StaticResource CollapseIfFalseConverter}}">
             <views:SettingsPage/>
