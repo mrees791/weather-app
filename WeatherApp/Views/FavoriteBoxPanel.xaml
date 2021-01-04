@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:WeatherApp.Views"
              xmlns:vm="clr-namespace:WeatherApp.ViewModel"
              mc:Ignorable="d"
+             Margin="2"
              d:DataContext="{d:DesignInstance vm:FavoritesBoxViewModel, IsDesignTimeCreatable=True}">
     <StackPanel>
         <Button Command="{Binding Source={StaticResource Locator},Path=TopMenuVm.SearchFavoriteZipCodeCommand}" CommandParameter="{Binding ZipCode}" IsEnabled="True">

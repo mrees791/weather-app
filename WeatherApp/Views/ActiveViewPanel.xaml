@@ -12,13 +12,17 @@
     <!-- Currently using three booleans from the MainViewModel to determine the active view (Weather, Favorites, Settings) -->
     <!-- Ideally, we would use an Active View Model, DataTemplates, and a ContentControl to determine the active view but this 
     has too many minor side effects as explained below. -->
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <StackPanel>
-            <views:WeatherPage Visibility="{Binding Source={StaticResource Locator},Path=TopMenuVm.ShowWeatherPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
-            <views:FavoritesPage Visibility="{Binding Source={StaticResource Locator},Path=TopMenuVm.ShowFavoritesPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
-            <views:SettingsPage Visibility="{Binding Source={StaticResource Locator},Path=TopMenuVm.ShowSettingsPage,Converter={StaticResource CollapseIfFalseConverter}}"/>
-        </StackPanel>
-    </ScrollViewer>
+    <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Visibility="{Binding Source={StaticResource Locator},Path=TopMenuVm.ShowWeatherPage,Converter={StaticResource CollapseIfFalseConverter}}">
+            <views:WeatherPage/>
+        </ScrollViewer>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Visibility="{Binding Source={StaticResource Locator},Path=TopMenuVm.ShowFavoritesPage,Converter={StaticResource CollapseIfFalseConverter}}">
+            <views:FavoritesPage/>
+        </ScrollViewer>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Visibility="{Binding Source={StaticResource Locator},Path=TopMenuVm.ShowSettingsPage,Converter={StaticResource CollapseIfFalseConverter}}">
+            <views:SettingsPage/>
+        </ScrollViewer>
+    </Grid>
     <!--
     Using DataTemplates bound to an active view model has too many minor side effects:
     ToolTips in the hourly chart stop working

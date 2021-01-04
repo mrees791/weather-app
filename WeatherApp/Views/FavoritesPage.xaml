@@ -11,15 +11,15 @@
         <local:ErrorMessagePanel Visibility="{Binding HasError,Converter={StaticResource CollapseIfFalseConverter}}"/>
         <StackPanel Visibility="{Binding HasError,Converter={StaticResource CollapseIfTrueConverter}}">
             <Label Content="Favorites"/>
-            <ListView ItemsSource="{Binding FavoritesBoxViewModels}" BorderThickness="0" Background="Transparent">
+            <ListView ItemsSource="{Binding FavoritesBoxViewModels}" BorderThickness="0" Background="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
+                        <WrapPanel Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <local:FavoriteBoxPanel Margin="2"/>
+                        <local:FavoriteBoxPanel/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
