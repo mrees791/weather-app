@@ -35,13 +35,18 @@ namespace WeatherApp.Models.FileFormats
 
         private FontFamily LoadDefaultFontFamily()
         {
-            var segoeUi = systemFonts.Where(f => f.Name == "Segoe UI").FirstOrDefault();
+            var segoeUi = LoadFontIfAvailable("Segoe UI");
             if (segoeUi != null)
             {
                 return segoeUi;
             }
 
             return System.Drawing.SystemFonts.DefaultFont.FontFamily;
+        }
+
+        private FontFamily LoadFontIfAvailable(string fontName)
+        {
+            return systemFonts.Where(f => f.Name == fontName).FirstOrDefault();
         }
 
         [XmlElement(ElementName = "temperatureFormat")]
