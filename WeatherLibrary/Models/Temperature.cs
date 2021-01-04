@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WeatherLibrary.Models
+﻿namespace WeatherLibrary.Models
 {
     /// <summary>
     /// Stores a temperature in both fahrenheit and celsius.

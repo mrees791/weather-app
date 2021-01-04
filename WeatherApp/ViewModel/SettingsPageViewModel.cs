@@ -1,21 +1,13 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Drawing.Text;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Markup;
 using WeatherApp.Models;
-using WeatherApp.Models.FileFormats;
 using WeatherApp.Models.UI;
-using WeatherApp.Utility;
 using WeatherLibrary.Models;
 
 namespace WeatherApp.ViewModel

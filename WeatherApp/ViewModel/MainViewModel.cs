@@ -1,24 +1,5 @@
-using AutoUpdaterDotNET;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using LiveCharts;
-using LiveCharts.Wpf;
 using System;
-using System.Device.Location;
-using System.IO;
-using System.Net;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Threading;
-using WeatherApp.Models;
-using WeatherApp.Models.FileFormats;
-using WeatherApp.Utility;
-using WeatherLibrary.Models;
-using WeatherLibrary.Models.OpenWeatherMap;
-using WeatherLibrary.Models.Zippo;
 
 namespace WeatherApp.ViewModel
 {

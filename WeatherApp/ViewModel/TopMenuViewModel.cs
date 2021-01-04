@@ -1,14 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using WeatherApp.Models;
-using WeatherLibrary.Models.OpenWeatherMap;
-using WeatherLibrary.Models.Zippo;
 
 namespace WeatherApp.ViewModel
 {
