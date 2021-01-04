@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:WeatherApp.Views"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:vm="clr-namespace:WeatherApp.ViewModel"
-             mc:Ignorable="d">
-    <StackPanel DataContext="{Binding Source={StaticResource Locator},Path=WeatherPageVm}">
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance vm:WeatherPageViewModel, IsDesignTimeCreatable=True}">
+    <StackPanel>
         <local:ErrorMessagePanel Visibility="{Binding HasError,Converter={StaticResource CollapseIfFalseConverter}}"/>
         <StackPanel Visibility="{Binding HasError,Converter={StaticResource CollapseIfTrueConverter}}">
             <local:CurrentWeatherPanel Margin="0,10,0,0" DataContext="{Binding CurrentWeatherVm}"/>

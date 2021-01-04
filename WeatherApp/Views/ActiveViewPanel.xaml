@@ -14,7 +14,7 @@
     has too many minor side effects as explained below. -->
     <Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Visibility="{Binding Source={StaticResource Locator},Path=TopMenuVm.ShowWeatherPage,Converter={StaticResource CollapseIfFalseConverter}}">
-            <views:WeatherPage/>
+            <views:WeatherPage DataContext="{Binding Source={StaticResource Locator},Path=WeatherPageVm}"/>
         </ScrollViewer>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Visibility="{Binding Source={StaticResource Locator},Path=TopMenuVm.ShowFavoritesPage,Converter={StaticResource CollapseIfFalseConverter}}">
             <views:FavoritesPage DataContext="{Binding Source={StaticResource Locator},Path=FavoritesPageVm}"/>

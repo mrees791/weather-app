@@ -31,7 +31,6 @@ namespace WeatherApp.ViewModel
 
         public WeatherPageViewModel()
         {
-            string iconDir = AppDirectories.IconDirectory;
             zipRequest = new ZippoRequest();
             oneCallRequest = new OneCallRequest();
 
@@ -48,6 +47,12 @@ namespace WeatherApp.ViewModel
 
             HasError = true;
             ErrorMessage = "No zip code requested.";
+
+            if (IsInDesignMode)
+            {
+                HasError = false;
+                ErrorMessage = "Weather page error message.";
+            }
         }
 
         public void RefreshWeatherData()
