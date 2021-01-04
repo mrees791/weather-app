@@ -22,6 +22,15 @@ namespace WeatherApp.ViewModel
 
         public CurrentWeatherViewModel()
         {
+            if (IsInDesignMode)
+            {
+                City = "Columbus";
+                State = "Ohio";
+                IconUrl = "http://openweathermap.org/img/wn/04n@4x.png";
+                TemperatureFahrenheit = "37.29º F";
+                TemperatureCelsius = "2.94º C";
+                LastUpdateTime = "07:58:08 PM";
+            }
         }
 
         public void UpdateCurrentWeather(OneCallRequest oneCallRequest, ZippoRequest zipCodeRequest)

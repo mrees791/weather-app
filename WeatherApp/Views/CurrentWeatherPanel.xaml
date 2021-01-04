@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:WeatherApp.Views"
              xmlns:vm="clr-namespace:WeatherApp.ViewModel"
              xmlns:views="clr-namespace:WeatherApp.Views"
-             mc:Ignorable="d">
-    <StackPanel HorizontalAlignment="Center" DataContext="{Binding CurrentWeatherVm}">
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance vm:CurrentWeatherViewModel, IsDesignTimeCreatable=True}">
+    <StackPanel HorizontalAlignment="Center">
         <views:WeatherIconPanel/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="{Binding City}" FontSize="18"/>
