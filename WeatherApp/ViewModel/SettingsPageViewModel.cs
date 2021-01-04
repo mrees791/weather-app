@@ -56,12 +56,12 @@ namespace WeatherApp.ViewModel
             if (!IsInDesignMode)
             {
                 appFiles = ((App)App.Current).AppFiles;
+                InitializeSkins();
+                CreateSkinViewModels();
+                InitializeSystemFonts();
+                InitializeCommands();
+                LoadSettings();
             }
-            InitializeSkins();
-            CreateSkinViewModels();
-            InitializeSystemFonts();
-            InitializeCommands();
-            LoadSettings();
         }
 
         private void InitializeCommands()
