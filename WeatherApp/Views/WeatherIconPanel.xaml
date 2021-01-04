@@ -6,6 +6,6 @@
              xmlns:local="clr-namespace:WeatherApp.Views"
              mc:Ignorable="d">
     <Border Margin="-20">
-        <Image Source="{Binding IconUrl}"/>
+        <Image Source="{Binding IconUrl}" Width="200" Height="200"/>
     </Border>
 </UserControl>
