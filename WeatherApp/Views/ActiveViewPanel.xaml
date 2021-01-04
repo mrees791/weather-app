@@ -9,7 +9,7 @@
             xmlns:views="clr-namespace:WeatherApp.Views"
             xmlns:vm="clr-namespace:WeatherApp.ViewModel"
             d:DesignHeight="450" d:DesignWidth="800">
-    <!-- Currently using three booleans from the MainViewModel to determine the active view (Weather, Favorites, Settings) -->
+    <!-- Currently using three booleans from the TopMenuViewModel to determine the active view (Weather, Favorites, Settings) -->
     <!-- Ideally, we would use an Active View Model, DataTemplates, and a ContentControl to determine the active view but this 
     has too many minor side effects as explained below. -->
     <Grid>
