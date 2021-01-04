@@ -56,7 +56,7 @@ namespace WeatherApp.ViewModel
             else
             {
                 ZipInput = "12345";
-                ZipErrorMessage = "Error message.";
+                ZipErrorMessage = "Error message for zip-code.";
             }
         }
 
