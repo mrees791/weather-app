@@ -19,29 +19,30 @@ namespace WeatherApp
     {
         private WindowPlace windowPlace;
         private AppFiles appFiles;
+        private bool allFilesLoaded;
 
         public App()
         {
             appFiles = new AppFiles();
             windowPlace = new WindowPlace("window.config");
             LoadFiles();
-            //this.Logger = LogManager.GetCurrentClassLogger();
-            //DispatcherUnhandledException += App_DispatcherUnhandledException;
         }
 
         private void LoadFiles()
         {
+            allFilesLoaded = true;
             Directory.CreateDirectory(AppDirectories.UserDataDirectory);
-            appFiles.LoadFavoritesFile();
-            appFiles.LoadSettingsFile();
 
-            /*try
+            try
             {
                 appFiles.LoadFavoritesFile();
             }
             catch (Exception ex)
             {
-
+                allFilesLoaded = false;
+                WriteErrorToLogFile($"{AppDirectories.FavoritesFile}: {ex.Message}");
+                ShowErrorPrompt("An error occured while loading the favorites file. Check log.txt for more info.");
+                Shutdown();
             }
             try
             {
@@ -49,14 +50,29 @@ namespace WeatherApp
             }
             catch (Exception ex)
             {
+                allFilesLoaded = false;
+                WriteErrorToLogFile($"{AppDirectories.SettingsFile}: {ex.Message}");
+                ShowErrorPrompt("An error occured while loading the settings file. Check log.txt for more info.");
+                Shutdown();
+            }
+        }
 
-            }*/
+        private void ShowErrorPrompt(string message)
+        {
+            MessageBox.Show(message, "Error", MessageBoxButton.OK);
+        }
 
+        private void WriteErrorToLogFile(string logMessage)
+        {
+            File.AppendAllText(AppDirectories.LogFile, $"{logMessage}\n");
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            appFiles.SaveAllFiles();
+            if (allFilesLoaded)
+            {
+                appFiles.SaveAllFiles();
+            }
             windowPlace.Save();
             base.OnExit(e);
         }

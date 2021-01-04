@@ -12,5 +12,6 @@ namespace WeatherApp.Utility
         public static readonly string UserDataDirectory = "user-data";
         public static readonly string FavoritesFile = $"{UserDataDirectory}/favorites.xml";
         public static readonly string SettingsFile = $"{UserDataDirectory}/settings.xml";
+        public static readonly string LogFile = $"{UserDataDirectory}/log.txt";
     }
 }
