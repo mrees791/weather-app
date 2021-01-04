@@ -2,6 +2,10 @@
 
 namespace WeatherLibrary.Models.Zippo
 {
+    /// <summary>
+    /// The class used to request zip code data from the Zippopatum.US Zip API.
+    /// Stores the ZippoDetails data received from the API and if the request was valid.
+    /// </summary>
     public class ZippoRequest
     {
         private ZippoDetails details;

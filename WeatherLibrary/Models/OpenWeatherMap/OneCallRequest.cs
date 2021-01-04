@@ -3,6 +3,10 @@ using System;
 
 namespace WeatherLibrary.Models.OpenWeatherMap
 {
+    /// <summary>
+    /// The class used to send a OneCall request to the OpenWeatherMap Weather API.
+    /// Also stores the datetime of the request and if the request was valid.
+    /// </summary>
     public class OneCallRequest
     {
         private DateTime requestDateTime;
