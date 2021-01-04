@@ -20,7 +20,7 @@
             <views:FavoritesPage DataContext="{Binding Source={StaticResource Locator},Path=FavoritesPageVm}"/>
         </ScrollViewer>
         <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Visibility="{Binding Source={StaticResource Locator},Path=TopMenuVm.ShowSettingsPage,Converter={StaticResource CollapseIfFalseConverter}}">
-            <views:SettingsPage/>
+            <views:SettingsPage DataContext="{Binding Source={StaticResource Locator},Path=SettingsPageVm}"/>
         </ScrollViewer>
     </Grid>
     <!--

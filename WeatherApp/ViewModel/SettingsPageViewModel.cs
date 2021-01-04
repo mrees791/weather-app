@@ -53,14 +53,21 @@ namespace WeatherApp.ViewModel
 
         public SettingsPageViewModel()
         {
-            appFiles = ((App)App.Current).AppFiles;
-
             InitializeSkins();
             CreateSkinViewModels();
             InitializeSystemFonts();
+            InitializeCommands();
 
-            LoadSettings();
+            if (!IsInDesignMode)
+            {
+                appFiles = ((App)App.Current).AppFiles;
+                LoadSettings();
+            }
 
+        }
+
+        private void InitializeCommands()
+        {
             applySettingsCommand = new RelayCommand(() =>
             {
                 ApplySettings();
