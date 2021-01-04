@@ -75,18 +75,18 @@ namespace WeatherApp.ViewModel
             Temperature dailyHigh = new Temperature(daily.DailyTemperature.DailyHighCelsius, TemperatureFormat.Celsius);
             Temperature dailyLow = new Temperature(daily.DailyTemperature.DailyLowCelsius, TemperatureFormat.Celsius);
 
-            CurrentWeatherFahrenheit = string.Format("{0:0.##}", temperature.Fahrenheit);
-            CurrentWeatherCelsius = string.Format("{0:0.##}", temperature.Celsius);
+            CurrentWeatherFahrenheit = string.Format("{0:0.00}", temperature.Fahrenheit);
+            CurrentWeatherCelsius = string.Format("{0:0.00}", temperature.Celsius);
 
             double highCelsius = dailyHigh.Celsius;
             double lowCelsius = dailyLow.Celsius;
             double highFahrenheit = dailyHigh.Fahrenheit;
             double lowFahrenheit = dailyLow.Fahrenheit;
 
-            DailyHighCelsius = string.Format("{0:0.##}", highCelsius);
-            DailyLowCelsius = string.Format("{0:0.##}", lowCelsius);
-            DailyHighFahrenheit = string.Format("{0:0.##}", highFahrenheit);
-            DailyLowFahrenheit = string.Format("{0:0.##}", lowFahrenheit);
+            DailyHighCelsius = string.Format("{0:0.00}", highCelsius);
+            DailyLowCelsius = string.Format("{0:0.00}", lowCelsius);
+            DailyHighFahrenheit = string.Format("{0:0.00}", highFahrenheit);
+            DailyLowFahrenheit = string.Format("{0:0.00}", lowFahrenheit);
         }
 
 

@@ -66,7 +66,7 @@ namespace WeatherApp.ViewModel
             SeriesCollection.Clear();
             CreateLabels(hourlyEntries, entryAmount);
 
-            YFormatter = value => String.Format("{0:0.##}º", value);
+            YFormatter = value => String.Format("{0:0.00}º", value);
 
             Title = "Temperature";
 

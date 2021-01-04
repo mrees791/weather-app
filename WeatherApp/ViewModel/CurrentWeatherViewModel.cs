@@ -42,8 +42,8 @@ namespace WeatherApp.ViewModel
             Place place = zipCodeRequest.Details.Places[0];
             City = place.CityName;
             State = place.State;
-            TemperatureFahrenheit = string.Format("{0:0.##}º F", temperature.Fahrenheit);
-            TemperatureCelsius = string.Format("{0:0.##}º C", temperature.Celsius);
+            TemperatureFahrenheit = string.Format("{0:0.00}º F", temperature.Fahrenheit);
+            TemperatureCelsius = string.Format("{0:0.00}º C", temperature.Celsius);
             IconUrl = weather.GetIconUrl();
         }
 
