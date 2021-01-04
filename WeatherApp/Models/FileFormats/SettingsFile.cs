@@ -50,6 +50,7 @@ namespace WeatherApp.Models.FileFormats
         public string ActiveSkinName { get => activeSkinName; set => activeSkinName = value; }
         [XmlElement(ElementName = "font")]
         public string ActiveFontName { get => activeFontName; set => activeFontName = value; }
+        [XmlIgnore]
         public FontFamily DefaultFont { get => defaultFont; }
     }
 }
