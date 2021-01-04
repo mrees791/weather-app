@@ -53,17 +53,15 @@ namespace WeatherApp.ViewModel
 
         public SettingsPageViewModel()
         {
+            if (!IsInDesignMode)
+            {
+                appFiles = ((App)App.Current).AppFiles;
+            }
             InitializeSkins();
             CreateSkinViewModels();
             InitializeSystemFonts();
             InitializeCommands();
-
-            if (!IsInDesignMode)
-            {
-                appFiles = ((App)App.Current).AppFiles;
-                LoadSettings();
-            }
-
+            LoadSettings();
         }
 
         private void InitializeCommands()
@@ -120,7 +118,7 @@ namespace WeatherApp.ViewModel
                 var fontVm = new FontFamilyViewModel(font);
                 systemFontViewModels.Add(fontVm);
 
-                if (font.Name == System.Drawing.SystemFonts.DefaultFont.FontFamily.Name)
+                if (font.Name == appFiles.SettingsFile.DefaultFont.Name)
                 {
                     defaultFontVm = fontVm;
                 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +16,13 @@ namespace WeatherApp.Models.FileFormats
         private TemperatureFormat activeTemperatureFormat;
         private string activeSkinName;
         private string activeFontName;
+        private FontFamily defaultFont;
+        private FontFamily[] systemFonts;
 
         public SettingsFile()
         {
+            systemFonts = new InstalledFontCollection().Families;
+            defaultFont = LoadDefaultFontFamily();
             SetDefaults();
         }
 
@@ -24,7 +30,18 @@ namespace WeatherApp.Models.FileFormats
         {
             activeTemperatureFormat = TemperatureFormat.Fahrenheit;
             activeSkinName = "Light Blue";
-            activeFontName = System.Drawing.SystemFonts.DefaultFont.FontFamily.Name;
+            activeFontName = defaultFont.Name;
+        }
+
+        private FontFamily LoadDefaultFontFamily()
+        {
+            var segoeUi = systemFonts.Where(f => f.Name == "Segoe UI").FirstOrDefault();
+            if (segoeUi != null)
+            {
+                return segoeUi;
+            }
+
+            return System.Drawing.SystemFonts.DefaultFont.FontFamily;
         }
 
         [XmlElement(ElementName = "temperatureFormat")]
@@ -33,5 +50,6 @@ namespace WeatherApp.Models.FileFormats
         public string ActiveSkinName { get => activeSkinName; set => activeSkinName = value; }
         [XmlElement(ElementName = "font")]
         public string ActiveFontName { get => activeFontName; set => activeFontName = value; }
+        public FontFamily DefaultFont { get => defaultFont; }
     }
 }
