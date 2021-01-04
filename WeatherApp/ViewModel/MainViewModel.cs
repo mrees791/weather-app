@@ -39,28 +39,16 @@ namespace WeatherApp.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        private ViewModelLocator vml;
         private string windowTitle;
-        private AppFiles appFiles;
 
         public MainViewModel()
         {
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
-            appFiles = ((App)App.Current).AppFiles;
-
-            vml = App.Current.Resources["Locator"] as ViewModelLocator;
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             WindowTitle = string.Format("Weather v{0}.{1}", version.Major, version.Minor);
         }
 
-        private void InitializeUpdater()
+        // Application updater is disabled until we get a new FTP server for hosting update files.
+        /*private void InitializeUpdater()
         {
             new Task(() =>
             {
@@ -71,7 +59,7 @@ namespace WeatherApp.ViewModel
         private void StartApplicationUpdater()
         {
             UpdaterUtility.CheckForUpdates();
-        }
+        }*/
 
         public string WindowTitle { get => windowTitle; private set { windowTitle = value; RaisePropertyChanged(); } }
     }
