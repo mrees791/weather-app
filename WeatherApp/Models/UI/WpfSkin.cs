@@ -1,5 +1,8 @@
 ﻿namespace WeatherApp.Models.UI
 {
+    /// <summary>
+    /// Stores info on the name and file of a WPF skin (theme.)
+    /// </summary>
     public class WpfSkin
     {
         private string displayName;

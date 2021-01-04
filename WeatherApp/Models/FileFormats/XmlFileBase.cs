@@ -3,6 +3,9 @@ using System.Xml.Serialization;
 
 namespace WeatherApp.Models.FileFormats
 {
+    /// <summary>
+    /// An abstract class used for XML files such as the favorites and settings files.
+    /// </summary>
     public abstract class XmlFileBase
     {
         protected string versionString;

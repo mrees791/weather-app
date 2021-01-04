@@ -6,6 +6,9 @@ namespace WeatherApp.Utility
 {
     public class UpdaterUtility
     {
+        /// <summary>
+        /// Checks for updates using a guest account.
+        /// </summary>
         public static void CheckForUpdates()
         {
             Version ver = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;

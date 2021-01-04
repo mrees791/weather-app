@@ -1,5 +1,8 @@
 ﻿namespace WeatherApp.Utility
 {
+    /// <summary>
+    /// Stores directories to files used throughout the application.
+    /// </summary>
     public class AppDirectories
     {
         public static readonly string IconDirectory = "/WeatherApp;component/Resources/Images/";

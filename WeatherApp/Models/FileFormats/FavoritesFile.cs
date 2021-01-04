@@ -33,30 +33,6 @@ namespace WeatherApp.Models.FileFormats
             return zipCodes.Remove(zipCode);
         }
 
-        /*public override void ReadFile(string path)
-        {
-            SetDefaults();
-
-            using (var reader = new StreamReader(path))
-            {
-                var readFile = (FavoritesFile)serializer.Deserialize(reader);
-                var fileVersion = readFile.Version;
-
-                foreach (var zip in readFile.ZipCodes)
-                {
-                    AddZipCodeEntry(zip);
-                }
-            }
-        }
-
-        public override void WriteFile(string path)
-        {
-            using (var writer = new StreamWriter(path))
-            {
-                serializer.Serialize(writer, this);
-            }
-        }*/
-
         public override void SetDefaults()
         {
             zipCodes.Clear();

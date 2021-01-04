@@ -5,6 +5,9 @@ using System.Windows.Data;
 
 namespace WeatherApp.Converters
 {
+    /// <summary>
+    /// Shows or hides an element depending on the boolean value passed in.
+    /// </summary>
     public class ShowIfTrueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

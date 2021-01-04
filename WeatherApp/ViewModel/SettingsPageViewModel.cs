@@ -19,7 +19,6 @@ namespace WeatherApp.ViewModel
         private ObservableCollection<WpfSkinViewModel> skinViewModels;
         private ObservableCollection<FontFamilyViewModel> systemFontViewModels;
 
-        private WpfSkinViewModel defaultSkinVm;
         private WpfSkinViewModel selectedSkinVm;
         private WpfSkinViewModel activeSkinVm;
 

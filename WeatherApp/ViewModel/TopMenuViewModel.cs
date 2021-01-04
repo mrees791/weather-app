@@ -26,7 +26,7 @@ namespace WeatherApp.ViewModel
 
 
         // SelectedViewModel would be used in the DataTemplates of the ActiveViewPanel
-        // to determine the active view. This has too many minor side effects
+        // to determine the active view. However, this has too many minor side effects
         // so we are simply using three booleans as a temporary solution.
         // private ViewModelBase selectedViewModel;
 
