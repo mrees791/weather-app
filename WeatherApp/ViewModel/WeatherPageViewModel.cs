@@ -114,15 +114,19 @@ namespace WeatherApp.ViewModel
                 DayWeatherViewModel vm = dayWeatherViewModels[i];
                 vm.Date = FormatDateString(daily.DateTime);
                 vm.Description = GetFinalDescription(weather.Description);
-                vm.TemperatureCelsiusMin = string.Format("{0:0.00}", temperatureLow.Celsius);
-                vm.TemperatureCelsiusMax = string.Format("{0:0.00}", temperatureHigh.Celsius);
-                vm.TemperatureFahrenheitMin = string.Format("{0:0.00}", temperatureLow.Fahrenheit);
-                vm.TemperatureFahrenheitMax = string.Format("{0:0.00}", temperatureHigh.Fahrenheit);
+                vm.TemperatureCelsiusLow = string.Format("{0:0.00}", temperatureLow.Celsius);
+                vm.TemperatureCelsiusHigh = string.Format("{0:0.00}", temperatureHigh.Celsius);
+                vm.TemperatureFahrenheitLow = string.Format("{0:0.00}", temperatureLow.Fahrenheit);
+                vm.TemperatureFahrenheitHigh = string.Format("{0:0.00}", temperatureHigh.Fahrenheit);
                 vm.IconUrl = weather.GetIconUrl();
             }
         }
 
-        // Changes the view model description. Example: Changes "Clear" to "Sunny"
+        /// <summary>
+        /// Changes the view model description. Example: Changes "Clear" to "Sunny"
+        /// </summary>
+        /// <param name="originalDescription"></param>
+        /// <returns></returns>
         private string GetFinalDescription(string originalDescription)
         {
             switch (originalDescription)
