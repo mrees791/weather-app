@@ -44,12 +44,20 @@ namespace WeatherApp.ViewModel
 
         public TopMenuViewModel()
         {
-            appFiles = ((App)App.Current).AppFiles;
-            vml = App.Current.Resources["Locator"] as ViewModelLocator;
+            if (!IsInDesignMode)
+            {
+                appFiles = ((App)App.Current).AppFiles;
+                vml = App.Current.Resources["Locator"] as ViewModelLocator;
 
-            ZipInput = GetDefaultZip();
-            InitializeCommands();
-            SearchZip(zipInput);
+                ZipInput = GetDefaultZip();
+                InitializeCommands();
+                SearchZip(zipInput);
+            }
+            else
+            {
+                ZipInput = "12345";
+                ZipErrorMessage = "Error message.";
+            }
         }
 
         private void InitializeCommands()
