@@ -8,7 +8,7 @@ namespace WeatherLibrary.Models.OpenWeatherMap.Exceptions
 {
     public class NullApiKeyException : Exception
     {
-        public NullApiKeyException()
+        public NullApiKeyException() : base("OpenWeatherMap API key was not found.")
         {
         }
 

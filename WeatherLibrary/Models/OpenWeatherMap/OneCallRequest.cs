@@ -28,15 +28,8 @@ namespace WeatherLibrary.Models.OpenWeatherMap
 
             using (var webClient = new System.Net.WebClient())
             {
-                string apiKey = ConfigurationManager.AppSettings["openWeatherMapApiKey"];
-
-                if (apiKey == null)
-                {
-                    throw new NullApiKeyException("OpenWeatherMap API key was not found. Make sure App.config has the correct appSettings file.");
-                }
-
                 webClient.Headers.Add("user-agent", "Requesting one-call object.");
-                string oneCallRequestUrl = $"https://api.openweathermap.org/data/2.5/onecall?lat={latitude}&lon={longitude}&exclude=minutely,alerts&units=metric&appid={apiKey}";
+                string oneCallRequestUrl = $"https://api.openweathermap.org/data/2.5/onecall?lat={latitude}&lon={longitude}&exclude=minutely,alerts&units=metric&appid=3100d50a8e2711f5ffd084405ec5cbb5";
                 string jsonOneCall = webClient.DownloadString(oneCallRequestUrl);
                 oneCall = JsonConvert.DeserializeObject<OneCall>(jsonOneCall);
 

@@ -78,30 +78,14 @@ To get a local copy up and running follow these simple steps.
 Download [Visual Studio 2019.](https://visualstudio.microsoft.com/downloads/)<br/>
 In the Visual Studio Installer, install the .NET desktop development workload.
 
-Register an account with [OpenWeatherMap API.](https://openweathermap.org/api)<br/>
-Create an OpenWeatherMap API key which will be used by the application for API access.
-
 ### Installation
 
-1. Create a .config file for storing your OpenWeatherMap API key. Use the code below as a template and paste your OpenWeatherMap API key in to the value field.
-   ```sh
-   <appSettings>
-      <!-- OpenWeatherMap -->
-      <add key="openWeatherMapApiKey" value=""/>
-   </appSettings>
-   ```
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/mrees791/weather-app.git
    ```
-3. Open the WeatherApp.sln solution file with Visual Studio.
-4. In the WeatherApp project, open the App.config file.
-5. Inside App.config, find the appSettings element which should have an empty file attribute.
-   ```sh
-   <appSettings file="">
-   ```
-6. Put the path to your API key config file inside the empty file attribute.
-7. Build the solution in Visual Studio.
+2. Open the WeatherApp.sln solution file with Visual Studio.
+3. Build the solution in Visual Studio.
 
 <!-- CONTACT -->
 ## Contact
