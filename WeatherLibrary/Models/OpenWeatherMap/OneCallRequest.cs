@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Configuration;
+using WeatherLibrary.Models.OpenWeatherMap.Exceptions;
 
 namespace WeatherLibrary.Models.OpenWeatherMap
 {
@@ -26,19 +28,23 @@ namespace WeatherLibrary.Models.OpenWeatherMap
 
             using (var webClient = new System.Net.WebClient())
             {
-                webClient.Headers.Add("user-agent", "Requesting one-call object.");
-                string oneCallRequestUrl = string.Format("https://api.openweathermap.org/data/2.5/onecall?lat={0}&lon={1}&exclude=minutely,alerts&units=metric&appid=3100d50a8e2711f5ffd084405ec5cbb5", latitude, longitude);
+                string apiKey = ConfigurationManager.AppSettings["openWeatherMapApiKey"];
 
+                if (apiKey == null)
+                {
+                    throw new NullApiKeyException("OpenWeatherMap API key was not found. Make sure App.config has the correct appSettings file.");
+                }
+
+                webClient.Headers.Add("user-agent", "Requesting one-call object.");
+                string oneCallRequestUrl = $"https://api.openweathermap.org/data/2.5/onecall?lat={latitude}&lon={longitude}&exclude=minutely,alerts&units=metric&appid={apiKey}";
                 string jsonOneCall = webClient.DownloadString(oneCallRequestUrl);
                 oneCall = JsonConvert.DeserializeObject<OneCall>(jsonOneCall);
 
                 var now = DateTime.Now;
-
                 requestDateTime = now;
                 oneCall.CurrentWeather.DateTime = now;
                 DateTime firstHourTime = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
                 DateTime firstDayDate = new DateTime(now.Year, now.Month, now.Day);
-
 
                 // Set date time in hourly.
                 for (int iHour = 0; iHour < oneCall.HourlyEntries.Count; iHour++)

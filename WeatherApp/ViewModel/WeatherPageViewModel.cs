@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using WeatherLibrary.Models;
 using WeatherLibrary.Models.OpenWeatherMap;
+using WeatherLibrary.Models.OpenWeatherMap.Exceptions;
 using WeatherLibrary.Models.Zippo;
 
 namespace WeatherApp.ViewModel
@@ -76,6 +77,11 @@ namespace WeatherApp.ViewModel
                 try
                 {
                     oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
+                }
+                catch (NullApiKeyException nullKeyEx)
+                {
+                    HasError = true;
+                    ErrorMessage = nullKeyEx.Message;
                 }
                 catch (Exception ex)
                 {
