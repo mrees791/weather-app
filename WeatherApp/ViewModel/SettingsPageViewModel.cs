@@ -57,14 +57,8 @@ namespace WeatherApp.ViewModel
 
         private void InitializeCommands()
         {
-            applySettingsCommand = new RelayCommand(() =>
-            {
-                ApplySettings();
-            });
-            defaultSettingsCommand = new RelayCommand(() =>
-            {
-                SetDefaultSettings();
-            });
+            applySettingsCommand = new RelayCommand(ApplySettings);
+            defaultSettingsCommand = new RelayCommand(SetDefaultSettings);
             setFahrenheitTemperatureCommand = new RelayCommand(() =>
             {
                 ActiveTemperatureFormat = TemperatureFormat.Fahrenheit;
