@@ -55,10 +55,11 @@ namespace WeatherApp.ViewModel
 
         private void InitializeCommands()
         {
-            favoriteCurrentZipCommand = new RelayCommand(() =>
-            {
-                ToggleCurrentZipFavorite();
-            });
+            favoriteCurrentZipCommand = new RelayCommand(ToggleCurrentZipFavorite);
+            refreshWeatherCommand = new RelayCommand(RefreshWeather);
+            setCurrentPageToWeatherPageCommand = new RelayCommand(SetCurrentPageToWeatherPage);
+            setCurrentPageToFavoritesPageCommand = new RelayCommand(SetCurrentPageToFavoritesPage);
+            setCurrentPageToSettingsPageCommand = new RelayCommand(SetCurrentPageToSettingsPage);
             searchNewZipCodeCommand = new RelayCommand(() =>
             {
                 SearchZip(ZipInput);
@@ -67,22 +68,6 @@ namespace WeatherApp.ViewModel
             {
                 ZipInput = zip;
                 SearchZip(zip);
-            });
-            refreshWeatherCommand = new RelayCommand(() =>
-            {
-                RefreshWeather();
-            });
-            setCurrentPageToWeatherPageCommand = new RelayCommand(() =>
-            {
-                SetCurrentPageToWeatherPage();
-            });
-            setCurrentPageToFavoritesPageCommand = new RelayCommand(() =>
-            {
-                SetCurrentPageToFavoritesPage();
-            });
-            setCurrentPageToSettingsPageCommand = new RelayCommand(() =>
-            {
-                SetCurrentPageToSettingsPage();
             });
         }
 
