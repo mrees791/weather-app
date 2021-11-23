@@ -10,27 +10,18 @@
 
         public Temperature(double temperature, TemperatureFormat format)
         {
+            TemperatureServices temperatureServices = new TemperatureServices();
             switch (format)
             {
                 case TemperatureFormat.Fahrenheit:
                     fahrenheit = temperature;
-                    celsius = ConvertFahrenheitToCelsuis(fahrenheit);
+                    celsius = temperatureServices.ConvertFahrenheitToCelsuis(fahrenheit);
                     break;
                 case TemperatureFormat.Celsius:
                     celsius = temperature;
-                    fahrenheit = ConvertCelsiusToFahrenheit(celsius);
+                    fahrenheit = temperatureServices.ConvertCelsiusToFahrenheit(celsius);
                     break;
             }
-        }
-
-        private double ConvertFahrenheitToCelsuis(double fahrenheit)
-        {
-            return ((fahrenheit - 32.0) * (5.0 / 9.0));
-        }
-
-        private double ConvertCelsiusToFahrenheit(double celsius)
-        {
-            return (celsius * (9.0 / 5.0) + 32.0);
         }
 
 
