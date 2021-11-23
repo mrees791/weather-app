@@ -60,7 +60,7 @@ This application provides the daily and hourly forecast for any zip-code within 
 ### Modules
 * WeatherApp - The Weather app itself including the GUI. Uses MVVM design pattern along with the MVVM Light Toolkit.
 * WeatherLibrary - A small, reusable library with models needed for the OpenWeatherMap and Zippopotamus APIs.
-* WeatherTests - Contains unit tests for the WeatherLibrary.
+* WeatherLibrary.Tests - Contains unit tests for the WeatherLibrary.
 
 ### Built With
 
