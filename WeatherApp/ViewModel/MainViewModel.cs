@@ -28,7 +28,7 @@ namespace WeatherApp.ViewModel
             WindowTitle = string.Format("Weather v{0}.{1}", version.Major, version.Minor);
         }
 
-        // Application updater is disabled until we get a new FTP server for hosting update files.
+        // Application updater is disabled.
         /*private void InitializeUpdater()
         {
             new Task(() =>

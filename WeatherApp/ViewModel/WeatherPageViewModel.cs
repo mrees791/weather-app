@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Net;
 using WeatherLibrary.Models;
 using WeatherLibrary.Models.OpenWeatherMap;
 using WeatherLibrary.Models.OpenWeatherMap.Exceptions;
@@ -58,7 +59,7 @@ namespace WeatherApp.ViewModel
 
         public void UpdateWeatherData(string zipInput)
         {
-            HasError = false;
+            HasError = true;
             ErrorMessage = string.Empty;
             try
             {
@@ -66,7 +67,6 @@ namespace WeatherApp.ViewModel
             }
             catch (Exception ex)
             {
-                HasError = true;
                 ErrorMessage = "Error retrieving zip-code data.\nMake sure you entered a valid U.S. zip-code.";
             }
 
@@ -77,15 +77,18 @@ namespace WeatherApp.ViewModel
                 try
                 {
                     oneCallRequest.RequestOneCall(place.Latitude, place.Longitude);
+                    HasError = false;
                 }
                 catch (NullApiKeyException nullKeyEx)
                 {
-                    HasError = true;
                     ErrorMessage = nullKeyEx.Message;
+                }
+                catch (WebException webEx)
+                {
+                    ErrorMessage = webEx.Message;
                 }
                 catch (Exception ex)
                 {
-                    HasError = true;
                     ErrorMessage = "Error retrieving weather data.";
                 }
 
